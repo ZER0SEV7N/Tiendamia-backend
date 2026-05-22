@@ -21,8 +21,8 @@ CREATE TABLE marcas (
     id int auto_increment primary key,
     nombre char(100) not null unique,  
     slug char(100) not null unique, -- Para rutas amigables (ej: /marcas/apple)
-    imagen_logo char(255) null, -- URL del logo cuadrado para las tarjetas de producto
-    imagen_banner char(255) null, -- URL del banner horizontal para cuando entras a la página de la marca
+    imagen_logo varchar(255) null, -- URL del logo cuadrado para las tarjetas de producto
+    imagen_banner varchar(255) null, -- URL del banner horizontal para cuando entras a la página de la marca
     descripcion text null,                  
     destacada boolean default false, -- Marcas Destacadas 
     activo boolean default true,           
@@ -32,14 +32,14 @@ CREATE TABLE marcas (
 -- Productos: Tabla principal, aqui guardamos los datos que nunca cambian del producto
 create table productos (
     id int auto_increment primary key,
-    categoria_id int,
-    marca_id int,
+    idcategoria int,
+    idmarca int,
     nombre char(150) not null,
     slug char(150) not null unique, -- La parte de la URL que identifica a un producto o categoria (productos/apple-iphone-14-pro-max)
     descripcion text,
     activo boolean default true,
-    foreign key (categoria_id) references categorias(id) on delete set null,
-    foreign key (marca_id) references marcas(id) on delete set null
+    foreign key (idcategoria) references categorias(id) on delete set null,
+    foreign key (idmarca) references marcas(id) on delete set null
 );
 
 -- Tabla de Atributos (color, almacenamiento, etc)
@@ -51,55 +51,55 @@ create table atributos (
 -- Tabla de Valores (Las opciones: 'Deep Purple', '128GB', 'AT&T')
 create table valores_atributos (
     id int auto_increment primary key,
-    atributo_id int,
+    idatributo int,
     valor char(100) not null,
-    foreign key (atributo_id) references atributos(id) on delete cascade
+    foreign key (idatributo) references atributos(id) on delete cascade
 );
 
 -- Tabla Variaciones de Producto: Aquí es donde vive el precio real y el stock de cada combinación
 -- Nota: Esto se le pasara al detalle de carrito de compras
 create table variaciones_producto (
     id int auto_increment primary key,
-    producto_id int,
+    idproducto int,
     codigo_inventario char(100) not null unique, 
     precio decimal(10, 2) not null,
     stock int not null default 0,
-    foreign key (producto_id) references productos(id) on delete cascade
+    foreign key (idproducto) references productos(id) on delete cascade
 );
 
 
 -- Tabla intermedia: Variante con sus valores
 create table variacion_valores (
-    variacion_id int,
+    idvariacion int,
     valor_atributo_id int,
-    primary key (variacion_id, valor_atributo_id),
-    foreign key (variacion_id) references variaciones_producto(id) on delete cascade,
+    primary key (idvariacion, valor_atributo_id),
+    foreign key (idvariacion) references variaciones_producto(id) on delete cascade,
     foreign key (valor_atributo_id) references valores_atributos(id) on delete cascade
 );
 
 -- Tabla de imágenes del producto (opcional, para tener varias fotos por producto)
 create table imagenes_producto (
     id int auto_increment primary key,
-    producto_id int,
-    url varchar(255) not null,
+    idvariacion int,
+    url varchar(255) null,
     orden int not null default 0, -- Para ordenar las imágenes
-    foreign key (producto_id) references productos(id) on delete cascade
+    foreign key (idvariacion) references variaciones_producto(id) on delete cascade
 );
 
 -- Tabla usuarios
 create table usuarios(
 	idusuario int auto_increment primary key,
-    rol_id int,
+    idrol int,
     nombres char(100) not null,
     apellidos char(100) null,
-    correo char(150) not null unique,
+    correo char(150) unique,
     telefono char(20) null,
-    password char(255) null,
-    google_id char(255) null, -- Para login con Google
+    password varchar(255) null,
+    google_id varchar(255) null, -- Para login con Google
     activo boolean default true,
     createAt timestamp default current_timestamp,
     updateAt timestamp default current_timestamp on update current_timestamp,
-    foreign key (rol_id) references roles(id)
+    foreign key (idrol) references roles(id)
 );
 
 -- Tabla de Direcciones de Usuario
