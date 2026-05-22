@@ -113,6 +113,7 @@ create table direcciones_usuario (
     referencia char(255) not null,
     es_principal boolean default false, -- True si es la direccion principal del usuario
     createAt timestamp default current_timestamp, 
+    updateAt timestamp default current_timestamp on update current_timestamp,
     foreign key (usuario_id) references usuarios(id) on delete cascade
 );
 

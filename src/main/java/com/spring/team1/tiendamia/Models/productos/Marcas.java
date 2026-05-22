@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models;
+package com.spring.team1.tiendamia.Models.productos;
 
 import java.time.LocalDateTime;
 
@@ -7,16 +7,22 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Entity
-@Table(name = "marcas_tarjeta")
+@Table(name = "marcas")
 @Data
-public class Marcas_Tarjeta {
+public class Marcas {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
-    private String logo_url;
-
+    private String slug;
+    private String imagen_logo;
+    private String imagen_banner;
+    private String descripcion;
+    private Boolean destacada = false;
+    private Boolean activo = true;
+    
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")
     private LocalDateTime createAt;

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models;
+package com.spring.team1.tiendamia.Models.productos;
 
 import com.spring.team1.tiendamia.Models.payload.Variacion_Valores_Id;
 
