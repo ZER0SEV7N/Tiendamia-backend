@@ -13,17 +13,17 @@ import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
-@Table(name = "carrito_items")
+@Table(name = "carrito")
 @Data
 public class Carrito {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idusuario", nullable = false)
-    private Usuarios usuarios;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuarios usuario;
 
     @Column(name = "tarifa", nullable = false)
     private Double tarifa = 0.0;
@@ -34,17 +34,15 @@ public class Carrito {
     @Column(nullable = false)
     private Double total = 0.0;
 
-    //Relacion uno a muchos con carrito detalle
-    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true) 
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CarritoDetalle> detalles = new ArrayList<>();
 
-    //Timestamps
     @CreationTimestamp
-    @Column(updatable = false, name = "createAt")
-    private LocalDateTime createAt;
+    @Column(updatable = false, name = "created_at")
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(insertable = false, name = "updateAt")
-    private LocalDateTime updateAt;
+    @Column(insertable = false, name = "updated_at")
+    private LocalDateTime updatedAt;
 }

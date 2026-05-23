@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.services;
+package com.spring.team1.tiendamia.Services;
 
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
@@ -20,7 +20,7 @@ public class jwtServices {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    public String generarToken(String correo){
+    public String generarToken(String correo) {
         return Jwts.builder()
                 .setSubject(correo)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -29,7 +29,7 @@ public class jwtServices {
                 .compact();
     }
 
-    public boolean validarToken(String token){
+    public boolean validarToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token);
             return true;
@@ -38,13 +38,14 @@ public class jwtServices {
         }
     }
 
-    public String extraerCorreo(String token){
+    public String extraerCorreo(String token) {
         return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody().getSubject();
     }
 
     @SuppressWarnings("unused")
     private <T> T extraerClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
+        final Claims claims = Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token)
+                .getBody();
         return claimsResolver.apply(claims);
     }
 
