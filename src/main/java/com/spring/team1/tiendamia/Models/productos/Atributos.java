@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.productos;
+package com.spring.team1.tiendamia.Models.Productos;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 public class Atributos {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String nombre;
 }

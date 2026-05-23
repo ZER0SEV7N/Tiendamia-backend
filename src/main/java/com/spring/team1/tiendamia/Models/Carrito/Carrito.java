@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 public class Carrito {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "idusuario", nullable = false)

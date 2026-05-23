@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Repositories;
+package com.spring.team1.tiendamia.repository.usuario;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 
 @Repository
-public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
+public interface UsuariosRepository extends JpaRepository<Usuarios, Integer> {
     Optional<Usuarios> findByCorreo(String correo);
     
 }

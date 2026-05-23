@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Direcciones_usuarios {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")

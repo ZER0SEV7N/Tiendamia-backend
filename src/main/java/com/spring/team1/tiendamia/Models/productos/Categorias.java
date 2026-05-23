@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.productos;
+package com.spring.team1.tiendamia.Models.Productos;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Categorias {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     
     private String nombre;
     private String slug;

@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Marcas_Tarjeta {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String nombre;
     private String logo_url;

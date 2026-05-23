@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Metodos_Pago_Usuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")

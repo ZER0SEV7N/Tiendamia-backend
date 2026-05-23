@@ -142,7 +142,7 @@ create table metodos_pago(
 create table carrito (
     idcarrito int auto_increment primary key,
     idusuario int references usuarios(idusuario) on delete cascade,
-    tarifa decimal(10, 2) not null default 0.00,
+    impuesto decimal(10, 2) not null default 0.00,
     envio decimal(10, 2) not null default 0.00,
     total decimal(10, 2) not null default 0.00,
     created_at timestamp default current_timestamp,
