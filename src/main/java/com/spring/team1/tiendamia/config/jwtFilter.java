@@ -1,7 +1,6 @@
 package com.spring.team1.tiendamia.config;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
-import com.spring.team1.tiendamia.Repository.UsuariosRepository;
-import com.spring.team1.tiendamia.Services.jwtServices;
+import com.spring.team1.tiendamia.repository.UsuariosRepository;
+import com.spring.team1.tiendamia.services.jwtServices;
 
 import org.springframework.stereotype.Component;
 

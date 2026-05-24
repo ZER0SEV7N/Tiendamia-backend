@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Repository;
+package com.spring.team1.tiendamia.repository;
 
 import java.util.Optional;
 

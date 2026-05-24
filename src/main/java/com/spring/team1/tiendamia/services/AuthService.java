@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services;
+package com.spring.team1.tiendamia.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,8 +9,8 @@ import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.Models.payload.AuthResponse;
 import com.spring.team1.tiendamia.Models.payload.LoginRequest;
 import com.spring.team1.tiendamia.Models.payload.RegisterRequest;
-import com.spring.team1.tiendamia.Repository.RolesRepository;
-import com.spring.team1.tiendamia.Repository.UsuariosRepository;
+import com.spring.team1.tiendamia.repository.RolesRepository;
+import com.spring.team1.tiendamia.repository.UsuariosRepository;
 
 @Service
 public class AuthService {

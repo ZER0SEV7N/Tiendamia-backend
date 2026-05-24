@@ -15,8 +15,9 @@ import com.spring.team1.tiendamia.Models.payload.CambiarPasswordRequest;
 import com.spring.team1.tiendamia.Models.payload.LoginRequest;
 import com.spring.team1.tiendamia.Models.payload.RegisterRequest;
 import com.spring.team1.tiendamia.Models.payload.SolicitarRecuperacionRequest;
-import com.spring.team1.tiendamia.Services.AuthService;
-import com.spring.team1.tiendamia.Services.RecuperacionService;
+import com.spring.team1.tiendamia.services.AuthService;
+import com.spring.team1.tiendamia.services.RecuperacionService;
+
 
 @RestController
 @RequestMapping("/auth")
