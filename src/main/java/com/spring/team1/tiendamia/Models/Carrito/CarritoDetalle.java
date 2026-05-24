@@ -1,7 +1,7 @@
 package com.spring.team1.tiendamia.Models.Carrito;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
 
 import jakarta.persistence.*;
 import lombok.Data;

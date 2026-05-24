@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.Productos;
+package com.spring.team1.tiendamia.Models.productos;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Variaciones_Producto {
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

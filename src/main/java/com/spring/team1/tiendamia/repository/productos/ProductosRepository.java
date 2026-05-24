@@ -1,17 +1,16 @@
-package com.spring.team1.tiendamia.repository.productos;
+package com.spring.team1.tiendamia.Repository.productos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
-import com.spring.team1.tiendamia.Models.Productos.Productos;
+import com.spring.team1.tiendamia.Models.productos.Productos;
 
 @Repository
-public interface ProductosRepository extends JpaRepository<Productos, Integer>{
+public interface ProductosRepository extends JpaRepository<Productos, Integer> {
+    Optional<Productos> findByIdAndActivoTrue(Integer id);
 
-	Optional<Productos> findByIdAndActivoTrue(Integer id);
-
-    Optional<Productos> findAllByActivoTrue();
-
+    List<Productos> findAllByActivoTrue();
 }

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.Productos;
+package com.spring.team1.tiendamia.Models.productos;
 
 import java.time.LocalDateTime;
 
@@ -7,12 +7,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
 @Table(name = "marcas")
 @Data
 public class Marcas {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String nombre;
@@ -22,7 +22,7 @@ public class Marcas {
     private String descripcion;
     private Boolean destacada = false;
     private Boolean activo = true;
-    
+
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")
     private LocalDateTime createAt;

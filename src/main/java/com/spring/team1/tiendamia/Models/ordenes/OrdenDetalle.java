@@ -1,6 +1,6 @@
-package com.spring.team1.tiendamia.Models.Ordenes;
+package com.spring.team1.tiendamia.Models.ordenes;
 
-import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +9,8 @@ import lombok.Data;
 @Table(name = "orden_detalles")
 @Data
 public class OrdenDetalle {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
