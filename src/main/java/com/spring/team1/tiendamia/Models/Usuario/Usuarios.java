@@ -24,6 +24,10 @@ public class Usuarios {
     private String correo;
     private String telefono;
     private String password;
+
+    @Column(name = "google_id")
+    private String googleId; // Para login con Google
+
     private Boolean activo = true;
 
     @CreationTimestamp

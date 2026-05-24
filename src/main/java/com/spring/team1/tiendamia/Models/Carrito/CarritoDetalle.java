@@ -16,7 +16,7 @@ public class CarritoDetalle {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "idcarrito", nullable = false)
+    @JoinColumn(name = "carrito_id", nullable = false)
     @JsonBackReference
     private Carrito carrito;
 
@@ -26,8 +26,7 @@ public class CarritoDetalle {
 
     @Column(nullable = false)
     private Integer cantidad;
-    
-    @Column(nullable = false)
-    private Double subtotal;
 
+    @Column(nullable = false)
+    private Double precio;
 }
