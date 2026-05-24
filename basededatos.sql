@@ -19,7 +19,6 @@ create table categorias (
 -- Tabla de Marcas del producto
 create table marcas (
     id int auto_increment primary key,
-<<<<<<< HEAD
     nombre char(100) not null unique,  
     slug char(100) not null unique, -- Para rutas amigables (ej: /marcas/apple)
     imagen_logo varchar(255) null, -- URL del logo cuadrado para las tarjetas de producto
@@ -27,15 +26,6 @@ create table marcas (
     descripcion text null,                  
     destacada boolean default false, -- Marcas Destacadas 
     activo boolean default true,           
-=======
-    nombre char(100) not null unique,
-    slug char(100) not null unique,
-    imagen_logo char(255) null,
-    imagen_banner char(255) null,
-    descripcion text null,
-    destacada boolean default false,
-    activo boolean default true,
->>>>>>> origin/master
     creado_en timestamp default current_timestamp
 );
 
@@ -69,13 +59,8 @@ create table valores_atributos (
 -- Tabla Variaciones de Producto
 create table variaciones_producto (
     id int auto_increment primary key,
-<<<<<<< HEAD
     idproducto int,
-    codigo_inventario char(100) not null unique, 
-=======
-    producto_id int,
-    codigo_inventario char(100) not null unique,
->>>>>>> origin/master
+    codigo_inventario varchar(100) not null unique, 
     precio decimal(10, 2) not null,
     stock int not null default 0,
     foreign key (idproducto) references productos(id) on delete cascade
@@ -93,7 +78,6 @@ create table variacion_valores (
 -- Tabla de imágenes del producto
 create table imagenes_producto (
     id int auto_increment primary key,
-<<<<<<< HEAD
     idvariacion int,
     url varchar(255) null,
     orden int not null default 0, -- Para ordenar las imágenes
@@ -104,29 +88,12 @@ create table imagenes_producto (
 create table usuarios(
 	idusuario int auto_increment primary key,
     idrol int,
-=======
-    producto_id int,
-    url varchar(255) not null,
-    orden int not null default 0,
-    foreign key (producto_id) references productos(id) on delete cascade
-);
-
--- Tabla usuarios
-create table usuarios (
-    id int auto_increment primary key,
-    rol_id int,
->>>>>>> origin/master
     nombres char(100) not null,
     apellidos char(100) null,
     correo char(150) unique,
     telefono char(20) null,
-<<<<<<< HEAD
     password varchar(255) null,
     google_id varchar(255) null, -- Para login con Google
-=======
-    password char(255) null,
-    google_id char(255) null,
->>>>>>> origin/master
     activo boolean default true,
     createAt timestamp default current_timestamp,
     updateAt timestamp default current_timestamp on update current_timestamp,
@@ -170,15 +137,9 @@ create table metodos_pago (
 
 -- Tabla de carrito de compras
 create table carrito (
-<<<<<<< HEAD
     idcarrito int auto_increment primary key,
     idusuario int references usuarios(idusuario) on delete cascade,
-    impuesto decimal(10, 2) not null default 0.00,
-=======
-    id int auto_increment primary key,
-    usuario_id int,
     tarifa decimal(10, 2) not null default 0.00,
->>>>>>> origin/master
     envio decimal(10, 2) not null default 0.00,
     total decimal(10, 2) not null default 0.00,
     created_at timestamp default current_timestamp,

@@ -11,7 +11,7 @@ import lombok.Data;
 public class CarritoResponse {
 
     private Integer idCarrito;
-    private Double impuesto;
+    private Double tarifa;
     private Double envio;
     private Double total;
 
