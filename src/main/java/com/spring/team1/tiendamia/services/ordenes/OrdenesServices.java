@@ -41,7 +41,7 @@ public class OrdenesServices {
         }
 
         //Procesar la orden (crear entidad Ordenes, guardar detalles, etc.)
-        // SE OMITIÓ: La lógica de creación de la orden y sus detalles, así
+        //La lógica de creación de la orden y sus detalles, así
 
         for(CarritoDetalle item : carrito.getDetalles()) {
             Variaciones_Producto variante = item.getVariacion();
