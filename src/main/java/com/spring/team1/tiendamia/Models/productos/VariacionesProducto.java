@@ -19,8 +19,14 @@ public class VariacionesProducto {
     @JoinColumn(name = "producto_id")
     private Productos producto;
 
+    @Column(name = "codigo_inventario")
     private String codigo_inventario;
+
+    @Column(name = "precio")
     private Double precio;
+
+    @Column(name = "stock")
     private Integer stock;
-    private String imagen_url;
+
+
 }
