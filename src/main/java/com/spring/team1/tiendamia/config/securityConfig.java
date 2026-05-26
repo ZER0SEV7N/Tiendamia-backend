@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.config;
+package com.spring.team1.tiendamia.Config;
 
 import java.util.Arrays;
 
