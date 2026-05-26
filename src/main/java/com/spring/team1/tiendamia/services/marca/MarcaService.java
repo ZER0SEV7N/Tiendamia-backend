@@ -34,7 +34,7 @@ public class MarcaService {
         }).toList();
     }
 
-    public Marcas createMarca(MarcaRequestDTO dto) {
+    public String createMarca(MarcaRequestDTO dto) {
 
         if (marcaRepository.existsByNombreIgnoreCase(dto.getNombre())) {
             throw new IllegalStateException("Ya existe una marca con ese nombre");
@@ -49,6 +49,27 @@ public class MarcaService {
         marca.setDestacada(dto.getDestacada());
         marca.setActivo(dto.getActivo());
 
-        return marcaRepository.save(marca);
+        marcaRepository.save(marca);
+        return "Marca creada correctamente";
+    }
+
+    public String updateMarca(Long id, MarcaRequestDTO dto) {
+        Marcas marca = marcaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
+
+        if (marcaRepository.existsByNombreIgnoreCase(dto.getNombre())) {
+            throw new IllegalStateException("Ya existe una marca con ese nombre");
+        }
+
+        marca.setNombre(dto.getNombre());
+        marca.setSlug(dto.getSlug());
+        marca.setImagen_logo(dto.getImagen_logo());
+        marca.setImagen_banner(dto.getImagen_banner());
+        marca.setDescripcion(dto.getDescripcion());
+        marca.setDestacada(dto.getDestacada());
+        marca.setActivo(dto.getActivo());
+
+        marcaRepository.save(marca);
+        return "Marca actualizada correctamente";
     }
 }

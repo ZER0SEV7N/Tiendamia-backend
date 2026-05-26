@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @RestController
 @RequestMapping("api/admin/marca")
@@ -59,13 +55,26 @@ public class MarcaController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseApi<Marcas>> create(@Valid @RequestBody MarcaRequestDTO dto) {
+    public ResponseEntity<ResponseApi<String>> create(@Valid @RequestBody MarcaRequestDTO dto) {
         try {
-            Marcas nuevaMarca = marcaService.createMarca(dto);
-            return ResponseEntity.ok(new ResponseApi<>(true, "Marca creada correctamente", nuevaMarca));
+            String mensaje = marcaService.createMarca(dto);
+            return ResponseEntity.ok(new ResponseApi<>(true, mensaje, null));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(new ResponseApi<>(false, e.getMessage(), null));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(new ResponseApi<>(false, "Error al crear la marca", null));
         }
     }
-    
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<ResponseApi<String>> update(@PathVariable Long id, @Valid @RequestBody MarcaRequestDTO dto) {
+        try {
+            String mensaje = marcaService.updateMarca(id, dto);
+            return ResponseEntity.ok(new ResponseApi<>(true, mensaje, null));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(new ResponseApi<>(false, e.getMessage(), null));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(new ResponseApi<>(false, "Error al actualizar la marca", null));
+        }
+    }
 }
