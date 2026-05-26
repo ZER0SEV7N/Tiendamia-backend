@@ -1,14 +1,25 @@
 package com.spring.team1.tiendamia.Services.ordenes;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.team1.tiendamia.Models.Carrito.Carrito;
 import com.spring.team1.tiendamia.Models.Carrito.CarritoDetalle;
+import com.spring.team1.tiendamia.Models.Ordenes.OrdenDetalle;
 import com.spring.team1.tiendamia.Models.Ordenes.Ordenes;
+import com.spring.team1.tiendamia.Models.Ordenes.DTO.CheckoutRequest;
 import com.spring.team1.tiendamia.Models.Productos.VariacionesProducto;
+import com.spring.team1.tiendamia.Models.Usuario.DireccionesUsuarios;
+import com.spring.team1.tiendamia.Models.Usuario.MarcasTarjeta;
+import com.spring.team1.tiendamia.Models.Usuario.MetodosPago;
+import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.Models.payload.EstadoOrden;
 import com.spring.team1.tiendamia.Repository.ordenes.*;
 import com.spring.team1.tiendamia.Repository.productos.VariacionesProductosRepository;
+import com.spring.team1.tiendamia.Repository.usuario.DireccionesUsuariosRepository;
+import com.spring.team1.tiendamia.Repository.usuario.MarcasTarjetaRepository;
 import com.spring.team1.tiendamia.Repository.usuario.MetodosPagoRepository;
 import com.spring.team1.tiendamia.Repository.usuario.UsuariosRepository;
 import com.spring.team1.tiendamia.Services.carrito.CarritoService;
@@ -22,7 +33,7 @@ public class OrdenesServices {
     private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private DireccionesRepository direccionesRepository;
+    private DireccionesUsuariosRepository direccionesRepository;
 
     @Autowired
     private MarcasTarjetaRepository marcasTarjetaRepository;
@@ -38,6 +49,7 @@ public class OrdenesServices {
 
     @Autowired
     private OrdenRepository ordenRepository;
+    
     @Autowired
     private OrdenDetalleRepository detalleRepository;
 
@@ -62,14 +74,14 @@ public class OrdenesServices {
         }
 
         // 4. Guardar la dirección de envío (Tabla: direcciones_usuario)
-        DireccionesUsuario nuevaDireccion = new DireccionesUsuario();
+        DireccionesUsuarios nuevaDireccion = new DireccionesUsuarios();
         nuevaDireccion.setUsuario(usuario);
         nuevaDireccion.setDireccion(request.getDireccion().getDireccion());
         nuevaDireccion.setDistrito(request.getDireccion().getDistrito());
         nuevaDireccion.setProvincia(request.getDireccion().getProvincia());
         nuevaDireccion.setDepartamento(request.getDireccion().getDepartamento());
         nuevaDireccion.setReferencia(request.getDireccion().getReferencia());
-        nuevaDireccion.setEsPrincipal(false);
+        nuevaDireccion.setEs_principal(false);
         nuevaDireccion = direccionesRepository.save(nuevaDireccion);
 
         // 5. Registrar el método de pago simulado (Tabla: metodos_pago)
@@ -79,9 +91,9 @@ public class OrdenesServices {
         MetodosPago metodoPago = new MetodosPago();
         metodoPago.setUsuario(usuario);
         metodoPago.setPasarela(request.getPago().getPasarela());
-        metodoPago.setCustomerToken(request.getPago().getCustomer_token());
-        metodoPago.setUltimosCuatro(request.getPago().getUltimos_cuatro());
-        metodoPago.setMarcaTarjeta(marca);
+        metodoPago.setCustomer_id(request.getPago().getCustomer_token());
+        metodoPago.setUltimos_cuatro(request.getPago().getUltimos_cuatro());
+        metodoPago.setMarca_tarjeta(marca);
         metodosPagoRepository.save(metodoPago);
 
         // 6. Crear la orden principal (Tabla: ordenes)
@@ -89,9 +101,9 @@ public class OrdenesServices {
         orden.setUsuario(usuario);
         orden.setDireccion(nuevaDireccion);
         orden.setTotal(carrito.getTotal()); // El total calculado en el backend del carrito
-        orden.setEstado("completado"); // Al ser pasarela simulada exitosa, nace completada/pagada
-        orden.setIdTransaccionPasarela(request.getPago().getCustomer_token());
-        orden = ordenesRepository.save(orden);
+        orden.setEstado(EstadoOrden.PAGADO); // Al ser pasarela simulada exitosa, nace completada/pagada
+        orden.setId_transaccion_pasarela(request.getPago().getCustomer_token());
+        orden = ordenRepository.save(orden);
 
         // 7. Migrar detalles del carrito a detalles de orden y descontar stock
         orden.setDetalles(new ArrayList<>());
@@ -103,13 +115,12 @@ public class OrdenesServices {
             variacionesRepository.save(variante);
 
             // CREAR DETALLE DE ORDEN (Tabla: orden_detalles)
-            OrdenDetalles ordenDetalle = new OrdenDetalles();
+            OrdenDetalle ordenDetalle = new OrdenDetalle();
             ordenDetalle.setOrden(orden);
             ordenDetalle.setVariacion(variante);
             ordenDetalle.setCantidad(detalle.getCantidad());
-            ordenDetalle.setPrecioUnitario(variante.getPrecio()); // Guardamos el precio del momento de compra
-            
-            ordenDetallesRepository.save(ordenDetalle);
+            ordenDetalle.setPrecio_unitario(variante.getPrecio()); // Guardamos el precio del momento de compra
+            detalleRepository.save(ordenDetalle);
             orden.getDetalles().add(ordenDetalle);
         }
 

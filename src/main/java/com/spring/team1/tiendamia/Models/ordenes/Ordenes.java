@@ -1,6 +1,8 @@
 package com.spring.team1.tiendamia.Models.Ordenes;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -39,4 +41,7 @@ public class Ordenes {
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")
     private LocalDateTime createAt;
+
+    @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrdenDetalle> detalles = new ArrayList<>();
 }

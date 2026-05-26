@@ -15,8 +15,13 @@ public class MetodosPago {
     @JoinColumn(name = "usuario_id")
     private Usuarios usuario;
 
+    @Column(name = "pasarela")
     private String pasarela;
+
+    @Column(name = "customer_id")
     private String customer_id;
+
+    @Column(name = "ultimos_cuatro")
     private String ultimos_cuatro;
 
     @ManyToOne
