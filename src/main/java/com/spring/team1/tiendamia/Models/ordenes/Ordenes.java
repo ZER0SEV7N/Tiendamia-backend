@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spring.team1.tiendamia.models.Usuario.Direcciones_usuarios;
-import com.spring.team1.tiendamia.models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.models.payload.EstadoOrden;
+import com.spring.team1.tiendamia.models.usuario.Direcciones_usuarios;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 
 import jakarta.persistence.*;
 import lombok.Data;

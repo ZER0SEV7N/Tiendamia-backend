@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.spring.team1.tiendamia.models.Usuario.Roles;
-import com.spring.team1.tiendamia.models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.models.payload.AuthResponse;
 import com.spring.team1.tiendamia.models.payload.LoginRequest;
 import com.spring.team1.tiendamia.models.payload.RegisterRequest;
+import com.spring.team1.tiendamia.models.usuario.Roles;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.repository.RolesRepository;
 import com.spring.team1.tiendamia.repository.UsuariosRepository;
 

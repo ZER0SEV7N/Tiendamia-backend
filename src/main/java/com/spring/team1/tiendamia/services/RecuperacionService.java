@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.spring.team1.tiendamia.models.RecuperacionPassword.TokenRecuperacion;
-import com.spring.team1.tiendamia.models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.models.recuperacionPassword.TokenRecuperacion;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.repository.TokenRecuperacionRepository;
 import com.spring.team1.tiendamia.repository.UsuariosRepository;
 

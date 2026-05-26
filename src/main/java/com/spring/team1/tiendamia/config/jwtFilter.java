@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.spring.team1.tiendamia.models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.repository.UsuariosRepository;
 import com.spring.team1.tiendamia.services.jwtServices;
 

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.models.Usuario;
+package com.spring.team1.tiendamia.models.usuario;
 
 import java.time.LocalDateTime;
 

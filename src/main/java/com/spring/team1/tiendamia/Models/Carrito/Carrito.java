@@ -8,8 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spring.team1.tiendamia.models.Usuario.Usuarios;
-
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 
 import jakarta.persistence.*;
 import lombok.Data;
