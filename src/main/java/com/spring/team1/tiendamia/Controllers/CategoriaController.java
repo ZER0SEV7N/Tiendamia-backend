@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaRequestDTO;
+import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaResponse;
 import com.spring.team1.tiendamia.Models.payload.categoria.ListCategorias;
 import com.spring.team1.tiendamia.Models.productos.Categorias;
 import com.spring.team1.tiendamia.Util.ResponseApi;
@@ -27,9 +28,9 @@ public class CategoriaController {
     @Autowired private CategoriaService categoriaService;
 
     @GetMapping("/")
-    public ResponseEntity<ResponseApi<List<Categorias>>> allCategorias() {
+    public ResponseEntity<ResponseApi<List<CategoriaResponse>>> allCategorias() {
         try {
-            List<Categorias> categorias = categoriaService.getAllCategorias();
+            List<CategoriaResponse> categorias = categoriaService.getAllCategorias();
             return ResponseEntity.ok(new ResponseApi<>(true, "Categorías obtenidas correctamente", categorias));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(new ResponseApi<>(false, "Error al obtener las categorías: " + e.getMessage(), null));

@@ -1,11 +1,13 @@
 package com.spring.team1.tiendamia.services.categoria;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaRequestDTO;
+import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaResponse;
 import com.spring.team1.tiendamia.Models.payload.categoria.ListCategorias;
 import com.spring.team1.tiendamia.Models.productos.Categorias;
 import com.spring.team1.tiendamia.repository.categoria.CategoriaRepository;
@@ -14,8 +16,32 @@ import com.spring.team1.tiendamia.repository.categoria.CategoriaRepository;
 public class CategoriaService {
     @Autowired CategoriaRepository categoriaRepository;
 
-    public List<Categorias> getAllCategorias() {
-        return categoriaRepository.findAll();
+    public List<CategoriaResponse> getAllCategorias() {
+        List<Categorias> allCategorias = categoriaRepository.findAll();
+        
+        return allCategorias.stream()
+                .filter(c -> c.getCategoriaPadre() == null)
+                .map(padre -> mapearAArbolDTO(padre))
+                .collect(Collectors.toList());
+    }
+
+    private CategoriaResponse mapearAArbolDTO(Categorias categoria) {
+        CategoriaResponse dto = new CategoriaResponse();
+        dto.setId(categoria.getId());
+        dto.setNombre(categoria.getNombre());
+        dto.setSlug(categoria.getSlug());
+        dto.setIdCategoriaPadre(categoria.getCategoriaPadre() != null ? categoria.getCategoriaPadre().getId() : null);
+
+        if (categoria.getSubcategorias() != null && !categoria.getSubcategorias().isEmpty()) {
+            List<CategoriaResponse> hijos = categoria.getSubcategorias().stream()
+                    .map(hijo -> mapearAArbolDTO(hijo)) 
+                    .collect(Collectors.toList());
+            dto.setSubcategorias(hijos);
+        } else {
+            dto.setSubcategorias(null);
+        }
+
+        return dto;
     }
 
     public List<ListCategorias> getAllCategoriasPadre() {
