@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Table(name = "metodos_pago")
 @Data
-public class Metodos_Pago_Usuario {
+public class MetodosPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,6 +21,6 @@ public class Metodos_Pago_Usuario {
 
     @ManyToOne
     @JoinColumn(name = "id_marca_tarjeta")
-    private Marcas_Tarjeta marca_tarjeta;
+    private MarcasTarjeta marca_tarjeta;
 
 }

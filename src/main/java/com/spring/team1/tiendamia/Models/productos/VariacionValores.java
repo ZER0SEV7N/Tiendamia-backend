@@ -10,22 +10,22 @@ import lombok.NoArgsConstructor;
 @Table(name = "variacion_valores")
 @Data
 @NoArgsConstructor
-public class Variacion_Valores {
+public class VariacionValores {
     @EmbeddedId
     private Variacion_Valores_Id id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("variacionId") // Enlaza con el campo del ID compuesto
     @JoinColumn(name = "variacion_id")
-    private Variaciones_Producto variacion;
+    private VariacionesProducto variacion;
 
     // Relación con el valor del filtro (Color, RAM, etc.)
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("valorAtributoId") // Enlaza con el campo del ID compuesto
     @JoinColumn(name = "valor_atributo_id")
-    private Valores_Atributos valorAtributo;
+    private ValoresAtributos valorAtributo;
 
-    public Variacion_Valores(Variaciones_Producto variacion, Valores_Atributos valorAtributo) {
+    public VariacionValores(VariacionesProducto variacion, ValoresAtributos valorAtributo) {
         this.variacion = variacion;
         this.valorAtributo = valorAtributo;
         // Seteamos los IDs manuales para la llave compuesta

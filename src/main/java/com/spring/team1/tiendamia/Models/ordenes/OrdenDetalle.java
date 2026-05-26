@@ -1,6 +1,6 @@
 package com.spring.team1.tiendamia.Models.Ordenes;
 
-import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.Productos.VariacionesProducto;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class OrdenDetalle {
 
     @ManyToOne
     @JoinColumn(name = "variacion_id")
-    private Variaciones_Producto variacion;
+    private VariacionesProducto variacion;
 
     private Integer cantidad;
     private Double precio_unitario;

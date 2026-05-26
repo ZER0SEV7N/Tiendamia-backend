@@ -1,7 +1,7 @@
 package com.spring.team1.tiendamia.Models.Carrito;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.Productos.VariacionesProducto;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class CarritoDetalle {
 
     @ManyToOne
     @JoinColumn(name = "variacion_id", nullable = false)
-    private Variaciones_Producto variacion;
+    private VariacionesProducto variacion;
 
     @Column(nullable = false)
     private Integer cantidad;

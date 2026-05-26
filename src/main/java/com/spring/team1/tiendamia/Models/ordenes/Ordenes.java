@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spring.team1.tiendamia.Models.Usuario.Direcciones_usuarios;
+import com.spring.team1.tiendamia.Models.Usuario.DireccionesUsuarios;
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.Models.payload.EstadoOrden;
 
@@ -25,7 +25,7 @@ public class Ordenes {
 
     @ManyToOne
     @JoinColumn(name = "direccion_id")
-    private Direcciones_usuarios direccion;
+    private DireccionesUsuarios direccion;
 
     private Double total;
     private String metodoPago;

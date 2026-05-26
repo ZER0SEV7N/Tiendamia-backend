@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.team1.tiendamia.Models.Carrito.Carrito;
 import com.spring.team1.tiendamia.Models.Carrito.CarritoDetalle;
 import com.spring.team1.tiendamia.Models.Carrito.DTO.CarritoResponse;
-import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.Productos.VariacionesProducto;
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.Repository.carrito.CarritoDetalleRepository;
 import com.spring.team1.tiendamia.Repository.carrito.carritoRepository;
@@ -37,7 +37,7 @@ public class CarritoService {
     // Metodo para agregar un item al carrito
     @Transactional
     public CarritoDetalle agregarAlCarrito(Integer idUsuario, Integer idVariacion, Integer cantidad) {
-        Variaciones_Producto variante = variacionesRepository.findById(idVariacion).orElse(null);
+        VariacionesProducto variante = variacionesRepository.findById(idVariacion).orElse(null);
         if (variante == null || cantidad <= 0)
             return null;
 
@@ -106,7 +106,7 @@ public class CarritoService {
         if (item == null || nuevaCantidad <= 0)
             return null;
 
-        Variaciones_Producto variante = item.getVariacion();
+        VariacionesProducto variante = item.getVariacion();
 
         if (nuevaCantidad > variante.getStock())
             return null;
