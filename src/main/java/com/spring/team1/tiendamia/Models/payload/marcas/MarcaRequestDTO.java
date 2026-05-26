@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.payload.marcas;
+package com.spring.team1.tiendamia.models.payload.marcas;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

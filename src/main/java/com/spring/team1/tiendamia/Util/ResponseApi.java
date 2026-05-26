@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Util;
+package com.spring.team1.tiendamia.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,8 @@
-package com.spring.team1.tiendamia.Models.RecuperacionPassword;
+package com.spring.team1.tiendamia.models.RecuperacionPassword;
 
 import java.time.LocalDateTime;
 
-import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.models.Usuario.Usuarios;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.payload.marcas;
+package com.spring.team1.tiendamia.models.payload.marcas;
 
 import lombok.Data;
 

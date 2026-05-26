@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spring.team1.tiendamia.Models.productos.Valores_Atributos;
+import com.spring.team1.tiendamia.models.productos.Valores_Atributos;
 
 @Repository
 public interface ValoresAtributosRepository extends JpaRepository<Valores_Atributos, Long> {

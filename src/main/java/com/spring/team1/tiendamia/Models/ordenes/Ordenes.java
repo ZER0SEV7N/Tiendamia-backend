@@ -1,12 +1,12 @@
-package com.spring.team1.tiendamia.Models.ordenes;
+package com.spring.team1.tiendamia.models.ordenes;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spring.team1.tiendamia.Models.Usuario.Direcciones_usuarios;
-import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
-import com.spring.team1.tiendamia.Models.payload.EstadoOrden;
+import com.spring.team1.tiendamia.models.Usuario.Direcciones_usuarios;
+import com.spring.team1.tiendamia.models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.models.payload.EstadoOrden;
 
 import jakarta.persistence.*;
 import lombok.Data;

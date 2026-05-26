@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.Carrito;
+package com.spring.team1.tiendamia.models.carrito;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,7 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.models.Usuario.Usuarios;
+
 
 import jakarta.persistence.*;
 import lombok.Data;

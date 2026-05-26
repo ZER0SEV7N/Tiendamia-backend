@@ -1,14 +1,13 @@
-package com.spring.team1.tiendamia.Controllers;
+package com.spring.team1.tiendamia.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.team1.tiendamia.Models.payload.producto.ProductoRequest;
-import com.spring.team1.tiendamia.Models.productos.Productos;
-import com.spring.team1.tiendamia.Util.ResponseApi;
+import com.spring.team1.tiendamia.models.payload.producto.ProductoRequest;
 import com.spring.team1.tiendamia.services.producto.ProductoService;
+import com.spring.team1.tiendamia.util.ResponseApi;
 
 import jakarta.validation.Valid;
 

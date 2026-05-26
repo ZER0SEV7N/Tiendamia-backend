@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.team1.tiendamia.Models.payload.marcas.MarcaRequestDTO;
-import com.spring.team1.tiendamia.Models.payload.marcas.MarcasDTO;
-import com.spring.team1.tiendamia.Models.productos.Marcas;
+import com.spring.team1.tiendamia.models.payload.marcas.MarcaRequestDTO;
+import com.spring.team1.tiendamia.models.payload.marcas.MarcasDTO;
+import com.spring.team1.tiendamia.models.productos.Marcas;
 import com.spring.team1.tiendamia.repository.marca.MarcaRepository;
 
 

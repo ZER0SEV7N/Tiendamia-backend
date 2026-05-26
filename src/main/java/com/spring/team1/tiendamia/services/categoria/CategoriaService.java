@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaRequestDTO;
-import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaResponse;
-import com.spring.team1.tiendamia.Models.payload.categoria.ListCategorias;
-import com.spring.team1.tiendamia.Models.productos.Categorias;
+import com.spring.team1.tiendamia.models.payload.categoria.CategoriaRequestDTO;
+import com.spring.team1.tiendamia.models.payload.categoria.CategoriaResponse;
+import com.spring.team1.tiendamia.models.payload.categoria.ListCategorias;
+import com.spring.team1.tiendamia.models.productos.Categorias;
 import com.spring.team1.tiendamia.repository.categoria.CategoriaRepository;
 
 @Service

@@ -1,6 +1,6 @@
-package com.spring.team1.tiendamia.Models.ordenes;
+package com.spring.team1.tiendamia.models.ordenes;
 
-import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.models.productos.Variaciones_Producto;
 
 import jakarta.persistence.*;
 import lombok.Data;

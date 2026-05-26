@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.spring.team1.tiendamia.Models.productos.Categorias;
+import com.spring.team1.tiendamia.models.productos.Categorias;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categorias, Long> {

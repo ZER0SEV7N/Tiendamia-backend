@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.Usuario;
+package com.spring.team1.tiendamia.models.Usuario;
 
 import jakarta.persistence.*;
 import lombok.Data;

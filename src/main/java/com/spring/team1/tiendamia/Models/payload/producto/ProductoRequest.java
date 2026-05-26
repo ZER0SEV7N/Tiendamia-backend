@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.payload.producto;
+package com.spring.team1.tiendamia.models.payload.producto;
 
 import java.util.List;
 

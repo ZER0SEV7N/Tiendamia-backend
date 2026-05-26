@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.payload.categoria;
+package com.spring.team1.tiendamia.models.payload.categoria;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

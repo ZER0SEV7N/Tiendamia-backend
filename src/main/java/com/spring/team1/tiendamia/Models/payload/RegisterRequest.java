@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.payload;
+package com.spring.team1.tiendamia.models.payload;
 
 import lombok.Data;
 

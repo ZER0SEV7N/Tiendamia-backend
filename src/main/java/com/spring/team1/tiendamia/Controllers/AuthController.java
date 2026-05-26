@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Controllers;
+package com.spring.team1.tiendamia.controllers;
 
 import java.util.Map;
 
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.team1.tiendamia.Models.payload.AuthResponse;
-import com.spring.team1.tiendamia.Models.payload.CambiarPasswordRequest;
-import com.spring.team1.tiendamia.Models.payload.LoginRequest;
-import com.spring.team1.tiendamia.Models.payload.RegisterRequest;
-import com.spring.team1.tiendamia.Models.payload.SolicitarRecuperacionRequest;
+import com.spring.team1.tiendamia.models.payload.AuthResponse;
+import com.spring.team1.tiendamia.models.payload.CambiarPasswordRequest;
+import com.spring.team1.tiendamia.models.payload.LoginRequest;
+import com.spring.team1.tiendamia.models.payload.RegisterRequest;
+import com.spring.team1.tiendamia.models.payload.SolicitarRecuperacionRequest;
 import com.spring.team1.tiendamia.services.AuthService;
 import com.spring.team1.tiendamia.services.RecuperacionService;
 
