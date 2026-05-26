@@ -11,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
-import com.spring.team1.tiendamia.Repository.usuario.UsuariosRepository;
-import com.spring.team1.tiendamia.Services.jwtServices;
+import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.services.jwtServices;
 
 import org.springframework.stereotype.Component;
 

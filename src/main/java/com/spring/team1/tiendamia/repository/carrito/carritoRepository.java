@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Repository.carrito;
+package com.spring.team1.tiendamia.repository.carrito;
 
 import java.util.List;
 

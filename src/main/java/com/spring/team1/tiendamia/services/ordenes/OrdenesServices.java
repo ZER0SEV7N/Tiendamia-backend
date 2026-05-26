@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services.ordenes;
+package com.spring.team1.tiendamia.services.ordenes;
 
 import java.util.ArrayList;
 
@@ -10,19 +10,19 @@ import com.spring.team1.tiendamia.Models.Carrito.CarritoDetalle;
 import com.spring.team1.tiendamia.Models.Ordenes.OrdenDetalle;
 import com.spring.team1.tiendamia.Models.Ordenes.Ordenes;
 import com.spring.team1.tiendamia.Models.Ordenes.DTO.CheckoutRequest;
-import com.spring.team1.tiendamia.Models.Productos.VariacionesProducto;
 import com.spring.team1.tiendamia.Models.Usuario.DireccionesUsuarios;
 import com.spring.team1.tiendamia.Models.Usuario.MarcasTarjeta;
 import com.spring.team1.tiendamia.Models.Usuario.MetodosPago;
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.Models.payload.EstadoOrden;
-import com.spring.team1.tiendamia.Repository.ordenes.*;
-import com.spring.team1.tiendamia.Repository.productos.VariacionesProductosRepository;
-import com.spring.team1.tiendamia.Repository.usuario.DireccionesUsuariosRepository;
-import com.spring.team1.tiendamia.Repository.usuario.MarcasTarjetaRepository;
-import com.spring.team1.tiendamia.Repository.usuario.MetodosPagoRepository;
-import com.spring.team1.tiendamia.Repository.usuario.UsuariosRepository;
-import com.spring.team1.tiendamia.Services.carrito.CarritoService;
+import com.spring.team1.tiendamia.Models.productos.VariacionesProducto;
+import com.spring.team1.tiendamia.repository.ordenes.*;
+import com.spring.team1.tiendamia.repository.productos.VariacionesProductosRepository;
+import com.spring.team1.tiendamia.repository.usuario.DireccionesUsuariosRepository;
+import com.spring.team1.tiendamia.repository.usuario.MarcasTarjetaRepository;
+import com.spring.team1.tiendamia.repository.usuario.MetodosPagoRepository;
+import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.services.carrito.CarritoService;
 
 import jakarta.transaction.Transactional;
 

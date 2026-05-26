@@ -19,14 +19,14 @@ create table categorias (
 -- Tabla de Marcas del producto
 create table marcas (
     id int auto_increment primary key,
-    nombre char(100) not null unique,  
-    slug char(100) not null unique, -- Para rutas amigables (ej: /marcas/apple)
-    imagen_logo varchar(255) null, -- URL del logo cuadrado para las tarjetas de producto
-    imagen_banner varchar(255) null, -- URL del banner horizontal para cuando entras a la página de la marca
-    descripcion text null,                  
-    destacada boolean default false, -- Marcas Destacadas 
-    activo boolean default true,           
-    creado_en timestamp default current_timestamp
+    nombre char(100) not null unique,
+    slug char(100) not null unique,
+    imagen_logo char(255) null,
+    imagen_banner char(255) null,
+    descripcion text null,
+    destacada boolean default false,
+    activo boolean default true,
+    createAt timestamp default current_timestamp
 );
 
 -- Productos: Tabla principal

@@ -38,7 +38,7 @@ public class securityConfig {
                 // CONTROL DE ACCESO A LAS RUTAS
                 .authorizeHttpRequests(auth -> auth
                         // Rutas públicas de Tiendamia (Login, Registro y ver productos)
-                        .requestMatchers("/auth/**", "/error").permitAll()
+                        .requestMatchers("/api/auth/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
 
                         // Rutas exclusivas para el Administrador (Mantenimiento total de productos)

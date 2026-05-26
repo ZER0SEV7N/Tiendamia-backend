@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.team1.tiendamia.Models.Ordenes.Ordenes;
 import com.spring.team1.tiendamia.Models.Ordenes.DTO.CheckoutRequest;
 import com.spring.team1.tiendamia.Models.payload.response;
-import com.spring.team1.tiendamia.Services.ordenes.OrdenesServices;
+import com.spring.team1.tiendamia.services.ordenes.OrdenesServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
