@@ -36,6 +36,7 @@ create table productos (
     marca_id int,
     nombre char(150) not null,
     slug char(150) not null unique,
+    imagen_url char(255) not null,
     descripcion text,
     activo boolean default true,
     foreign key (categoria_id) references categorias(id) on delete set null,
@@ -62,6 +63,7 @@ create table variaciones_producto (
     producto_id int,
     codigo_inventario char(100) not null unique,
     precio decimal(10, 2) not null,
+    imagen_url char(255) not null,
     stock int not null default 0,
     foreign key (producto_id) references productos(id) on delete cascade
 );
@@ -73,15 +75,6 @@ create table variacion_valores (
     primary key (variacion_id, valor_atributo_id),
     foreign key (variacion_id) references variaciones_producto(id) on delete cascade,
     foreign key (valor_atributo_id) references valores_atributos(id) on delete cascade
-);
-
--- Tabla de imágenes del producto
-create table imagenes_producto (
-    id int auto_increment primary key,
-    producto_id int,
-    url varchar(255) not null,
-    orden int not null default 0,
-    foreign key (producto_id) references productos(id) on delete cascade
 );
 
 -- Tabla usuarios
@@ -194,3 +187,5 @@ create table tokens_recuperacion (
 
 -- ─── DATOS INICIALES ─────────────────────────────────────────────────────────
 insert into roles (nombre) values ('ADMIN'), ('USER');
+
+-- 

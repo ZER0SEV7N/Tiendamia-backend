@@ -17,7 +17,7 @@ public class Productos {
     @ManyToOne
     @JoinColumn(name = "marca_id")
     private Marcas marca;
-
+    private String imagen_url;
     private String nombre;
     private String slug;
     private String descripcion;
