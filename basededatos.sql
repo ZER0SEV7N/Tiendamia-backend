@@ -86,8 +86,8 @@ create table imagenes_producto (
 
 -- Tabla usuarios
 create table usuarios(
-	idusuario int auto_increment primary key,
-    idrol int,
+	id int auto_increment primary key,
+    rol_id int,
     nombres char(100) not null,
     apellidos char(100) null,
     correo char(150) unique,
@@ -97,7 +97,7 @@ create table usuarios(
     activo boolean default true,
     createAt timestamp default current_timestamp,
     updateAt timestamp default current_timestamp on update current_timestamp,
-    foreign key (idrol) references roles(id)
+    foreign key (rol_id) references roles(id)
 );
 
 -- Tabla de Direcciones de Usuario
@@ -137,8 +137,8 @@ create table metodos_pago (
 
 -- Tabla de carrito de compras
 create table carrito (
-    idcarrito int auto_increment primary key,
-    idusuario int references usuarios(idusuario) on delete cascade,
+    id int auto_increment primary key,
+    usuario_id int,
     tarifa decimal(10, 2) not null default 0.00,
     envio decimal(10, 2) not null default 0.00,
     total decimal(10, 2) not null default 0.00,
