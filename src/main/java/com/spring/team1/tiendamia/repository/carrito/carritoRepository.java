@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.repository.carrito;
+package com.spring.team1.tiendamia.Repository.carrito;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.Models.Carrito.Carrito;
 
 @Repository
-public interface CarritoRepository extends JpaRepository<Carrito, Integer> {
+public interface carritoRepository extends JpaRepository<Carrito, Integer> {
 
     List<Carrito> findByUsuarioId(Integer idUsuario);
 }

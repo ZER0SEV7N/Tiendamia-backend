@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "metodos_pago_usuario")
+@Table(name = "metodos_pago")
 @Data
 public class Metodos_Pago_Usuario {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
@@ -22,5 +23,4 @@ public class Metodos_Pago_Usuario {
     @JoinColumn(name = "id_marca_tarjeta")
     private Marcas_Tarjeta marca_tarjeta;
 
-    
 }

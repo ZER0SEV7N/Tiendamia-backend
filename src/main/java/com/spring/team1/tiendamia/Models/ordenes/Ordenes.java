@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.Ordenes;
+package com.spring.team1.tiendamia.Models.ordenes;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +15,8 @@ import lombok.Data;
 @Table(name = "ordenes")
 @Data
 public class Ordenes {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
