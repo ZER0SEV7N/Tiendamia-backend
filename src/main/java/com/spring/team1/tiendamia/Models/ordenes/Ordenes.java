@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.ordenes;
+package com.spring.team1.tiendamia.Models.Ordenes;
 
 import java.time.LocalDateTime;
 

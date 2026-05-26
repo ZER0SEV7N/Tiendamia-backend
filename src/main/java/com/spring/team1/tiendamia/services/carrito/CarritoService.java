@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.team1.tiendamia.Models.Carrito.Carrito;
 import com.spring.team1.tiendamia.Models.Carrito.CarritoDetalle;
 import com.spring.team1.tiendamia.Models.Carrito.DTO.CarritoResponse;
-import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
 import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
 import com.spring.team1.tiendamia.Repository.carrito.CarritoDetalleRepository;
 import com.spring.team1.tiendamia.Repository.carrito.carritoRepository;

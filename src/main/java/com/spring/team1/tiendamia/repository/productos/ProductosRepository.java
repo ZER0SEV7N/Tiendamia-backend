@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.spring.team1.tiendamia.Models.productos.Productos;
+import com.spring.team1.tiendamia.Models.Productos.Productos;
 
 @Repository
 public interface ProductosRepository extends JpaRepository<Productos, Integer> {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
 
 @Repository
 public interface VariacionesProductosRepository extends JpaRepository<Variaciones_Producto, Integer> {

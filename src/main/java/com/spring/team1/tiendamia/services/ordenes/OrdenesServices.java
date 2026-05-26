@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring.team1.tiendamia.Models.Carrito.Carrito;
 import com.spring.team1.tiendamia.Models.Carrito.CarritoDetalle;
-import com.spring.team1.tiendamia.Models.ordenes.Ordenes;
-import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.Models.Ordenes.Ordenes;
+import com.spring.team1.tiendamia.Models.Productos.Variaciones_Producto;
 import com.spring.team1.tiendamia.Repository.ordenes.*;
 import com.spring.team1.tiendamia.Repository.productos.VariacionesProductosRepository;
 import com.spring.team1.tiendamia.Services.carrito.CarritoService;

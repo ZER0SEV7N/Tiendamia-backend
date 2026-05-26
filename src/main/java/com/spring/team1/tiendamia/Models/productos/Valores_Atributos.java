@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Models.productos;
+package com.spring.team1.tiendamia.Models.Productos;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
