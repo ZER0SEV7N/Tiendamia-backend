@@ -26,7 +26,7 @@ create table marcas (
     descripcion text null,
     destacada boolean default false,
     activo boolean default true,
-    creado_en timestamp default current_timestamp
+    createAt timestamp default current_timestamp
 );
 
 -- Productos: Tabla principal
