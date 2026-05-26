@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services;
+package com.spring.team1.tiendamia.Services.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +10,7 @@ import com.spring.team1.tiendamia.Models.payload.AuthResponse;
 import com.spring.team1.tiendamia.Models.payload.LoginRequest;
 import com.spring.team1.tiendamia.Models.payload.RegisterRequest;
 import com.spring.team1.tiendamia.Repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.Services.jwtServices;
 import com.spring.team1.tiendamia.Repository.usuario.RolesRepository;
 
 @Service

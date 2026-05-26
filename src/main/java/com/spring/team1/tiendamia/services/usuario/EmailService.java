@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services;
+package com.spring.team1.tiendamia.Services.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

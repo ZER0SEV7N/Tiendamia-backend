@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services;
+package com.spring.team1.tiendamia.Services.usuario;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
