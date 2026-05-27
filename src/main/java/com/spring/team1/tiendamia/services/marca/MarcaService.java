@@ -36,7 +36,7 @@ public class MarcaService {
 
     public String createMarca(MarcaRequestDTO dto) {
 
-        if (marcaRepository.existsByNombreIgnoreCase(dto.getNombre())) {
+        if (marcaRepository.existsByNombreIgnoreCaseAndIdNot(dto.getNombre(), null)) {
             throw new IllegalStateException("Ya existe una marca con ese nombre");
         }
         
@@ -54,22 +54,26 @@ public class MarcaService {
     }
 
     public String updateMarca(Integer id, MarcaRequestDTO dto) {
-        Marcas marca = marcaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
+    // 1. Verificar si la marca existe
+    Marcas marca = marcaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
 
-        if (marcaRepository.existsByNombreIgnoreCase(dto.getNombre())) {
-            throw new IllegalStateException("Ya existe una marca con ese nombre");
-        }
-
-        marca.setNombre(dto.getNombre());
-        marca.setSlug(dto.getSlug());
-        marca.setImagen_logo(dto.getImagen_logo());
-        marca.setImagen_banner(dto.getImagen_banner());
-        marca.setDescripcion(dto.getDescripcion());
-        marca.setDestacada(dto.getDestacada());
-        marca.setEstado(dto.getEstado());
-
-        marcaRepository.save(marca);
-        return "Marca actualizada correctamente";
+    // 2. Validar nombre único EXCLUYENDO el registro actual
+    if (marcaRepository.existsByNombreIgnoreCaseAndIdNot(dto.getNombre(), id)) {
+        throw new IllegalStateException("Ya existe otra marca con ese nombre");
     }
+
+    // 3. Mapear los cambios
+    marca.setNombre(dto.getNombre());
+    marca.setSlug(dto.getSlug());
+    marca.setImagen_logo(dto.getImagen_logo());
+    marca.setImagen_banner(dto.getImagen_banner());
+    marca.setDescripcion(dto.getDescripcion());
+    marca.setDestacada(dto.getDestacada());
+    marca.setEstado(dto.getEstado());
+
+    // 4. Guardar
+    marcaRepository.save(marca);
+    return "Marca actualizada correctamente";
+}
 }

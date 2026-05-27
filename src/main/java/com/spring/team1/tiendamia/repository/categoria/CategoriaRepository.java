@@ -12,9 +12,11 @@ import com.spring.team1.tiendamia.models.productos.Categorias;
 public interface CategoriaRepository extends JpaRepository<Categorias, Integer> {
     boolean existsByNombreIgnoreCase(String nombre);
 
-    List<Categorias> findByCategoriaPadreIsNull(); 
+    List<Categorias> findByCategoriaPadreIsNull();
 
-    @Query("SELECT c FROM Categorias c WHERE NOT EXISTS " +
-           "(SELECT h FROM Categorias h WHERE h.categoriaPadre.id = c.id)")
-    List<Categorias> findByCategoriasHijas();
+    @Query("SELECT c FROM Categorias c WHERE c.categoriaPadre IS NOT NULL AND c.categoriaPadre.categoriaPadre IS NULL")
+    List<Categorias> findCategoriasHijasPuras();
+
+    @Query("SELECT c FROM Categorias c WHERE c.categoriaPadre IS NOT NULL AND c.categoriaPadre.categoriaPadre IS NOT NULL")
+    List<Categorias> findCategoriasNietasPuras();
 }

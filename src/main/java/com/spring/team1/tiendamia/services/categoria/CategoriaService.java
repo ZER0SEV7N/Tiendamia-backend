@@ -54,7 +54,7 @@ public class CategoriaService {
     }
 
     public List<ListCategorias> getAllCategoriasHija() {
-        return categoriaRepository.findByCategoriasHijas().stream().map(categoria -> {
+        return categoriaRepository.findCategoriasHijasPuras().stream().map(categoria -> {
             ListCategorias dto = new ListCategorias();
             dto.setId(categoria.getId());
             dto.setNombre(categoria.getNombre());
