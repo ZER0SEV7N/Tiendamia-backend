@@ -4,9 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.spring.team1.tiendamia.models.payload.Variacion_Valores_Id;
-import com.spring.team1.tiendamia.models.productos.Variacion_Valores;
+import com.spring.team1.tiendamia.models.productos.VariacionValores;
+
 
 @Repository
-public interface VariacionValores extends JpaRepository<Variacion_Valores, Variacion_Valores_Id> {
+public interface VariacionValoresRepository extends JpaRepository<VariacionValores, Variacion_Valores_Id> {
     
 }

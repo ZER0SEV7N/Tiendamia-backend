@@ -8,24 +8,24 @@ import com.spring.team1.tiendamia.models.productos.Atributos;
 import com.spring.team1.tiendamia.models.productos.Categorias;
 import com.spring.team1.tiendamia.models.productos.Marcas;
 import com.spring.team1.tiendamia.models.productos.Productos;
-import com.spring.team1.tiendamia.models.productos.Valores_Atributos;
-import com.spring.team1.tiendamia.models.productos.Variacion_Valores;
-import com.spring.team1.tiendamia.models.productos.Variaciones_Producto;
+import com.spring.team1.tiendamia.models.productos.ValoresAtributos;
+import com.spring.team1.tiendamia.models.productos.VariacionValores;
+import com.spring.team1.tiendamia.models.productos.VariacionesProducto;
 import com.spring.team1.tiendamia.repository.categoria.CategoriaRepository;
 import com.spring.team1.tiendamia.repository.marca.MarcaRepository;
 import com.spring.team1.tiendamia.repository.producto.AtributosRepository;
 import com.spring.team1.tiendamia.repository.producto.ProductoRepository;
 import com.spring.team1.tiendamia.repository.producto.ValoresAtributosRepository;
-import com.spring.team1.tiendamia.repository.producto.VariacionProducto;
-import com.spring.team1.tiendamia.repository.producto.VariacionValores;
+import com.spring.team1.tiendamia.repository.producto.VariacionProductoRepository;
+import com.spring.team1.tiendamia.repository.producto.VariacionValoresRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class ProductoService {
     @Autowired private ProductoRepository productoRepository; 
-    @Autowired private VariacionProducto variacionProducto;
-    @Autowired private VariacionValores variacionValores;   
+    @Autowired private VariacionProductoRepository variacionProducto;
+    @Autowired private VariacionValoresRepository variacionValores;   
     @Autowired private AtributosRepository atributosRepository;
     @Autowired private ValoresAtributosRepository valoresAtributosRepository;
     @Autowired private CategoriaRepository categoriaRepository;
@@ -51,12 +51,12 @@ public class ProductoService {
         Productos productoGuardado = productoRepository.save(producto);
         // Crear variaciones
         for(ProductoRequest.VariacionInicialRequest VarReq : request.getVariaciones() ){
-            Variaciones_Producto variacion = new Variaciones_Producto();
+            VariacionesProducto variacion = new VariacionesProducto();
             variacion.setProducto(productoGuardado);
             variacion.setCodigo_inventario(VarReq.getCodigoInventario());
             variacion.setPrecio(VarReq.getPrecio());
             variacion.setStock(VarReq.getStock());
-            variacion.setImagen_url(VarReq.getImagenUrl());
+            variacion.setImagenUrl(VarReq.getImagenUrl());
             // Guardar variación
             variacionProducto.save(variacion);
 
@@ -70,16 +70,16 @@ public class ProductoService {
                             return atributosRepository.save(nuevoAtributo);
                         });
                 // Buscar o crear el valor del atributo
-                Valores_Atributos valorAtributo = valoresAtributosRepository
+                ValoresAtributos valorAtributo = valoresAtributosRepository
                         .findByValorIgnoreCaseAndAtributoId(CaracReq.getValorTexto(), atributo.getId())
                         .orElseGet(() -> {
-                            Valores_Atributos nuevoValor = new Valores_Atributos();
+                            ValoresAtributos nuevoValor = new ValoresAtributos();
                             nuevoValor.setValor(CaracReq.getValorTexto());
                             nuevoValor.setAtributo(atributo);
                             return valoresAtributosRepository.save(nuevoValor);
                         });
                 // Asociar la variación con el valor del atributo
-                Variacion_Valores variacionValor = new Variacion_Valores(variacion, valorAtributo);
+                VariacionValores variacionValor = new VariacionValores(variacion, valorAtributo);
                 variacionValores.save(variacionValor);
             }
         }

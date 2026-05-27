@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Variacion_Valores_Id {
     @Column(name = "variacion_id")
-    private Long variacionId;
+    private Integer variacionId;
 
     @Column(name = "valor_atributo_id")
-    private Long valorAtributoId;
+    private Integer valorAtributoId;
+    
 }
 

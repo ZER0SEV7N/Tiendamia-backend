@@ -9,9 +9,10 @@ import lombok.Data;
 @Table(name = "categorias")
 @Data
 public class Categorias {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String nombre;
     private String slug;
 

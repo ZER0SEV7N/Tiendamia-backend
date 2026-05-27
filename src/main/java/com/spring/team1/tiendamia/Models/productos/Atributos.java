@@ -7,7 +7,8 @@ import lombok.Data;
 @Table(name = "atributos")
 @Data
 public class Atributos {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nombre;
 }

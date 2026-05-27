@@ -17,9 +17,8 @@ import lombok.Data;
 @Table(name = "carrito")
 @Data
 public class Carrito {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)

@@ -1,12 +1,14 @@
 package com.spring.team1.tiendamia.models.ordenes;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spring.team1.tiendamia.models.payload.EstadoOrden;
-import com.spring.team1.tiendamia.models.usuario.Direcciones_usuarios;
+import com.spring.team1.tiendamia.models.usuario.DireccionesUsuarios;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
+import com.spring.team1.tiendamia.models.payload.EstadoOrden;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,8 +17,9 @@ import lombok.Data;
 @Table(name = "ordenes")
 @Data
 public class Ordenes {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -24,7 +27,7 @@ public class Ordenes {
 
     @ManyToOne
     @JoinColumn(name = "direccion_id")
-    private Direcciones_usuarios direccion;
+    private DireccionesUsuarios direccion;
 
     private Double total;
     private String metodoPago;
@@ -38,4 +41,7 @@ public class Ordenes {
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")
     private LocalDateTime createAt;
+
+    @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrdenDetalle> detalles = new ArrayList<>();
 }

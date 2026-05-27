@@ -1,16 +1,17 @@
-package com.spring.team1.tiendamia.services;
+package com.spring.team1.tiendamia.services.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.team1.tiendamia.models.usuario.Roles;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.models.payload.AuthResponse;
 import com.spring.team1.tiendamia.models.payload.LoginRequest;
 import com.spring.team1.tiendamia.models.payload.RegisterRequest;
-import com.spring.team1.tiendamia.models.usuario.Roles;
-import com.spring.team1.tiendamia.models.usuario.Usuarios;
-import com.spring.team1.tiendamia.repository.RolesRepository;
-import com.spring.team1.tiendamia.repository.UsuariosRepository;
+import com.spring.team1.tiendamia.repository.usuario.RolesRepository;
+import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.services.jwtServices;
 
 @Service
 public class AuthService {
@@ -30,26 +31,25 @@ public class AuthService {
     // ─── LOGIN CON EMAIL Y PASSWORD ──────────────────────────────────────────────
     public AuthResponse login(LoginRequest request) {
 
-        // Se busca al usuario por correo
+        //Se busca al usuario por correo
         Usuarios usuario = usuariosRepository.findByCorreo(request.getCorreo())
                 .orElseThrow(() -> new RuntimeException("Correo o contraseña incorrectos"));
 
-        // Verificar que la cuenta este activa
-        if (!usuario.getActivo()) {
+        //Verificar que la cuenta este activa
+        if (!usuario.getActivo()) 
             throw new RuntimeException("La cuenta está desactivada");
-        }
+        
 
-        // Verificar que tenga password
-        if (usuario.getPassword() == null) {
+        //Verificar que tenga password
+        if (usuario.getPassword() == null) 
             throw new RuntimeException("Esta cuenta fue creada con Google. Inicia sesión con Google.");
-        }
+        
 
-        // Verificar la contraseña
-        if (!passwordEncoder.matches(request.getPassword(), usuario.getPassword())) {
+        //Verificar la contraseña
+        if (!passwordEncoder.matches(request.getPassword(), usuario.getPassword())) 
             throw new RuntimeException("Correo o contraseña incorrectos");
-        }
 
-        // Generar el token JWT
+        //Generar el token JWT
         String token = jwtService.generarToken(usuario.getCorreo());
 
         return new AuthResponse(
@@ -137,5 +137,10 @@ public class AuthService {
                 usuario.getCorreo(),
                 usuario.getNombres(),
                 usuario.getRol().getNombre());
+    }
+
+    public Usuarios obtenerUsuarioPorCorreo(String correo) {
+        return usuariosRepository.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 }

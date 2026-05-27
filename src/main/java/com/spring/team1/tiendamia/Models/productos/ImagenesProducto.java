@@ -6,10 +6,11 @@ import lombok.Data;
 @Entity
 @Table(name = "imagenes_producto")
 @Data
-public class imagenes_producto {
+public class ImagenesProducto {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "producto_id")

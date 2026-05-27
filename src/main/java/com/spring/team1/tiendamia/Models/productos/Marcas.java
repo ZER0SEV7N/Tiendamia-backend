@@ -7,13 +7,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
 @Table(name = "marcas")
 @Data
 public class Marcas {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String nombre;
     private String slug;
@@ -22,7 +22,7 @@ public class Marcas {
     private String descripcion;
     private Boolean destacada = false;
     private Boolean activo = true;
-    
+
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")
     private LocalDateTime createAt;

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.services;
+package com.spring.team1.tiendamia.services.usuario;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring.team1.tiendamia.models.recuperacionPassword.TokenRecuperacion;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
-import com.spring.team1.tiendamia.repository.TokenRecuperacionRepository;
-import com.spring.team1.tiendamia.repository.UsuariosRepository;
-
+import com.spring.team1.tiendamia.repository.usuario.TokenRecuperacionRepository;
+import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
 
 @Service
 public class RecuperacionService {

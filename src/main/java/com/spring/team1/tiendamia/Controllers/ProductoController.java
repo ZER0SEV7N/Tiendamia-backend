@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.team1.tiendamia.models.payload.producto.ProductoRequest;
 import com.spring.team1.tiendamia.services.producto.ProductoService;
-import com.spring.team1.tiendamia.util.ResponseApi;
+import com.spring.team1.tiendamia.util.response;
 
 import jakarta.validation.Valid;
 
@@ -21,12 +21,12 @@ public class ProductoController {
     @Autowired ProductoService productoService;
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseApi<String>> crearProducto(@Valid@RequestBody ProductoRequest dto ) {
+    public ResponseEntity<response<String>> crearProducto(@Valid@RequestBody ProductoRequest dto ) {
         try {
             String mensaje = productoService.crearProductoConVariacion(dto);
-            return ResponseEntity.ok(new ResponseApi<>(true, mensaje, null));
+            return ResponseEntity.ok(new response<>(true, mensaje, null));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new ResponseApi<>(false, "Error al crear el producto: " + e.getMessage(), null));
+            return ResponseEntity.badRequest().body(new response<>(false, "Error al crear el producto: " + e.getMessage(), null));
         }
     }
     

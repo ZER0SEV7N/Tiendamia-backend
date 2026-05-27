@@ -12,9 +12,8 @@ import lombok.Data;
 @Table(name = "usuarios")
 @Data
 public class Usuarios {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "rol_id")
