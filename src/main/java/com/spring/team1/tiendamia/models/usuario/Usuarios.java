@@ -16,7 +16,7 @@ public class Usuarios {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id")
+    @JoinColumn(name = "id_Rol")
     private Roles rol;
 
     private String nombres;
@@ -25,10 +25,10 @@ public class Usuarios {
     private String telefono;
     private String password;
 
-    @Column(name = "google_id")
+    @Column(name = "id_Google")
     private String googleId; // Para login con Google
 
-    private Boolean activo = true;
+    private Boolean estado = true;
 
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")

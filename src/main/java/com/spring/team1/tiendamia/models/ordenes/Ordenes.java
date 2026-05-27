@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "ordenes")
+@Table(name = "orden")
 @Data
 public class Ordenes {
     @Id
@@ -22,11 +22,11 @@ public class Ordenes {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "id_Usuario")
     private Usuarios usuario;
 
     @ManyToOne
-    @JoinColumn(name = "direccion_id")
+    @JoinColumn(name = "id_Direccion")
     private DireccionesUsuarios direccion;
 
     private Double total;

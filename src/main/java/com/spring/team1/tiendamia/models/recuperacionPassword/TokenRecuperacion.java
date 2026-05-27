@@ -22,7 +22,7 @@ public class TokenRecuperacion {
     private String token;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "id_Usuario", nullable = false)
     private Usuarios usuario;
 
     @Column(nullable = false)

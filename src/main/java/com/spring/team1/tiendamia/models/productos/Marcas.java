@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "marcas")
+@Table(name = "marca")
 @Data
 public class Marcas {
     @Id
@@ -21,7 +21,7 @@ public class Marcas {
     private String imagen_banner;
     private String descripcion;
     private Boolean destacada = false;
-    private Boolean activo = true;
+    private Boolean estado = true;
 
     @CreationTimestamp
     @Column(updatable = false, name = "createAt")

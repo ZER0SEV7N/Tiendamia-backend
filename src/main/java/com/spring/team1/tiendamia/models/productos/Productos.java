@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "producto")
 @Data
 public class Productos {
     @Id
@@ -12,15 +12,15 @@ public class Productos {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "id_Categoria")
     private Categorias categoria;
 
     @ManyToOne
-    @JoinColumn(name = "marca_id")
+    @JoinColumn(name = "id_Marca")
     private Marcas marca;
     private String imagen_url;
     private String nombre;
     private String slug;
     private String descripcion;
-    private Boolean activo = true;
+    private Boolean estado = true;
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "variacion_valores")
+@Table(name = "variacion_valor")
 @Data
 @NoArgsConstructor
 public class VariacionValores {
@@ -16,13 +16,13 @@ public class VariacionValores {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("variacionId") // Enlaza con el campo del ID compuesto
-    @JoinColumn(name = "variacion_id")
+    @JoinColumn(name = "id_Variacion")
     private VariacionesProducto variacion;
 
     // Relación con el valor del filtro (Color, RAM, etc.)
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("valorAtributoId") // Enlaza con el campo del ID compuesto
-    @JoinColumn(name = "valor_atributo_id")
+    @JoinColumn(name = "id_Valor_Atributo")
     private ValoresAtributos valorAtributo;
 
     public VariacionValores(VariacionesProducto variacion, ValoresAtributos valorAtributo) {

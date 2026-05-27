@@ -16,7 +16,7 @@ public class VariacionesProducto {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "producto_id")
+    @JoinColumn(name = "id_Producto")
     private Productos producto;
 
     @Column(name = "codigo_inventario")

@@ -47,7 +47,7 @@ public class MarcaService {
         marca.setImagen_banner(dto.getImagen_banner());
         marca.setDescripcion(dto.getDescripcion());
         marca.setDestacada(dto.getDestacada());
-        marca.setActivo(dto.getActivo());
+        marca.setEstado(dto.getEstado());
 
         marcaRepository.save(marca);
         return "Marca creada correctamente";
@@ -67,7 +67,7 @@ public class MarcaService {
         marca.setImagen_banner(dto.getImagen_banner());
         marca.setDescripcion(dto.getDescripcion());
         marca.setDestacada(dto.getDestacada());
-        marca.setActivo(dto.getActivo());
+        marca.setEstado(dto.getEstado());
 
         marcaRepository.save(marca);
         return "Marca actualizada correctamente";

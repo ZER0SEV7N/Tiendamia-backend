@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "orden_detalles")
+@Table(name = "orden_detalle")
 @Data
 public class OrdenDetalle {
     @Id
@@ -14,11 +14,11 @@ public class OrdenDetalle {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "orden_id")
+    @JoinColumn(name = "id_Orden")
     private Ordenes orden;
 
     @ManyToOne
-    @JoinColumn(name = "variacion_id")
+    @JoinColumn(name = "id_Variacion")
     private VariacionesProducto variacion;
 
     private Integer cantidad;

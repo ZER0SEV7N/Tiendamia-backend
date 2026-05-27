@@ -16,12 +16,12 @@ public class CarritoDetalle {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "carrito_id", nullable = false)
+    @JoinColumn(name = "id_Carrito", nullable = false)
     @JsonBackReference
     private Carrito carrito;
 
     @ManyToOne
-    @JoinColumn(name = "variacion_id", nullable = false)
+    @JoinColumn(name = "id_Variacion", nullable = false)
     private VariacionesProducto variacion;
 
     @Column(nullable = false)

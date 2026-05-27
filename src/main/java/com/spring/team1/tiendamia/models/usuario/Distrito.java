@@ -4,11 +4,17 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "rol")
+@Table(name = "distrito")
 @Data
-public class Roles {
+public class Distrito {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "id_Provincia")
+    private Provincia provincia;
+
     private String nombre;
+
+
 }

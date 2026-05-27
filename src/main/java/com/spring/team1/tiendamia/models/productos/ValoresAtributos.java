@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "valores_atributos")
+@Table(name = "valores_atributo")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class ValoresAtributos {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "atributo_id")
+    @JoinColumn(name = "id_Atributo")
     private Atributos atributo;
 
     private String valor;

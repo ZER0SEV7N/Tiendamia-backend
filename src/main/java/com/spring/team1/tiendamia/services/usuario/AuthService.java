@@ -36,7 +36,7 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Correo o contraseña incorrectos"));
 
         //Verificar que la cuenta este activa
-        if (!usuario.getActivo()) 
+        if (!usuario.getEstado()) 
             throw new RuntimeException("La cuenta está desactivada");
         
 
@@ -80,7 +80,7 @@ public class AuthService {
         nuevoUsuario.setTelefono(request.getTelefono());
         nuevoUsuario.setPassword(passwordEncoder.encode(request.getPassword())); // Encriptar contraseña
         nuevoUsuario.setRol(rolUser);
-        nuevoUsuario.setActivo(true);
+        nuevoUsuario.setEstado(true);
 
         usuariosRepository.save(nuevoUsuario);
 
@@ -113,7 +113,7 @@ public class AuthService {
             usuario.setCorreo(correo);
             usuario.setGoogleId(googleId);
             usuario.setRol(rolUser);
-            usuario.setActivo(true);
+            usuario.setEstado(true);
             // Sin password porque usa Google para autenticarse
             usuariosRepository.save(usuario);
 
@@ -124,7 +124,7 @@ public class AuthService {
                 usuariosRepository.save(usuario);
             }
 
-            if (!usuario.getActivo()) {
+            if (!usuario.getEstado()) {
                 throw new RuntimeException("La cuenta está desactivada");
             }
         }

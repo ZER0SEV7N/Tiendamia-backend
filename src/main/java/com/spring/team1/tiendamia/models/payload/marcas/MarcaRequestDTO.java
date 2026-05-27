@@ -39,5 +39,5 @@ public class MarcaRequestDTO {
     private Boolean destacada = false;
 
     @NotNull(message = "El estado activo es obligatorio")
-    private Boolean activo = true;
+    private Boolean estado = true;
 }
