@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 @Data
 public class Usuarios {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

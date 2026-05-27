@@ -1,0 +1,18 @@
+api/auth/register
+
+{
+  "nombres":"Jack Daniel",
+  "apellidos":"Leandro Hernandez",
+  "correo":"admin@example.com",
+  "password":"admin123",
+  "telefono":"941044276"
+}
+
+api/auth/login
+
+{
+  "correo":"admin@example.com",
+  "password":"admin123"
+}
+
+
