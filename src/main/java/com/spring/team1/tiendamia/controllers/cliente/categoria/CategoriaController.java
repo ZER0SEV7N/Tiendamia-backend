@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.cliente;
+package com.spring.team1.tiendamia.controllers.cliente.categoria;
 
 import java.util.List;
 
