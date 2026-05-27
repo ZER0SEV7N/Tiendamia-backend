@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.carrito;
+package com.spring.team1.tiendamia.controllers.cliente.carrito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.categoria;
+package com.spring.team1.tiendamia.controllers.admin.categoria;
 
 import java.util.List;
 
@@ -24,18 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/admin/categorias")
-public class CategoriaController {
+public class AdminCategoriaController {
     @Autowired private CategoriaService categoriaService;
-
-    @GetMapping("/")
-    public ResponseEntity<response<List<CategoriaResponse>>> allCategorias() {
-        try {
-            List<CategoriaResponse> categorias = categoriaService.getAllCategorias();
-            return ResponseEntity.ok(new response<>(true, "Categorías obtenidas correctamente", categorias));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías: " + e.getMessage(), null));
-        }
-    }
 
     @GetMapping("/list/padres")
     public ResponseEntity<response<List<ListCategorias>>> allCategoriasPadre() {
