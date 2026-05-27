@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.models.productos.Marcas;
 
 @Repository
-public interface MarcaRepository extends JpaRepository<Marcas, Long> {
+public interface MarcaRepository extends JpaRepository<Marcas, Integer> {
     boolean existsByNombreIgnoreCase(String nombre);
 }

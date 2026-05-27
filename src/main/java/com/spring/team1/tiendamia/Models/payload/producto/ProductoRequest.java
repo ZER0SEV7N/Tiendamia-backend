@@ -23,8 +23,8 @@ public class ProductoRequest {
         message = "La imagen del producto debe ser una extensión válida (jpg, jpeg, png, webp, svg)"
     )
     private String imagenUrl;
-    private Long categoriaId;
-    private Long marcaId;
+    private Integer categoriaId;
+    private Integer marcaId;
     private List<VariacionInicialRequest> variaciones; // Lista de variaciones iniciales para el producto
 
     @Data

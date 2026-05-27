@@ -19,7 +19,7 @@ public class MarcaService {
         return marcaRepository.findAll();
     }
 
-    public Marcas getMarcaById(Long id) {
+    public Marcas getMarcaById(Integer id) {
         return marcaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
     }
@@ -53,7 +53,7 @@ public class MarcaService {
         return "Marca creada correctamente";
     }
 
-    public String updateMarca(Long id, MarcaRequestDTO dto) {
+    public String updateMarca(Integer id, MarcaRequestDTO dto) {
         Marcas marca = marcaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
 

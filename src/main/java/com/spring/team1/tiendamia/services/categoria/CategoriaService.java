@@ -62,7 +62,7 @@ public class CategoriaService {
         }).toList();
     }
 
-    public Categorias getCategoriaById(Long id) {
+    public Categorias getCategoriaById(Integer id) {
         return categoriaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
     }
@@ -85,7 +85,7 @@ public class CategoriaService {
         return "Categoría creada correctamente";
     }
 
-    public String updateCategoria(Long id, CategoriaRequestDTO dto) {
+    public String updateCategoria(Integer id, CategoriaRequestDTO dto) {
         Categorias categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 

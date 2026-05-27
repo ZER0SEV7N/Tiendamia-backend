@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers;
+package com.spring.team1.tiendamia.controllers.marca;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class MarcaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<response<Marcas>> getById(@PathVariable Long id) {
+    public ResponseEntity<response<Marcas>> getById(@PathVariable Integer id) {
         try {
             Marcas marca = marcaService.getMarcaById(id);
             return ResponseEntity.ok(new response<>(true, "Marca obtenida correctamente", marca));
@@ -67,7 +67,7 @@ public class MarcaController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<response<String>> update(@PathVariable Long id, @Valid @RequestBody MarcaRequestDTO dto) {
+    public ResponseEntity<response<String>> update(@PathVariable Integer id, @Valid @RequestBody MarcaRequestDTO dto) {
         try {
             String mensaje = marcaService.updateMarca(id, dto);
             return ResponseEntity.ok(new response<>(true, mensaje, null));

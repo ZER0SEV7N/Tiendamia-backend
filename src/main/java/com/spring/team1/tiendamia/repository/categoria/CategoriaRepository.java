@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.models.productos.Categorias;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categorias, Long> {
+public interface CategoriaRepository extends JpaRepository<Categorias, Integer> {
     boolean existsByNombreIgnoreCase(String nombre);
 
     List<Categorias> findByCategoriaPadreIsNull(); 

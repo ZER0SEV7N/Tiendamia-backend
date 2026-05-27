@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.models.productos.Atributos;
 
 @Repository
-public interface AtributosRepository extends JpaRepository<Atributos, Long> {
+public interface AtributosRepository extends JpaRepository<Atributos, Integer> {
     Optional<Atributos> findByNombreIgnoreCase(String nombre);
 }

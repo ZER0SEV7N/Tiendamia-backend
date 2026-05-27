@@ -9,5 +9,5 @@ public class CategoriaRequestDTO {
     private String nombre;
     @NotBlank(message = "El slug de la categoría es obligatorio")
     private String slug;
-    private Long id_categoria_padre = null;
+    private Integer id_categoria_padre = null;
 }

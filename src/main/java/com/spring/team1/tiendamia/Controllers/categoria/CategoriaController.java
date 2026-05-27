@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers;
+package com.spring.team1.tiendamia.controllers.categoria;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<response<Categorias>> getCategoriaById(@PathVariable Long id) {
+    public ResponseEntity<response<Categorias>> getCategoriaById(@PathVariable Integer id) {
         try {
             Categorias categoria = categoriaService.getCategoriaById(id);
             return ResponseEntity.ok(new response<>(true, "Categoría obtenida correctamente", categoria));
@@ -80,7 +80,7 @@ public class CategoriaController {
     }
     
     @PostMapping("/update/{id}")
-    public ResponseEntity<response<String>> updateCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaRequestDTO dto) {
+    public ResponseEntity<response<String>> updateCategoria(@PathVariable Integer id, @Valid @RequestBody CategoriaRequestDTO dto) {
         try {
             String message = categoriaService.updateCategoria(id, dto);
             return ResponseEntity.ok(new response<>(true, message, null));

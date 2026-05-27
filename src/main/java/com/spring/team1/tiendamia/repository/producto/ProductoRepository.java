@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.models.productos.Productos;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Productos, Long> {
+public interface ProductoRepository extends JpaRepository<Productos, Integer> {
     Optional<Productos> findByIdAndActivoTrue(Long id);
 
     List<Productos> findAllByActivoTrue();

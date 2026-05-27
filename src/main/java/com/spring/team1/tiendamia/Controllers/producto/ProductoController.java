@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers;
+package com.spring.team1.tiendamia.controllers.producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

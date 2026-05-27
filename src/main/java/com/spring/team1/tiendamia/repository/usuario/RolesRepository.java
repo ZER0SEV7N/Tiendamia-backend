@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.spring.team1.tiendamia.models.usuario.Roles;
 
 @Repository
-public interface RolesRepository extends JpaRepository<Roles, Long> {
+public interface RolesRepository extends JpaRepository<Roles, Integer> {
     Optional<Roles> findByNombre(String nombre);
 }
