@@ -1,12 +1,13 @@
-package com.spring.team1.tiendamia.Controllers.ordenes;
+package com.spring.team1.tiendamia.controllers.ordenes;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.team1.tiendamia.Models.Ordenes.Ordenes;
-import com.spring.team1.tiendamia.Models.Ordenes.DTO.CheckoutRequest;
-import com.spring.team1.tiendamia.Models.payload.response;
+import com.spring.team1.tiendamia.models.ordenes.Ordenes;
+import com.spring.team1.tiendamia.models.ordenes.DTO.CheckoutRequest;
+
 import com.spring.team1.tiendamia.services.ordenes.OrdenesServices;
+import com.spring.team1.tiendamia.util.response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

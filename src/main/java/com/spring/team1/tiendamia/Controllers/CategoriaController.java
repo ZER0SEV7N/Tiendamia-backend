@@ -9,20 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
 import com.spring.team1.tiendamia.models.payload.categoria.CategoriaRequestDTO;
 import com.spring.team1.tiendamia.models.payload.categoria.CategoriaResponse;
 import com.spring.team1.tiendamia.models.payload.categoria.ListCategorias;
 import com.spring.team1.tiendamia.models.productos.Categorias;
-=======
-import com.spring.team1.tiendamia.Models.payload.response;
-import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaRequestDTO;
-import com.spring.team1.tiendamia.Models.payload.categoria.CategoriaResponse;
-import com.spring.team1.tiendamia.Models.payload.categoria.ListCategorias;
-import com.spring.team1.tiendamia.Models.productos.Categorias;
->>>>>>> origin/daniel
 import com.spring.team1.tiendamia.services.categoria.CategoriaService;
-import com.spring.team1.tiendamia.util.ResponseApi;
+import com.spring.team1.tiendamia.util.response;
 
 import jakarta.validation.Valid;
 

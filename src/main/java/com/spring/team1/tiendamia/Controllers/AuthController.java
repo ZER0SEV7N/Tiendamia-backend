@@ -11,25 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
 import com.spring.team1.tiendamia.models.payload.AuthResponse;
 import com.spring.team1.tiendamia.models.payload.CambiarPasswordRequest;
 import com.spring.team1.tiendamia.models.payload.LoginRequest;
 import com.spring.team1.tiendamia.models.payload.RegisterRequest;
 import com.spring.team1.tiendamia.models.payload.SolicitarRecuperacionRequest;
-import com.spring.team1.tiendamia.services.AuthService;
-import com.spring.team1.tiendamia.services.RecuperacionService;
-=======
-import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
-import com.spring.team1.tiendamia.Models.payload.AuthResponse;
-import com.spring.team1.tiendamia.Models.payload.CambiarPasswordRequest;
-import com.spring.team1.tiendamia.Models.payload.LoginRequest;
-import com.spring.team1.tiendamia.Models.payload.RegisterRequest;
-import com.spring.team1.tiendamia.Models.payload.SolicitarRecuperacionRequest;
-import com.spring.team1.tiendamia.Models.payload.response;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.services.usuario.AuthService;
 import com.spring.team1.tiendamia.services.usuario.RecuperacionService;
->>>>>>> origin/daniel
+import com.spring.team1.tiendamia.util.response;
 
 import org.springframework.web.bind.annotation.GetMapping;
 

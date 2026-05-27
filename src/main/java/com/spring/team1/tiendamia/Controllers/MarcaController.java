@@ -7,18 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
 import com.spring.team1.tiendamia.models.payload.marcas.MarcaRequestDTO;
 import com.spring.team1.tiendamia.models.payload.marcas.MarcasDTO;
 import com.spring.team1.tiendamia.models.productos.Marcas;
-=======
-import com.spring.team1.tiendamia.Models.payload.response;
-import com.spring.team1.tiendamia.Models.payload.marcas.MarcaRequestDTO;
-import com.spring.team1.tiendamia.Models.payload.marcas.MarcasDTO;
-import com.spring.team1.tiendamia.Models.productos.Marcas;
->>>>>>> origin/daniel
 import com.spring.team1.tiendamia.services.marca.MarcaService;
-import com.spring.team1.tiendamia.util.ResponseApi;
+import com.spring.team1.tiendamia.util.response;
 
 import jakarta.validation.Valid;
 
@@ -52,7 +45,7 @@ public class MarcaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<response<Marcas>> getById(@PathVariable Integer id) {
+    public ResponseEntity<response<Marcas>> getById(@PathVariable Long id) {
         try {
             Marcas marca = marcaService.getMarcaById(id);
             return ResponseEntity.ok(new response<>(true, "Marca obtenida correctamente", marca));
@@ -74,7 +67,7 @@ public class MarcaController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<response<String>> update(@PathVariable Integer id, @Valid @RequestBody MarcaRequestDTO dto) {
+    public ResponseEntity<response<String>> update(@PathVariable Long id, @Valid @RequestBody MarcaRequestDTO dto) {
         try {
             String mensaje = marcaService.updateMarca(id, dto);
             return ResponseEntity.ok(new response<>(true, mensaje, null));
