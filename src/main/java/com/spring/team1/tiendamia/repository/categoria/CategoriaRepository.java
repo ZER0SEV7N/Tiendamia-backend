@@ -19,4 +19,5 @@ public interface CategoriaRepository extends JpaRepository<Categorias, Integer> 
 
     @Query("SELECT c FROM Categorias c WHERE c.categoriaPadre IS NOT NULL AND c.categoriaPadre.categoriaPadre IS NOT NULL")
     List<Categorias> findCategoriasNietasPuras();
+
 }

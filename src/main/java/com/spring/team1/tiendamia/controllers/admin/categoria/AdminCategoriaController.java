@@ -27,6 +27,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AdminCategoriaController {
     @Autowired private CategoriaService categoriaService;
 
+    @GetMapping("/")
+    public ResponseEntity<response<List<CategoriaResponse>>> allCategorias() {
+        try {
+            List<CategoriaResponse> categorias = categoriaService.getAllCategorias();
+            return ResponseEntity.ok(new response<>(true, "Categorías obtenidas correctamente", categorias));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías: " + e.getMessage(), null));
+        }
+    }
+
     @GetMapping("/list/padres")
     public ResponseEntity<response<List<ListCategorias>>> allCategoriasPadre() {
         try {
@@ -44,6 +54,16 @@ public class AdminCategoriaController {
             return ResponseEntity.ok(new response<>(true, "Categorías hija obtenidas correctamente", categorias));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías hija: " + e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/list/nietas")
+    public ResponseEntity<response<List<ListCategorias>>> allCategoriasNieta() {
+        try {
+            List<ListCategorias> categorias = categoriaService.getAllCategoriasNietas();
+            return ResponseEntity.ok(new response<>(true, "Categorías nieta obtenidas correctamente", categorias));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías nieta: " + e.getMessage(), null));
         }
     }
 
