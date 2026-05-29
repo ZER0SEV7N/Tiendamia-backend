@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.admin.marca;
+package com.spring.team1.tiendamia.Controllers.admin.marca;
 
 import java.util.List;
 
