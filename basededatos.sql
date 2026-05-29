@@ -21,8 +21,8 @@ create table marca (
     id int auto_increment primary key,
     nombre char(100) unique,
     slug char(100) unique,
-    imagen_logo char(255) null,
-    imagen_banner char(255) null,
+    imagen_logo varchar(255) null,
+    imagen_banner varchar(255) null,
     descripcion text null,
     destacada boolean default false,
     estado boolean default true,
@@ -36,7 +36,7 @@ create table producto (
     id_Marca int,
     nombre char(150) not null,
     slug char(150) unique,
-    imagen_url char(255) not null,
+    imagen_url varchar(255) not null,
     descripcion text,
     estado boolean default true,
     foreign key (id_Categoria) references categoria(id) on delete set null,
@@ -63,8 +63,8 @@ create table variaciones_producto (
     id_Producto int,
     codigo_inventario varchar(100) unique, 
     precio decimal(10, 2) not null,
-    imagen_url char(255) not null,
-    stock int not null default 0,
+    imagen_url varchar(255) not null,
+    stock int default 0,
     foreign key (id_Producto) references producto(id) on delete cascade
 );
 
@@ -120,8 +120,8 @@ create table direcciones_usuario (
     id int auto_increment primary key,
     id_Usuario int,
     id_Distrito int not null,
-    direccion char(255) not null,
-    referencia char(255) not null,
+    direccion varchar(255) not null,
+    referencia varchar(255) not null,
     es_principal boolean default false,
     createAt timestamp default current_timestamp,
     updateAt timestamp default current_timestamp on update current_timestamp,
@@ -133,7 +133,7 @@ create table direcciones_usuario (
 create table marcas_tarjeta (
     id int auto_increment primary key,
     nombre char(50) unique,
-    logo_url char(255) null,
+    logo_url varchar(255) null,
     createAt timestamp default current_timestamp
 );
 
@@ -142,10 +142,11 @@ create table metodos_pago (
     id int auto_increment primary key,
     id_Usuario int,
     pasarela char(50) not null,
-    customer_token char(255) not null,
+    customer_token varchar(255) not null,
     ultimos_cuatro char(4) not null,
     id_Marca_Tarjeta int,
     createAt timestamp default current_timestamp,
+    updateAt timestamp default current_timestamp on update current_timestamp,
     foreign key (id_Usuario) references usuario(id) on delete cascade,
     foreign key (id_Marca_Tarjeta) references marcas_tarjeta(id) on delete restrict
 );
@@ -154,9 +155,9 @@ create table metodos_pago (
 create table carrito (
     id int auto_increment primary key,
     id_Usuario int,
-    tarifa decimal(10, 2) not null default 0.00,
-    envio decimal(10, 2) not null default 0.00,
-    total decimal(10, 2) not null default 0.00,
+    tarifa decimal(10, 2),
+    envio decimal(10, 2),
+    total decimal(10, 2),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp on update current_timestamp,
     foreign key (id_Usuario) references usuario(id) on delete cascade
@@ -167,8 +168,8 @@ create table carrito_detalle (
     id int auto_increment primary key,
     id_Carrito int,
     id_Variacion int,
-    cantidad int not null default 1,
-    precio decimal(10, 2) not null,
+    cantidad int default 1,
+    precio decimal(10, 2),
     foreign key (id_Carrito) references carrito(id) on delete cascade,
     foreign key (id_Variacion) references variaciones_producto(id) on delete cascade
 );
@@ -179,7 +180,7 @@ create table orden (
     id_Usuario int,
     id_Direccion int,
     total decimal(10, 2) not null,
-    estado char(50) default 'pendiente',
+    estado enum('pendiente', 'confirmada', 'enviada', 'entregada', 'cancelada') default 'pendiente',
     id_transaccion_pasarela char(255) null,
     createAt timestamp default current_timestamp,
     foreign key (id_Usuario) references usuario(id) on delete set null,
