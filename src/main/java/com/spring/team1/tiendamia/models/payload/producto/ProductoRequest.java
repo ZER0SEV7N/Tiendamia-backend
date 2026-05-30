@@ -18,10 +18,6 @@ public class ProductoRequest {
     private String slug;
     @NotBlank(message = "La descripción del producto es obligatoria")
     private String descripcion;
-    @Pattern(
-        regexp = "^$|.*\\.(jpg|jpeg|png|webp|svg)$", 
-        message = "La imagen del producto debe ser una extensión válida (jpg, jpeg, png, webp, svg)"
-    )
     private String imagenUrl;
     private Integer categoriaId;
     private Integer marcaId;
@@ -32,10 +28,6 @@ public class ProductoRequest {
         private String codigoInventario;
         private Double precio;
         private Integer stock;
-        @Pattern(
-            regexp = "^$|.*\\.(jpg|jpeg|png|webp|svg)$", 
-            message = "La imagen de la variación debe ser una extensión válida (jpg, jpeg, png, webp, svg)"
-        )
         private String imagenUrl;
         private List<CaracteristicaRequest> caracteristicas; // Lista de características para esta variación (ej: Color: Rojo, Almacenamiento: 128GB)
     }
