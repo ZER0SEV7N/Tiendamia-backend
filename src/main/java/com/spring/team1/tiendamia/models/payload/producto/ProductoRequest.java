@@ -3,7 +3,6 @@ package com.spring.team1.tiendamia.models.payload.producto;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -11,10 +10,6 @@ public class ProductoRequest {
     @NotBlank(message = "El nombre del producto es obligatorio")
     private String nombre;
     @NotBlank(message = "El slug es obligatorio")
-    @Pattern(
-        regexp = "^[a-z0-9-]+$", 
-        message = "El slug solo debe contener letras minúsculas, números y guiones (ej: mi-marca-123)"
-    )
     private String slug;
     @NotBlank(message = "La descripción del producto es obligatoria")
     private String descripcion;

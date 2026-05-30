@@ -24,7 +24,7 @@ public class AdminProductoController {
     @Autowired ProductoService productoService;
 
     @PostMapping("/create")
-    public ResponseEntity<response<String>> crearProducto(@Valid@RequestBody ProductoRequest dto ) {
+    public ResponseEntity<response<String>> crearProducto(@Valid @RequestBody ProductoRequest dto ) {
         try {
             String mensaje = productoService.crearProductoConVariacion(dto);
             return ResponseEntity.ok(new response<>(true, mensaje, null));
