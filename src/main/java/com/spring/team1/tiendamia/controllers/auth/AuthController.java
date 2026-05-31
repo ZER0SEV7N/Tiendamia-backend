@@ -21,6 +21,8 @@ import com.spring.team1.tiendamia.services.usuario.AuthService;
 import com.spring.team1.tiendamia.services.usuario.RecuperacionService;
 import com.spring.team1.tiendamia.util.response;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -36,7 +38,7 @@ public class AuthController {
     // ─── POST /api/auth/login
     // ─────────────────────────────────────────────────────────
     @PostMapping("/login")
-    public ResponseEntity<response<AuthResponse>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<response<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(new response<>(true, "Inicio de sesión exitoso", response));
     }
@@ -44,7 +46,7 @@ public class AuthController {
     // ─── POST /api/auth/register
     // ──────────────────────────────────────────────────────
     @PostMapping("/register")
-    public ResponseEntity<response<AuthResponse>> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<response<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
         AuthResponse response = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new response<>(true, "Registro exitoso", response));
     }
