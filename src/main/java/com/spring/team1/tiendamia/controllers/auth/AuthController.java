@@ -56,17 +56,12 @@ public class AuthController {
     // ────────────────────────────────────────────────────────
     @PostMapping("/google")
     public ResponseEntity<response<AuthResponse>> loginConGoogle(@RequestBody Map<String, String> body) {
+        String idToken = body.get("idToken");
+
+        if (idToken == null || idToken.trim().isEmpty()) 
+            throw new RuntimeException("El token de Google es obligatorio");
         
-        String googleId = body.get("googleId");
-        String correo = body.get("correo");
-        String nombres = body.get("nombres");
-
-        if (googleId == null || correo == null || nombres == null) {
-            return ResponseEntity.badRequest()
-                    .body(new response<>(false, "Faltan campos requeridos: googleId, correo, nombres", null));
-        }
-
-        AuthResponse response = authService.loginConGoogle(googleId, correo, nombres);
+        AuthResponse response = authService.loginConGoogle(idToken); 
         return ResponseEntity.ok(new response<>(true, "Inicio de sesión con Google exitoso", response));
     }
 

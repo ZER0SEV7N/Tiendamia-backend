@@ -181,7 +181,7 @@ create table orden (
     id_Direccion int,
     total decimal(10, 2) not null,
     estado enum('pendiente', 'confirmada', 'enviada', 'entregada', 'cancelada') default 'pendiente',
-    id_transaccion_pasarela char(255) null,
+    id_transaccion_pasarela varchar(255) null,
     createAt timestamp default current_timestamp,
     foreign key (id_Usuario) references usuario(id) on delete set null,
     foreign key (id_Direccion) references direcciones_usuario(id) on delete restrict

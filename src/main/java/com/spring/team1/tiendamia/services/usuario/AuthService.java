@@ -6,12 +6,18 @@ import org.springframework.stereotype.Service;
 
 import com.spring.team1.tiendamia.models.usuario.Roles;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.spring.team1.tiendamia.models.payload.auth.AuthResponse;
 import com.spring.team1.tiendamia.models.payload.auth.LoginRequest;
 import com.spring.team1.tiendamia.models.payload.auth.RegisterRequest;
 import com.spring.team1.tiendamia.repository.usuario.RolesRepository;
 import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
 import com.spring.team1.tiendamia.services.jwtServices;
+
+import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -97,46 +103,69 @@ public class AuthService {
     // ─── LOGIN / REGISTRO CON GOOGLE ─────────────────────────────────────────────
     // El frontend verifica el token con Google y nos manda: googleId, correo,
     // nombres
-    public AuthResponse loginConGoogle(String googleId, String correo, String nombres) {
+    public AuthResponse loginConGoogle(String idTokenString) {
+        try {
+            //Verificar el token con Google
+            String clientId = "614554963628-o7k5bf9vnqlmpv11jcbqksm7vvbk4t3e.apps.googleusercontent.com";
 
-        // Obtener el rol USER por defecto
-        Roles rolUser = rolesRepository.findByNombre("USER")
-                .orElseThrow(() -> new RuntimeException("Rol USER no encontrado."));
+            //El GoogleIdTokenVerifier se encarga de verificar la firma del token y que no haya sido modificado
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+                    new NetHttpTransport(), new GsonFactory())
+                    .setAudience(Collections.singletonList(clientId))
+                    .build();
+            
+            GoogleIdToken idToken = verifier.verify(idTokenString);
 
-        // Buscar si ya existe el usuario por correo
-        Usuarios usuario = usuariosRepository.findByCorreo(correo).orElse(null);
+            if(idToken == null) 
+                throw new RuntimeException("Token de Google no válido");
+            
+            //Extraer la información del token
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            String correo = payload.getEmail();
+            String nombres = (String) payload.get("name");
+            String googleId = payload.getSubject();
 
-        if (usuario == null) {
-            // Primera vez que entra con Google - se registra automaticamente
-            usuario = new Usuarios();
-            usuario.setNombres(nombres);
-            usuario.setCorreo(correo);
-            usuario.setGoogleId(googleId);
-            usuario.setRol(rolUser);
-            usuario.setEstado(true);
-            // Sin password porque usa Google para autenticarse
-            usuariosRepository.save(usuario);
+            Roles rolUser = rolesRepository.findByNombre("USER")
+                    .orElseThrow(() -> new RuntimeException("Rol USER no encontrado."));
 
-        } else {
-            // Ya existe - si no tenia googleId lo vinculamos a su cuenta
-            if (usuario.getGoogleId() == null) {
+            Usuarios usuario = usuariosRepository.findByCorreo(correo).orElse(null);
+
+            //Si el usuario no existía, lo creamos automáticamente con la info de Google
+            if (usuario == null) {
+                usuario = new Usuarios();
+                usuario.setNombres(nombres);
+                usuario.setCorreo(correo);
                 usuario.setGoogleId(googleId);
+                usuario.setRol(rolUser);
+                usuario.setEstado(true);
                 usuariosRepository.save(usuario);
+            } else {
+                //Regla de negocio: Si el usuario ya existía pero es ADMIN, no permitimos login con Google
+                if ("ADMIN".equalsIgnoreCase(usuario.getRol().getNombre())) 
+                    throw new RuntimeException("Acceso denegado: Las cuentas administrativas deben usar credenciales corporativas.");
+                
+                if (!usuario.getEstado()) 
+                    throw new RuntimeException("La cuenta está desactivada");
+                
+                //Vincular cuenta de Google si ya existía el correo pero no el GoogleId
+                if (usuario.getGoogleId() == null) {
+                    usuario.setGoogleId(googleId);
+                    usuariosRepository.save(usuario);
+                }
             }
 
-            if (!usuario.getEstado()) {
-                throw new RuntimeException("La cuenta está desactivada");
-            }
+            String token = jwtService.generarToken(usuario.getCorreo());
+
+            return new AuthResponse(
+                    token,
+                    usuario.getCorreo(),
+                    usuario.getNombres(),
+                    usuario.getRol().getNombre());
+
+        } catch (Exception e) {
+            //Captura errores de red con Google o el RuntimeException que lanzamos arriba
+            throw new RuntimeException(e.getMessage());
         }
-
-        // Generar token JWT
-        String token = jwtService.generarToken(usuario.getCorreo());
-
-        return new AuthResponse(
-                token,
-                usuario.getCorreo(),
-                usuario.getNombres(),
-                usuario.getRol().getNombre());
     }
 
     public Usuarios obtenerUsuarioPorCorreo(String correo) {
