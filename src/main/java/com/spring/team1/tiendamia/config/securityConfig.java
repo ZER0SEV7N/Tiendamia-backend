@@ -51,6 +51,7 @@ public class securityConfig {
 
                         // Rutas exclusivas para los Clientes (Usuarios comunes)
                         .requestMatchers("/api/carrito/**").hasRole("USER")
+                        .requestMatchers("/api/wishlist/**").hasRole("USER")
 
                         // Cualquier otra petición requiere que al menos estés logueado
                         .anyRequest().authenticated())
