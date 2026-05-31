@@ -2,6 +2,9 @@ package com.spring.team1.tiendamia.models.productos;
 
 import java.util.List;
 
+import com.spring.team1.tiendamia.models.productos.carateristicas.Categorias;
+import com.spring.team1.tiendamia.models.productos.carateristicas.Marcas;
+
 import jakarta.persistence.*;
 import lombok.Data;
 

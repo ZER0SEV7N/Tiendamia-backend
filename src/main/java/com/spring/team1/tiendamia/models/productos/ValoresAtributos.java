@@ -1,5 +1,7 @@
 package com.spring.team1.tiendamia.models.productos;
 
+import com.spring.team1.tiendamia.models.productos.carateristicas.Atributos;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

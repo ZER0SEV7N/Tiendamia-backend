@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.spring.team1.tiendamia.models.usuario.Roles;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
-import com.spring.team1.tiendamia.models.payload.AuthResponse;
-import com.spring.team1.tiendamia.models.payload.LoginRequest;
-import com.spring.team1.tiendamia.models.payload.RegisterRequest;
+import com.spring.team1.tiendamia.models.payload.auth.AuthResponse;
+import com.spring.team1.tiendamia.models.payload.auth.LoginRequest;
+import com.spring.team1.tiendamia.models.payload.auth.RegisterRequest;
 import com.spring.team1.tiendamia.repository.usuario.RolesRepository;
 import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
 import com.spring.team1.tiendamia.services.jwtServices;

@@ -16,26 +16,21 @@ import com.spring.team1.tiendamia.util.response;
 @RestController
 @RequestMapping("/api/productos")
 public class ProductoController {
-    @Autowired ProductoService productoService;
     
+    @Autowired ProductoService productoService;
 
+    //Endpoint: GET /api/productos/ -> Lista de productos para mostrar en el catálogo
     @GetMapping("/")
     public ResponseEntity<response<List<ProductoList>>> obtenerProductosParaCatalogo() {
-        try {
             List<ProductoList> productos = productoService.obtenerProductosParaCatalogo();
             return ResponseEntity.ok(new response<>(true, "Productos obtenidos exitosamente", productos));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new response<>(false, "Error al obtener los productos: " + e.getMessage(), null));
-        }
     }
 
+    //Endpoint: GET /api/productos/detalle/{id} -> Detalle completo del producto para mostrar en la página de detalle
     @GetMapping("/detalle/{id}")
-    public ResponseEntity<response<?>> obtenerDetalleProducto(@PathVariable Integer id) {
-        try {
-            var detalle = productoService.obtenerProductoDetalle(id);
-            return ResponseEntity.ok(new response<>(true, "Detalle del producto obtenido exitosamente", detalle));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new response<>(false, "Error al obtener el detalle del producto: " + e.getMessage(), null));
-        }
+    public ResponseEntity<response<?>> obtenerDetalleProducto(@PathVariable Integer id) { 
+        var detalle = productoService.obtenerProductoDetalle(id);
+        return ResponseEntity.ok(new response<>(true, "Detalle del producto obtenido exitosamente", detalle));
+        
     }
 }
