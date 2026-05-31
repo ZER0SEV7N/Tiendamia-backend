@@ -1,5 +1,7 @@
 package com.spring.team1.tiendamia.models.productos;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +22,7 @@ public class VariacionesProducto {
     private Productos producto;
 
     @Column(name = "codigo_inventario")
-    private String codigo_inventario;
+    private String codigoInventario;
 
     @Column(name = "precio")
     private Double precio;
@@ -30,4 +32,7 @@ public class VariacionesProducto {
 
     @Column(name = "imagen_url")
     private String imagenUrl;
+
+    @OneToMany(mappedBy = "variacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<VariacionValores> variacionValores;
 }

@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.marca;
+package com.spring.team1.tiendamia.controllers.admin.marca;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("api/admin/marca")
-public class MarcaController {
+public class AdminMarcaController {
     @Autowired private MarcaService marcaService;
 
     @GetMapping("/")

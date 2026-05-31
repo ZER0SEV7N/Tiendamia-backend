@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.categoria;
+package com.spring.team1.tiendamia.controllers.admin.categoria;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/admin/categorias")
-public class CategoriaController {
+public class AdminCategoriaController {
     @Autowired private CategoriaService categoriaService;
 
     @GetMapping("/")
@@ -54,6 +54,16 @@ public class CategoriaController {
             return ResponseEntity.ok(new response<>(true, "Categorías hija obtenidas correctamente", categorias));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías hija: " + e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/list/nietas")
+    public ResponseEntity<response<List<ListCategorias>>> allCategoriasNieta() {
+        try {
+            List<ListCategorias> categorias = categoriaService.getAllCategoriasNietas();
+            return ResponseEntity.ok(new response<>(true, "Categorías nieta obtenidas correctamente", categorias));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías nieta: " + e.getMessage(), null));
         }
     }
 

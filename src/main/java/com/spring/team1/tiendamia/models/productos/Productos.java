@@ -1,5 +1,7 @@
 package com.spring.team1.tiendamia.models.productos;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,4 +25,7 @@ public class Productos {
     private String slug;
     private String descripcion;
     private Boolean estado = true;
+
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<VariacionesProducto> variaciones;
 }

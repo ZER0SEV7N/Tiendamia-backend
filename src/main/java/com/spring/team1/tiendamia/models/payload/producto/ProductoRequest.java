@@ -3,7 +3,6 @@ package com.spring.team1.tiendamia.models.payload.producto;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -11,17 +10,9 @@ public class ProductoRequest {
     @NotBlank(message = "El nombre del producto es obligatorio")
     private String nombre;
     @NotBlank(message = "El slug es obligatorio")
-    @Pattern(
-        regexp = "^[a-z0-9-]+$", 
-        message = "El slug solo debe contener letras minúsculas, números y guiones (ej: mi-marca-123)"
-    )
     private String slug;
     @NotBlank(message = "La descripción del producto es obligatoria")
     private String descripcion;
-    @Pattern(
-        regexp = "^$|.*\\.(jpg|jpeg|png|webp|svg)$", 
-        message = "La imagen del producto debe ser una extensión válida (jpg, jpeg, png, webp, svg)"
-    )
     private String imagenUrl;
     private Integer categoriaId;
     private Integer marcaId;
@@ -32,10 +23,6 @@ public class ProductoRequest {
         private String codigoInventario;
         private Double precio;
         private Integer stock;
-        @Pattern(
-            regexp = "^$|.*\\.(jpg|jpeg|png|webp|svg)$", 
-            message = "La imagen de la variación debe ser una extensión válida (jpg, jpeg, png, webp, svg)"
-        )
         private String imagenUrl;
         private List<CaracteristicaRequest> caracteristicas; // Lista de características para esta variación (ej: Color: Rojo, Almacenamiento: 128GB)
     }

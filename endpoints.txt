@@ -179,7 +179,76 @@ Nota: Lista de categorias hijas
 
 ENDPOINTS DE PRODUCTOS
 
-POST: http://localhost:8080/api/admin/categorias/create
+GET: http://localhost:8080/api/admin/productos/
+{
+  "success": true,
+  "mensaje": "Productos obtenidos exitosamente",
+  "data": [
+    {
+      "descripcion": "Zapatillas para runners de ultima tecnologia",
+      "estado": true,
+      "id": 1,
+      "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-5ks.webp",
+      "nombre": "Zapatillas Deportivas 5KS",
+      "nombreCategoria": "Zapatillas Deportivas",
+      "nombreMarca": "Nike",
+      "slug": "zapatilla-deportiva-5ks"
+    }
+  ]
+}
+
+GET: http://localhost:8080/api/admin/productos/detalle/1
+{
+  "success": true,
+  "mensaje": "Detalle del producto obtenido exitosamente",
+  "data": {
+    "descripcion": "Zapatillas para runners de ultima tecnologia",
+    "id": 1,
+    "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-5ks.webp",
+    "nombre": "Zapatillas Deportivas 5KS",
+    "nombreCategoria": "Zapatillas Deportivas",
+    "nombreMarca": "Nike",
+    "slug": "zapatilla-deportiva-5ks",
+    "variaciones": [
+      {
+        "caracteristicas": [
+          {
+            "atributo": "Color",
+            "valor": "Titanio Natural"
+          },
+          {
+            "atributo": "Almacenamiento",
+            "valor": "128GB"
+          }
+        ],
+        "codigoInventario": "NK-RUNNER-5KS-24DD",
+        "id": 1,
+        "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-focalisado-5ks.webp",
+        "precio": 299.9,
+        "stock": 15
+      },
+      {
+        "caracteristicas": [
+          {
+            "atributo": "Almacenamiento",
+            "valor": "128GB"
+          },
+          {
+            "atributo": "Color",
+            "valor": "Negro Espacial"
+          }
+        ],
+        "codigoInventario": "NK-RUNNER-5KS-25DD",
+        "id": 2,
+        "imagenUrl": "",
+        "precio": 299.9,
+        "stock": 10
+      }
+    ]
+  }
+}
+
+POST: http://localhost:8080/api/admin/productos/create
 {
   "nombre": "Zapatillas Deportivas 5KS",
   "slug": "zapatilla-deportiva-5ks",

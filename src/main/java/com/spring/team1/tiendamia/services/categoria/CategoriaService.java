@@ -62,6 +62,15 @@ public class CategoriaService {
         }).toList();
     }
 
+    public List<ListCategorias> getAllCategoriasNietas() {
+        return categoriaRepository.findCategoriasNietasPuras().stream().map(categoria -> {
+            ListCategorias dto = new ListCategorias();
+            dto.setId(categoria.getId());
+            dto.setNombre(categoria.getNombre());
+            return dto;
+        }).toList();
+    }
+
     public Categorias getCategoriaById(Integer id) {
         return categoriaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
