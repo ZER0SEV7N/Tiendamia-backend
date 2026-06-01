@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services.carrito;
+package com.spring.team1.tiendamia.services.carrito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,15 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.team1.tiendamia.Models.Carrito.Carrito;
-import com.spring.team1.tiendamia.Models.Carrito.CarritoDetalle;
-import com.spring.team1.tiendamia.Models.Carrito.DTO.CarritoResponse;
-import com.spring.team1.tiendamia.Models.productos.Variaciones_Producto;
-import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
-import com.spring.team1.tiendamia.Repository.carrito.CarritoDetalleRepository;
-import com.spring.team1.tiendamia.Repository.carrito.carritoRepository;
-import com.spring.team1.tiendamia.Repository.productos.VariacionesProductosRepository;
-import com.spring.team1.tiendamia.Repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.models.carrito.Carrito;
+import com.spring.team1.tiendamia.models.carrito.CarritoDetalle;
+import com.spring.team1.tiendamia.models.carrito.DTO.CarritoResponse;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
+import com.spring.team1.tiendamia.models.productos.VariacionesProducto;
+import com.spring.team1.tiendamia.repository.carrito.CarritoDetalleRepository;
+import com.spring.team1.tiendamia.repository.carrito.carritoRepository;
+import com.spring.team1.tiendamia.repository.producto.variaciones.VariacionProductoRepository;
+import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -26,7 +26,7 @@ public class CarritoService {
     private carritoRepository carritoRepository;
 
     @Autowired
-    private VariacionesProductosRepository variacionesRepository;
+    private VariacionProductoRepository variacionesRepository;
 
     @Autowired
     private CarritoDetalleRepository detalleRepository;
@@ -37,7 +37,7 @@ public class CarritoService {
     // Metodo para agregar un item al carrito
     @Transactional
     public CarritoDetalle agregarAlCarrito(Integer idUsuario, Integer idVariacion, Integer cantidad) {
-        Variaciones_Producto variante = variacionesRepository.findById(idVariacion).orElse(null);
+        VariacionesProducto variante = variacionesRepository.findById(idVariacion).orElse(null);
         if (variante == null || cantidad <= 0)
             return null;
 
@@ -106,7 +106,7 @@ public class CarritoService {
         if (item == null || nuevaCantidad <= 0)
             return null;
 
-        Variaciones_Producto variante = item.getVariacion();
+        VariacionesProducto variante = item.getVariacion();
 
         if (nuevaCantidad > variante.getStock())
             return null;

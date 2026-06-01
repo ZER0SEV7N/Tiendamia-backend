@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Services;
+package com.spring.team1.tiendamia.services;
 
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;

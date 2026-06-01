@@ -1,0 +1,293 @@
+ENDPOINTS DE AUTH
+
+POST: api/auth/register
+
+{
+  "nombres":"Jack Daniel",
+  "apellidos":"Leandro Hernandez",
+  "correo":"admin@example.com",
+  "password":"admin123",
+  "telefono":"941044276"
+}
+
+POST: api/auth/login
+
+{
+  "correo":"admin@example.com",
+  "password":"admin123"
+}
+
+ENDPOINTS DE MARCA
+
+POST: api/admin/marca/create
+{
+  "nombre": "Nike",
+  "slug": "nike-sportalemna-2026",
+  "imagen_logo": "https://supabase.co/storage/v1/object/public/productos-img/nike-logo.png",
+  "imagen_banner": "https://supabase.co/storage/v1/object/public/productos-img/nike-banner.webp",
+  "descripcion": "Marca líder en calzado, ropa y accesorios deportivos.",
+  "destacada": true,
+  "estado": true
+}
+
+POST: api/admin/marca/update/{id}
+NOTA: Se debe enviar el objeto completo para editar 
+{
+  "nombre": "Nike",
+  "slug": "nike-sport-2026",
+  "imagen_logo": "https://supabase.co/storage/v1/object/public/productos-img/nike-logo.png",
+  "imagen_banner": "https://supabase.co/storage/v1/object/public/productos-img/nike-banner.webp",
+  "descripcion": "Marca líder en calzado, ropa y accesorios deportivos.",
+  "destacada": true,
+  "estado": true
+}
+
+Obtener todas las marcas
+GET: http://localhost:8080/api/admin/marca/
+{
+  "success": true,
+  "mensaje": "Marcas obtenidas correctamente",
+  "data": [
+    {
+      "createAt": "2026-05-26T20:37:30",
+      "descripcion": "Marca líder en calzado, ropa y accesorios deportivos.",
+      "destacada": true,
+      "estado": true,
+      "id": 1,
+      "imagen_banner": "https://supabase.co/storage/v1/object/public/productos-img/nike-banner.webp",
+      "imagen_logo": "https://supabase.co/storage/v1/object/public/productos-img/nike-logo.png",
+      "nombre": "Nike",
+      "slug": "nike-sport-2026"
+    }
+  ]
+}
+
+Obtener una marca
+GET: http://localhost:8080/api/admin/marca/1
+{
+  "success": true,
+  "mensaje": "Marca obtenida correctamente",
+  "data": {
+    "createAt": "2026-05-26T20:37:30",
+    "descripcion": "Marca líder en calzado, ropa y accesorios deportivos.",
+    "destacada": true,
+    "estado": true,
+    "id": 1,
+    "imagen_banner": "https://supabase.co/storage/v1/object/public/productos-img/nike-banner.webp",
+    "imagen_logo": "https://supabase.co/storage/v1/object/public/productos-img/nike-logo.png",
+    "nombre": "Nike",
+    "slug": "nike-sport-2026"
+  }
+}
+
+Obtener la lista de marcas (Para facilitar el relleno de los selects en el FRONT)
+GET: http://localhost:8080/api/admin/marca/list
+{
+  "success": true,
+  "mensaje": "Marcas obtenidas correctamente",
+  "data": [
+    {
+      "id": 1,
+      "nombre": "Nike",
+      "slug": "nike-sport-2026"
+    }
+  ]
+}
+
+ENDPOINTS DE CATEGORIA (Padres, Hijas y Nietas) solo cuenta con esos tres niveles
+
+POST: http://localhost:8080/api/admin/categorias/create
+nota: Si agrega el id de un categoria se volveria hija de ella
+{
+  "nombre": "Tecnología",
+  "slug": "tecnologia",
+  "id_categoria_padre": null
+}
+
+POST: http://localhost:8080/api/admin/categorias/update/2
+{
+  "nombre": "Electrohogar",
+  "slug": "electro-hogar",
+  "id_categoria_padre": null
+}
+
+
+GET: http://localhost:8080/api/admin/categorias/
+{
+  "success": true,
+  "mensaje": "Categorías obtenidas correctamente",
+  "data": [
+    {
+      "id": 1,
+      "idCategoriaPadre": null,
+      "nombre": "Tecnología",
+      "slug": "tecnologia",
+      "subcategorias": null
+    },
+    {
+      "id": 2,
+      "idCategoriaPadre": null,
+      "nombre": "Electrohogar",
+      "slug": "electro-hogar",
+      "subcategorias": null
+    }
+  ]
+}
+
+GET: http://localhost:8080/api/admin/categorias/1
+{
+  "success": true,
+  "mensaje": "Categoría obtenida correctamente",
+  "data": {
+    "categoriaPadre": null,
+    "id": 1,
+    "nombre": "Tecnología",
+    "slug": "tecnologia",
+    "subcategorias": []
+  }
+}
+
+GET: http://localhost:8080/api/admin/categorias/list/padres
+Nota: Lista de las categorias padres
+{
+  "success": true,
+  "mensaje": "Categorías padre obtenidas correctamente",
+  "data": [
+    {
+      "id": 1,
+      "nombre": "Tecnología"
+    },
+    {
+      "id": 2,
+      "nombre": "Electrohogar"
+    }
+  ]
+}
+
+GET: http://localhost:8080/api/admin/categorias/list/hijas
+Nota: Lista de categorias hijas
+{
+  "success": true,
+  "mensaje": "Categorías hija obtenidas correctamente",
+  "data": [
+    {
+      "id": 3,
+      "nombre": "Electrodomesticos"
+    }
+  ]
+}
+
+ENDPOINTS DE PRODUCTOS
+
+GET: http://localhost:8080/api/admin/productos/
+{
+  "success": true,
+  "mensaje": "Productos obtenidos exitosamente",
+  "data": [
+    {
+      "descripcion": "Zapatillas para runners de ultima tecnologia",
+      "estado": true,
+      "id": 1,
+      "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-5ks.webp",
+      "nombre": "Zapatillas Deportivas 5KS",
+      "nombreCategoria": "Zapatillas Deportivas",
+      "nombreMarca": "Nike",
+      "slug": "zapatilla-deportiva-5ks"
+    }
+  ]
+}
+
+GET: http://localhost:8080/api/admin/productos/detalle/1
+{
+  "success": true,
+  "mensaje": "Detalle del producto obtenido exitosamente",
+  "data": {
+    "descripcion": "Zapatillas para runners de ultima tecnologia",
+    "id": 1,
+    "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-5ks.webp",
+    "nombre": "Zapatillas Deportivas 5KS",
+    "nombreCategoria": "Zapatillas Deportivas",
+    "nombreMarca": "Nike",
+    "slug": "zapatilla-deportiva-5ks",
+    "variaciones": [
+      {
+        "caracteristicas": [
+          {
+            "atributo": "Color",
+            "valor": "Titanio Natural"
+          },
+          {
+            "atributo": "Almacenamiento",
+            "valor": "128GB"
+          }
+        ],
+        "codigoInventario": "NK-RUNNER-5KS-24DD",
+        "id": 1,
+        "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-focalisado-5ks.webp",
+        "precio": 299.9,
+        "stock": 15
+      },
+      {
+        "caracteristicas": [
+          {
+            "atributo": "Almacenamiento",
+            "valor": "128GB"
+          },
+          {
+            "atributo": "Color",
+            "valor": "Negro Espacial"
+          }
+        ],
+        "codigoInventario": "NK-RUNNER-5KS-25DD",
+        "id": 2,
+        "imagenUrl": "",
+        "precio": 299.9,
+        "stock": 10
+      }
+    ]
+  }
+}
+
+POST: http://localhost:8080/api/admin/productos/create
+{
+  "nombre": "Zapatillas Deportivas 5KS",
+  "slug": "zapatilla-deportiva-5ks",
+  "descripcion": "Zapatillas para runners de ultima tecnologia",
+  "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-5ks.webp",
+  "categoriaId": 7,
+  "marcaId": 1,
+  "variaciones": [
+    {
+      "codigoInventario": "NK-RUNNER-5KS-24DD",
+      "precio": 299.90,
+      "stock": 15,
+      "imagenUrl": "https://supabase.co/storage/v1/object/public/productos-img/zapatillas-runner-focalisado-5ks.webp",
+      "caracteristicas": [
+        {
+          "atributoNombre": "Color",
+          "valorTexto": "Titanio Natural"
+        },
+        {
+          "atributoNombre": "Almacenamiento",
+          "valorTexto": "128GB"
+        }
+      ]
+    },
+    {
+      "codigoInventario": "NK-RUNNER-5KS-25DD",
+      "precio": 299.90,
+      "stock": 10,
+      "imagenUrl": "",
+      "caracteristicas": [
+        {
+          "atributoNombre": "Color",
+          "valorTexto": "Negro Espacial"
+        },
+        {
+          "atributoNombre": "Almacenamiento",
+          "valorTexto": "128GB"
+        }
+      ]
+    }
+  ]
+}

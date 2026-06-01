@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Config;
+package com.spring.team1.tiendamia.config;
 
 import java.util.Arrays;
 
@@ -38,8 +38,9 @@ public class securityConfig {
                 // CONTROL DE ACCESO A LAS RUTAS
                 .authorizeHttpRequests(auth -> auth
                         // Rutas públicas de Tiendamia (Login, Registro y ver productos)
-                        .requestMatchers("/auth/**", "/error").permitAll()
+                        .requestMatchers("/api/auth/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
 
                         // Rutas exclusivas para el Administrador (Mantenimiento total de productos)
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -50,6 +51,7 @@ public class securityConfig {
 
                         // Rutas exclusivas para los Clientes (Usuarios comunes)
                         .requestMatchers("/api/carrito/**").hasRole("USER")
+                        .requestMatchers("/api/wishlist/**").hasRole("USER")
 
                         // Cualquier otra petición requiere que al menos estés logueado
                         .anyRequest().authenticated())
