@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.team1.tiendamia.models.payload.producto.ProductoList;
 import com.spring.team1.tiendamia.services.producto.ProductoService;
 import com.spring.team1.tiendamia.util.response;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/api/productos")
@@ -30,7 +32,7 @@ public class ProductoController {
     @GetMapping("/detalle/{id}")
     public ResponseEntity<response<?>> obtenerDetalleProducto(@PathVariable Integer id) { 
         var detalle = productoService.obtenerProductoDetalle(id);
-        return ResponseEntity.ok(new response<>(true, "Detalle del producto obtenido exitosamente", detalle));
-        
+        return ResponseEntity.ok(new response<>(true, "Detalle del producto obtenido exitosamente", detalle));   
     }
+
 }
