@@ -12,5 +12,7 @@ import com.spring.team1.tiendamia.models.productos.Productos;
 public interface ProductoRepository extends JpaRepository<Productos, Integer> {
     Optional<Productos> findByIdAndEstadoTrue(Long id);
 
+    Optional<Productos> findBySlug(String slug);
+
     List<Productos> findAllByEstadoTrue();
 }

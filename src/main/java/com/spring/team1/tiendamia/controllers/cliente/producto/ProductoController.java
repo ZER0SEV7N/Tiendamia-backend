@@ -9,18 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.team1.tiendamia.models.payload.producto.ProductoDetalleDTO;
 import com.spring.team1.tiendamia.models.payload.producto.ProductoList;
 import com.spring.team1.tiendamia.services.producto.ProductoService;
 import com.spring.team1.tiendamia.util.response;
-import org.springframework.web.bind.annotation.PutMapping;
-
 
 @RestController
 @RequestMapping("/api/productos")
 public class ProductoController {
     
     @Autowired ProductoService productoService;
-
     //Endpoint: GET /api/productos/ -> Lista de productos para mostrar en el catálogo
     @GetMapping("/")
     public ResponseEntity<response<List<ProductoList>>> obtenerProductosParaCatalogo() {
@@ -33,6 +31,13 @@ public class ProductoController {
     public ResponseEntity<response<?>> obtenerDetalleProducto(@PathVariable Integer id) { 
         var detalle = productoService.obtenerProductoDetalle(id);
         return ResponseEntity.ok(new response<>(true, "Detalle del producto obtenido exitosamente", detalle));   
+    }
+
+    //Endpoint: GET /api/productos/slug/{slug} -> Detalle completo del producto usando el slug
+    @GetMapping("/slug/{slug}")
+    public ResponseEntity<response<ProductoDetalleDTO>> obtenerDetalleProductoPorSlug(@PathVariable String slug) {
+        ProductoDetalleDTO detalle = productoService.obtenerProductoPorSlug(slug);
+        return ResponseEntity.ok(new response<>(true, "Detalle del producto obtenido exitosamente", detalle));
     }
 
 }
