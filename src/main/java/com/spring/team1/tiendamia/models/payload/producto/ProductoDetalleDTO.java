@@ -27,7 +27,7 @@ public class ProductoDetalleDTO {
 
     @Data
     public static class CaracteristicaDTO {
-        private String atributo;
-        private String valor;
+        private String atributoNombre;
+        private String valorTexto;
     }
 }

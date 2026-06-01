@@ -77,8 +77,8 @@ public class ProductoService {
 
             List<ProductoDetalleDTO.CaracteristicaDTO> caracDTOs = v.getVariacionValores().stream().map(vv -> {
                 ProductoDetalleDTO.CaracteristicaDTO cDto = new ProductoDetalleDTO.CaracteristicaDTO();
-                cDto.setAtributo(vv.getValorAtributo().getAtributo().getNombre()); 
-                cDto.setValor(vv.getValorAtributo().getValor());                  
+                cDto.setAtributoNombre(vv.getValorAtributo().getAtributo().getNombre());
+                cDto.setValorTexto(vv.getValorAtributo().getValor());
                 return cDto;
             }).collect(Collectors.toList());
 
@@ -265,5 +265,17 @@ public class ProductoService {
         }
 
         return "Variación y características actualizadas con éxito";
+    }
+
+    public String estadoProducto(Integer id) {
+        Productos producto = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
+        // Invertir el booleano directamente: si es true pasa a false, si es false pasa a true
+        producto.setEstado(!producto.getEstado());
+        // Guardar en la base de datos
+        productoRepository.save(producto);
+        // Retornar mensaje indicando el nuevo estado del producto
+        String mensajeEstado = producto.getEstado() ? "ACTIVO" : "INACTIVO";
+        return "Estado del producto actualizado a: " + mensajeEstado;
     }
 }
