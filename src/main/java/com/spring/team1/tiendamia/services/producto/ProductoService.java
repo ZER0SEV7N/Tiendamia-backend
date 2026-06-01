@@ -77,8 +77,8 @@ public class ProductoService {
 
             List<ProductoDetalleDTO.CaracteristicaDTO> caracDTOs = v.getVariacionValores().stream().map(vv -> {
                 ProductoDetalleDTO.CaracteristicaDTO cDto = new ProductoDetalleDTO.CaracteristicaDTO();
-                cDto.setAtributo(vv.getValorAtributo().getAtributo().getNombre()); 
-                cDto.setValor(vv.getValorAtributo().getValor());                  
+                cDto.setAtributoNombre(vv.getValorAtributo().getAtributo().getNombre());
+                cDto.setValorTexto(vv.getValorAtributo().getValor());
                 return cDto;
             }).collect(Collectors.toList());
 
