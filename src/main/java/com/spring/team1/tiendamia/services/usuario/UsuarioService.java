@@ -13,10 +13,10 @@ public class UsuarioService {
     @Autowired
     private UsuariosRepository usuariosRepository;
 
-    /**
-     * Obtiene el usuario autenticado actualmente desde el objeto Authentication
-     * El authentication.getName() devuelve el correo (principal) del usuario
-     * 
+        /**
+         * Obtiene el usuario autenticado actualmente desde el objeto Authentication
+         * El authentication.getName() devuelve el correo (principal) del usuario
+         * 
      * @param authentication El objeto de autenticación de Spring Security
      * @return El usuario autenticado
      * @throws RuntimeException Si no hay autenticación o el usuario no existe

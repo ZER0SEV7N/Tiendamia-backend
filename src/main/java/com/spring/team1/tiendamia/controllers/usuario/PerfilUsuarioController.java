@@ -110,8 +110,7 @@ public class PerfilUsuarioController {
         return ResponseEntity.ok(result);
     }
 
-    // 2. PUT /api/usuario/perfil -> Actualiza nombres, apellidos y teléfono del
-    // perfil
+    // 2. PUT /api/usuario/perfil -> Actualiza nombres, apellidos y telefono
     @PutMapping("/perfil")
     public ResponseEntity<?> actualizarPerfil(Authentication authentication, @RequestBody Map<String, String> payload) {
         Usuarios usuario = usuarioService.obtenerUsuarioActual(authentication);
@@ -131,8 +130,7 @@ public class PerfilUsuarioController {
         return ResponseEntity.ok(usuarioGuardado);
     }
 
-    // 3. GET /api/usuario/ordenes -> Retorna el listado formateado de órdenes para
-    // Next.js
+    // 3. GET /api/usuario/ordenes 
     @GetMapping("/ordenes")
     public ResponseEntity<List<OrdenResponseDto>> listarMisOrdenes(Authentication authentication) {
         Usuarios usuario = usuarioService.obtenerUsuarioActual(authentication);
