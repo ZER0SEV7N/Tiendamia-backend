@@ -1,7 +1,6 @@
 package com.spring.team1.tiendamia.models.payload.producto;
 
 import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -12,8 +11,17 @@ public class ProductoDetalleDTO {
     private String imagenUrl;
     private String descripcion;
     private String nombreCategoria;
-    private String nombreMarca;
+    private String nombreMarca;    
+    private List<String> galeria;
+    private List<AtributoOpcionesDTO> atributos;
     private List<VariacionDTO> variaciones;
+
+    // --- CLASES ANIDADAS ---
+    @Data
+    public static class AtributoOpcionesDTO {
+        private String nombre; // Ej: "Color"
+        private List<String> opciones; // Ej: ["Rojo", "Azul", "Negro"]
+    }
 
     @Data
     public static class VariacionDTO {
@@ -27,7 +35,7 @@ public class ProductoDetalleDTO {
 
     @Data
     public static class CaracteristicaDTO {
-        private String atributo;
-        private String valor;
+        private String atributoNombre;
+        private String valorTexto;
     }
 }

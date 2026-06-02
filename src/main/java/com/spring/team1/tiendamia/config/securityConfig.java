@@ -51,6 +51,7 @@ public class securityConfig {
 
                         // Rutas exclusivas para los Clientes (Usuarios comunes)
                         .requestMatchers("/api/carrito/**").hasRole("USER")
+                        .requestMatchers("/api/wishlist/**").hasRole("USER")
 
                         // Cualquier otra petición requiere que al menos estés logueado
                         .anyRequest().authenticated())
@@ -65,7 +66,7 @@ public class securityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS", "PUT"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
 

@@ -13,7 +13,7 @@ import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.models.productos.VariacionesProducto;
 import com.spring.team1.tiendamia.repository.carrito.CarritoDetalleRepository;
 import com.spring.team1.tiendamia.repository.carrito.carritoRepository;
-import com.spring.team1.tiendamia.repository.producto.VariacionProductoRepository;
+import com.spring.team1.tiendamia.repository.producto.variaciones.VariacionProductoRepository;
 import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
 
 import jakarta.transaction.Transactional;

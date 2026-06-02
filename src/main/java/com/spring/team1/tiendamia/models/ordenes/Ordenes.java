@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spring.team1.tiendamia.models.usuario.DireccionesUsuarios;
+import com.spring.team1.tiendamia.models.payload.orden.EstadoOrden;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
-import com.spring.team1.tiendamia.models.payload.EstadoOrden;
+import com.spring.team1.tiendamia.models.usuario.ubicacion.DireccionesUsuarios;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,6 +1,5 @@
 package com.spring.team1.tiendamia.models.payload.producto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.validation.Valid;

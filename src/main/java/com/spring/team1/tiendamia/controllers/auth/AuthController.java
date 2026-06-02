@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.team1.tiendamia.models.payload.AuthResponse;
-import com.spring.team1.tiendamia.models.payload.CambiarPasswordRequest;
-import com.spring.team1.tiendamia.models.payload.LoginRequest;
-import com.spring.team1.tiendamia.models.payload.RegisterRequest;
-import com.spring.team1.tiendamia.models.payload.SolicitarRecuperacionRequest;
+import com.spring.team1.tiendamia.models.payload.auth.AuthResponse;
+import com.spring.team1.tiendamia.models.payload.auth.CambiarPasswordRequest;
+import com.spring.team1.tiendamia.models.payload.auth.LoginRequest;
+import com.spring.team1.tiendamia.models.payload.auth.RegisterRequest;
+import com.spring.team1.tiendamia.models.payload.auth.SolicitarRecuperacionRequest;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.services.usuario.AuthService;
 import com.spring.team1.tiendamia.services.usuario.RecuperacionService;
 import com.spring.team1.tiendamia.util.response;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -36,76 +38,47 @@ public class AuthController {
     // ─── POST /api/auth/login
     // ─────────────────────────────────────────────────────────
     @PostMapping("/login")
-    public ResponseEntity<response<AuthResponse>> login(@RequestBody LoginRequest request) {
-        try {
-            AuthResponse response = authService.login(request);
-            return ResponseEntity.ok(new response<>(true, "Inicio de sesión exitoso", response));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+    public ResponseEntity<response<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
+        AuthResponse response = authService.login(request);
+        return ResponseEntity.ok(new response<>(true, "Inicio de sesión exitoso", response));
     }
 
     // ─── POST /api/auth/register
     // ──────────────────────────────────────────────────────
     @PostMapping("/register")
-    public ResponseEntity<response<AuthResponse>> register(@RequestBody RegisterRequest request) {
-        try {
-            AuthResponse response = authService.register(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new response<>(true, "Registro exitoso", response));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+    public ResponseEntity<response<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
+        AuthResponse response = authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new response<>(true, "Registro exitoso", response));
     }
+
 
     // ─── POST /api/auth/google
     // ────────────────────────────────────────────────────────
     @PostMapping("/google")
     public ResponseEntity<response<AuthResponse>> loginConGoogle(@RequestBody Map<String, String> body) {
-        try {
-            String googleId = body.get("googleId");
-            String correo = body.get("correo");
-            String nombres = body.get("nombres");
+        String idToken = body.get("idToken");
 
-            if (googleId == null || correo == null || nombres == null) {
-                return ResponseEntity.badRequest()
-                        .body(new response<>(false, "Faltan campos requeridos: googleId, correo, nombres", null));
-            }
-
-            AuthResponse response = authService.loginConGoogle(googleId, correo, nombres);
-            return ResponseEntity.ok(new response<>(true, "Inicio de sesión con Google exitoso", response));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+        if (idToken == null || idToken.trim().isEmpty()) 
+            throw new RuntimeException("El token de Google es obligatorio");
+        
+        AuthResponse response = authService.loginConGoogle(idToken); 
+        return ResponseEntity.ok(new response<>(true, "Inicio de sesión con Google exitoso", response));
     }
 
     // ─── POST /api/auth/recuperar-password ───────────────────────────────────────────
     // El usuario manda su correo y le llega un email con el link de recuperación
     @PostMapping("/recuperar-password")
-    public ResponseEntity<response> solicitarRecuperacion(@RequestBody SolicitarRecuperacionRequest request) {
-        try {
-            recuperacionService.solicitarRecuperacion(request.getCorreo());
-            return ResponseEntity.ok(new response<>(true, "Te enviamos un correo con las instrucciones para recuperar tu contraseña", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+    public ResponseEntity<response<Object>> solicitarRecuperacion(@RequestBody SolicitarRecuperacionRequest request) { 
+        recuperacionService.solicitarRecuperacion(request.getCorreo());
+        return ResponseEntity.ok(new response<>(true, "Te enviamos un correo con las instrucciones", null));
     }
 
     // ─── POST /api/auth/cambiar-password ─────────────────────────────────────────────
     // El usuario manda el token del email + su nueva contraseña
     @PostMapping("/cambiar-password")
-    public ResponseEntity<response> cambiarPassword(@RequestBody CambiarPasswordRequest request) {
-        try {
-            recuperacionService.cambiarPassword(request.getToken(), request.getNuevaPassword());
-            return ResponseEntity
-                    .ok(new response<>(true, "Contraseña actualizada correctamente. Ya puedes iniciar sesión.", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+    public ResponseEntity<response<Object>> cambiarPassword(@RequestBody CambiarPasswordRequest request) {
+        recuperacionService.cambiarPassword(request.getToken(), request.getNuevaPassword());
+        return ResponseEntity.ok(new response<>(true, "Contraseña actualizada correctamente.", null));
     }
 
     // --- Get: /api/auth/perfil
@@ -116,14 +89,8 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new response<>(false, "No autenticado", null));
 
-        try {
             String correo = authentication.getName();
             Usuarios usuario = authService.obtenerUsuarioPorCorreo(correo);
             return ResponseEntity.ok(new response<>(true, "Perfil obtenido correctamente", usuario));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
-    }
-    
+    }    
 }

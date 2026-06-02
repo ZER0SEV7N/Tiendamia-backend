@@ -17,7 +17,7 @@ public class EmailService {
     public void enviarEmailRecuperacion(String destinatario, String token) throws MessagingException {
 
         // Link que el frontend usara para mostrar el formulario de nueva contraseña
-        String link = "http://localhost:5173/recuperar-password?token=" + token;
+        final String link = "http://localhost:5173/recuperar-password?token=" + token;
 
         MimeMessage mensaje = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mensaje, true, "UTF-8");

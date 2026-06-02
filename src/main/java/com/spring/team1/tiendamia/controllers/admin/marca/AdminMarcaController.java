@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.team1.tiendamia.models.payload.marcas.MarcaRequestDTO;
 import com.spring.team1.tiendamia.models.payload.marcas.MarcasDTO;
-import com.spring.team1.tiendamia.models.productos.Marcas;
-import com.spring.team1.tiendamia.services.marca.MarcaService;
+import com.spring.team1.tiendamia.models.productos.carateristicas.Marcas;
+import com.spring.team1.tiendamia.services.producto.marca.MarcaService;
 import com.spring.team1.tiendamia.util.response;
 
 import jakarta.validation.Valid;

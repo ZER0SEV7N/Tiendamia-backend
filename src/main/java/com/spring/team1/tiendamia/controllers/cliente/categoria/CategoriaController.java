@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.team1.tiendamia.models.payload.categoria.CategoriaResponse;
-import com.spring.team1.tiendamia.services.categoria.CategoriaService;
+import com.spring.team1.tiendamia.services.producto.categoria.CategoriaService;
 import com.spring.team1.tiendamia.util.response;
 
 

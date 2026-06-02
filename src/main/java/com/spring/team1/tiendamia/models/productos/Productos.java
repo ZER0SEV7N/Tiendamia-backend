@@ -2,6 +2,10 @@ package com.spring.team1.tiendamia.models.productos;
 
 import java.util.List;
 
+import com.spring.team1.tiendamia.models.productos.carateristicas.Categorias;
+import com.spring.team1.tiendamia.models.productos.carateristicas.ImagenesProducto;
+import com.spring.team1.tiendamia.models.productos.carateristicas.Marcas;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,4 +32,7 @@ public class Productos {
 
     @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<VariacionesProducto> variaciones;
+
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ImagenesProducto> imagenes;
 }
