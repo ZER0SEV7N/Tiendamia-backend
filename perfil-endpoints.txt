@@ -1,0 +1,246 @@
+ENDPOINTS DE PERFIL
+
+POST: api/auth/register
+
+{
+  "nombres":"Juan Pablo",
+  "apellidos":"Romero Rojas",
+  "correo":"Juan@example.com",
+  "password":"juan123",
+  "telefono":"999553191"
+}
+
+POST: api/auth/login
+
+{
+  "correo":"Juan@example.com",
+  "password":"juan123"
+}
+
+Copia toda la cadena de texto larga que viene dentro de "token".
+
+----------------------------
+
+Ver Perfil Completo de un Usuario
+GET: api/usuario/me
+
+Headers (Auth): Bearer Token <Pega el Token del login>
+
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Perfil y direcciones del usuario cargados con éxito",
+  "data": {
+    "id": 1,
+    "nombres": "Juan Pablo",
+    "apellidos": "Romero Rojas",
+    "correo": "Juan@example.com",
+    "telefono": "999553191",
+    "direcciones": [
+      {
+        "id": 1,
+        "direccion": "Av. Los Próceres 1545",
+        "referencia": "Lima / Lima / San Juan de Lurigancho",
+        "es_principal": true,
+        "distrito": "San Juan de Lurigancho",
+        "provincia": "Lima",
+        "departamento": "Lima"
+      }
+    ]
+  }
+}
+
+----------------
+
+
+Modificación Parcial de Datos (PATCH)
+Útil en el perfil cuando el usuario solo quiere editar sus nombres sin alterar lo demás.
+
+PATCH: api/usuario/me
+
+Headers (Auth): Bearer Token <Token>
+
+Body (JSON):
+
+JSON
+{
+  "nombres": "Juan Pablo Modificado",
+  "telefono": "987654321"
+}
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Perfil actualizado con éxito",
+  "data": {
+    "id": 1,
+    "nombres": "Juan Pablo Modificado",
+    "apellidos": "Romero Rojas",
+    "correo": "Juan@example.com",
+    "telefono": "987654321"
+  }
+}
+
+-------------------
+
+Listar Historial de Órdenes
+Muestra los pedidos con el formato de código "TM-00000X-PE" e inyecta directamente clases CSS válidas para tus Badges en Next.js.
+
+GET: api/usuario/ordenes
+
+Headers (Auth): Bearer Token <Token>
+
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Historial de órdenes recuperado correctamente",
+  "data": [
+    {
+      "id": "TM-000001-PE",
+      "fecha": "02 de junio, 2026",
+      "estado": "PENDIENTE",
+      "estadoColor": "text-amber-600 bg-amber-50 border-amber-200",
+      "total": "S/ 249.90",
+      "productos": [
+        {
+          "nombre": "Zapatillas Urbanas Run 90s",
+          "tiendaOrigen": "Tienda Oficial",
+          "imagen": "📦",
+          "cantidad": 1
+        }
+      ]
+    }
+  ]
+}
+
+--------------------------
+
+ENDPOINTS DE DIRECCIONES DE USUARIO
+Registrar Dirección de Usuario
+POST: api/usuario/direcciones
+
+Headers: Pestaña Auth, selecciona Bearer Token y pega el token largo del Login.
+
+Body (JSON):
+
+JSON
+{
+  "id_distrito": 1,
+  "direccion": "Av. Los Próceres 1545",
+  "referencia": "", 
+  "es_principal": true,
+  "departamento": "Lima",
+  "provincia": "Lima"
+}
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Dirección guardada con éxito",
+  "data": {
+    "id": 1
+  }
+}
+
+
+
+
+Obtener todas las direcciones del usuario autenticado
+GET: api/usuario/direcciones
+
+Headers: Pestaña Auth, selecciona Bearer Token y pega tu token.
+
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Direcciones obtenidas con éxito",
+  "data": [
+    {
+      "id": 1,
+      "direccion": "Av. Los Próceres 1545",
+      "referencia": "Lima / Lima / San Juan de Lurigancho",
+      "es_principal": true,
+      "createAt": "2026-06-02T00:46:40",
+      "distrito": "San Juan de Lurigancho",
+      "provincia": "Lima",
+      "departamento": "Lima"
+    }
+  ]
+}
+
+
+
+Obtener una dirección específica por ID
+GET: api/usuario/direcciones/1
+
+Headers: Pestaña Auth, asegura tu Bearer Token.
+
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Dirección encontrada",
+  "data": {
+    "id": 1,
+    "direccion": "Av. Los Próceres 1545",
+    "referencia": "Lima / Lima / San Juan de Lurigancho",
+    "es_principal": true,
+    "distrito": "San Juan de Lurigancho",
+    "provincia": "Lima",
+    "departamento": "Lima"
+  }
+}
+
+
+
+
+Editar dirección de usuario existente
+PUT: api/usuario/direcciones/1
+
+Headers: Pestaña Auth, asegura tu Bearer Token.
+
+Body (JSON):
+
+JSON
+{
+  "direccion": "Av. Los Próceres 1545 - Interior B",
+  "referencia": "Frente al parque principal",
+  "es_principal": false
+}
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Dirección actualizada con éxito",
+  "data": {
+    "id": 1
+  }
+}
+
+
+
+Eliminar dirección de usuario
+DELETE: api/usuario/direcciones/1
+
+Headers: Pestaña Auth, asegura tu Bearer Token.
+
+Respuesta exitosa (200 OK):
+
+JSON
+{
+  "success": true,
+  "mensaje": "Dirección eliminada con éxito",
+  "data": null
+}
+
+

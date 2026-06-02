@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.team1.tiendamia.models.ordenes.Ordenes;
 import com.spring.team1.tiendamia.models.ordenes.DTO.OrdenResponseDto;
-import com.spring.team1.tiendamia.models.usuario.DireccionesUsuarios;
+
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
+import com.spring.team1.tiendamia.models.usuario.ubicacion.DireccionesUsuarios;
 import com.spring.team1.tiendamia.repository.ordenes.OrdenRepository;
-import com.spring.team1.tiendamia.repository.usuario.DireccionesUsuariosRepository;
+
 import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.repository.usuario.direcciones.DireccionesUsuariosRepository;
 import com.spring.team1.tiendamia.services.usuario.UsuarioService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -44,6 +46,9 @@ public class PerfilUsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 1. GET: Trae el Perfil unificado con sus Direcciones Reales directamente de
     
@@ -96,7 +101,7 @@ public class PerfilUsuarioController {
             usuario.setTelefono(payload.get("telefono"));
 
         if (payload.containsKey("password") && payload.get("password") != null && !payload.get("password").isEmpty()) {
-            usuario.setPassword(payload.get("password"));
+            usuario.setPassword(passwordEncoder.encode(payload.get("password")));
         }
 
         Usuarios usuarioGuardado = usuariosRepository.save(usuario);
@@ -123,7 +128,7 @@ public class PerfilUsuarioController {
             usuario.setTelefono(payload.get("telefono"));
 
         if (payload.containsKey("password") && payload.get("password") != null && !payload.get("password").isEmpty()) {
-            usuario.setPassword(payload.get("password"));
+            usuario.setPassword(passwordEncoder.encode(payload.get("password")));
         }
 
         Usuarios usuarioGuardado = usuariosRepository.save(usuario);
