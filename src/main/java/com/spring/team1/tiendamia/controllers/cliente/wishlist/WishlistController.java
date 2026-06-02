@@ -25,13 +25,10 @@ public class WishlistController {
         if (authentication == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new response<>(false, "No autenticado", null));
-        try {
-            List<WishlistItemResponse> items = wishlistService.obtenerWishlist(authentication.getName());
-            return ResponseEntity.ok(new response<>(true, "Wishlist obtenida correctamente", items));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+
+        List<WishlistItemResponse> items = wishlistService.obtenerWishlist(authentication.getName());
+        return ResponseEntity.ok(new response<>(true, "Wishlist obtenida correctamente", items));
+        
     }
 
     // POST /api/wishlist/agregar/{idProducto} — agregar un producto a favoritos
@@ -42,13 +39,10 @@ public class WishlistController {
         if (authentication == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new response<>(false, "No autenticado", null));
-        try {
-            WishlistItemResponse item = wishlistService.agregarProducto(authentication.getName(), idProducto);
-            return ResponseEntity.ok(new response<>(true, "Producto agregado a favoritos", item));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+        
+        WishlistItemResponse item = wishlistService.agregarProducto(authentication.getName(), idProducto);
+        return ResponseEntity.ok(new response<>(true, "Producto agregado a favoritos", item));
+       
     }
 
     // DELETE /api/wishlist/eliminar/{idWishlist} — eliminar un item de favoritos
@@ -59,13 +53,10 @@ public class WishlistController {
         if (authentication == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new response<>(false, "No autenticado", null));
-        try {
-            wishlistService.eliminarItem(authentication.getName(), idWishlist);
-            return ResponseEntity.ok(new response<>(true, "Producto eliminado de favoritos", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, e.getMessage(), null));
-        }
+        
+        wishlistService.eliminarItem(authentication.getName(), idWishlist);
+        return ResponseEntity.ok(new response<>(true, "Producto eliminado de favoritos", null));
+        
     }
 
     // GET /api/wishlist/check/{idProducto} — verifica si un producto esta en
@@ -76,12 +67,9 @@ public class WishlistController {
             @PathVariable Integer idProducto) {
         if (authentication == null)
             return ResponseEntity.ok(new response<>(true, "No autenticado", false));
-        try {
-            boolean enWishlist = wishlistService.estaEnWishlist(authentication.getName(), idProducto);
-            return ResponseEntity.ok(new response<>(true, "Verificación exitosa", enWishlist));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new response<>(false, e.getMessage(), false));
-        }
+        
+        boolean enWishlist = wishlistService.estaEnWishlist(authentication.getName(), idProducto);
+        return ResponseEntity.ok(new response<>(true, "Verificación exitosa", enWishlist));
+        
     }
 }
