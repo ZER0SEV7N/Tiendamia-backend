@@ -66,6 +66,8 @@ public class ProductoService {
         dto.setDescripcion(prod.getDescripcion());
         dto.setNombreCategoria(prod.getCategoria() != null ? prod.getCategoria().getNombre() : "Sin Categoría");
         dto.setNombreMarca(prod.getMarca() != null ? prod.getMarca().getNombre() : "Sin Marca");
+        dto.setCategoriaId(prod.getCategoria() != null ? prod.getCategoria().getId() : null);
+        dto.setMarcaId(prod.getMarca() != null ? prod.getMarca().getId() : null);
 
         List<ProductoDetalleDTO.VariacionDTO> listaVarDTO = prod.getVariaciones().stream().map(v -> {
             ProductoDetalleDTO.VariacionDTO vDto = new ProductoDetalleDTO.VariacionDTO();
