@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.spring.team1.tiendamia.models.productos.Productos;
+import com.spring.team1.tiendamia.models.productos.Producto;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
 
 import jakarta.persistence.*;
@@ -27,7 +27,7 @@ public class Wishlist {
 
     @ManyToOne
     @JoinColumn(name = "id_Producto", nullable = false)
-    private Productos producto;
+    private Producto producto;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")

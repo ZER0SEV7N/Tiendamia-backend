@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.Controllers.usuario;
+package com.spring.team1.tiendamia.controllers.usuario;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.spring.team1.tiendamia.Models.Usuario.Direcciones_usuarios;
-import com.spring.team1.tiendamia.Models.Usuario.Usuarios;
+import com.spring.team1.tiendamia.models.usuario.ubicacion.DireccionesUsuarios;
+import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.repository.usuario.DireccionUsuarioRepository;
-import com.spring.team1.tiendamia.Repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -48,7 +48,7 @@ public class UsuarioController {
 
         Usuarios u = opt.get();
 
-        List<Direcciones_usuarios> direcciones = direccionRepository.findByUsuarioId(u.getId());
+        List<DireccionesUsuarios> direcciones = direccionRepository.findByUsuarioId(u.getId());
 
         return ResponseEntity.ok(Map.of(
                 "id", u.getId(),
@@ -56,7 +56,7 @@ public class UsuarioController {
                 "apellidos", u.getApellidos(),
                 "correo", u.getCorreo(),
                 "telefono", u.getTelefono(),
-                "activo", u.getActivo(),
+                "activo", u.getEstado(),
                 "rol", u.getRol() != null ? u.getRol().getNombre() : null,
                 "direcciones", direcciones
         ));
@@ -94,19 +94,19 @@ public class UsuarioController {
         Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-        List<Direcciones_usuarios> direcciones = direccionRepository.findByUsuarioId(u.getId());
+        List<DireccionesUsuarios> direcciones = direccionRepository.findByUsuarioId(u.getId());
         return ResponseEntity.ok(direcciones);
     }
 
     // POST /api/usuario/direcciones
     @PostMapping("/direcciones")
-    public ResponseEntity<?> saveDireccion(@RequestBody Direcciones_usuarios direccion) {
+    public ResponseEntity<?> saveDireccion(@RequestBody DireccionesUsuarios direccion) {
         String correo = SecurityContextHolder.getContext().getAuthentication().getName();
         Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
         direccion.setUsuario(u);
-        Direcciones_usuarios saved = direccionRepository.save(direccion);
+        DireccionesUsuarios saved = direccionRepository.save(direccion);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
@@ -117,11 +117,11 @@ public class UsuarioController {
         Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-        Optional<Direcciones_usuarios> opt = direccionRepository.findById(id);
+        Optional<DireccionesUsuarios> opt = direccionRepository.findById(id);
         if (opt.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Dirección no encontrada"));
 
-        Direcciones_usuarios d = opt.get();
+        DireccionesUsuarios d = opt.get();
         if (d.getUsuario() == null || !d.getUsuario().getId().equals(u.getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "No autorizado"));
 

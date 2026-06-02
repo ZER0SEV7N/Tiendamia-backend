@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.team1.tiendamia.models.payload.producto.ProductoEditRequest;
 import com.spring.team1.tiendamia.models.payload.producto.ProductoRequest;
 import com.spring.team1.tiendamia.models.payload.producto.VariacionRequest;
-import com.spring.team1.tiendamia.services.producto.ProductoService;
+import com.spring.team1.tiendamia.services.producto.ProductoSetterService;
 import com.spring.team1.tiendamia.util.response;
 
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/api/admin/productos")
 public class AdminProductoController {
-    @Autowired ProductoService productoService;
+    @Autowired ProductoSetterService productoService;
 
     @PostMapping("/create")
     public ResponseEntity<response<String>> crearProducto(@Valid @RequestBody ProductoRequest dto ) {

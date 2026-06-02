@@ -1,6 +1,6 @@
 package com.spring.team1.tiendamia.models.productos.carateristicas;
 
-import com.spring.team1.tiendamia.models.productos.Productos;
+import com.spring.team1.tiendamia.models.productos.Producto;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class ImagenesProducto {
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
-    private Productos producto;
+    private Producto producto;
 
     @Column(name = "url", nullable = false)
     private String url;

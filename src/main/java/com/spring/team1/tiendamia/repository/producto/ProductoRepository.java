@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spring.team1.tiendamia.models.productos.Productos;
+import com.spring.team1.tiendamia.models.productos.Producto;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Productos, Integer> {
-    Optional<Productos> findByIdAndEstadoTrue(Long id);
+public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+    Optional<Producto> findByIdAndEstadoTrue(Long id);
 
-    Optional<Productos> findBySlug(String slug);
+    Optional<Producto> findBySlug(String slug);
 
-    List<Productos> findAllByEstadoTrue();
+    List<Producto> findAllByEstadoTrue();
 }

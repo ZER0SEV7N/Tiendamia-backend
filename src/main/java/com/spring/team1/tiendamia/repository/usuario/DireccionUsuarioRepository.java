@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.spring.team1.tiendamia.Models.Usuario.Direcciones_usuarios;
+import com.spring.team1.tiendamia.models.usuario.ubicacion.DireccionesUsuarios;
 
 @Repository
-public interface DireccionUsuarioRepository extends JpaRepository<Direcciones_usuarios, Integer> {
+public interface DireccionUsuarioRepository extends JpaRepository<DireccionesUsuarios, Integer> {
 
-    List<Direcciones_usuarios> findByUsuarioId(Integer usuarioId);
+    List<DireccionesUsuarios> findByUsuarioId(Integer usuarioId);
 
     
 }
