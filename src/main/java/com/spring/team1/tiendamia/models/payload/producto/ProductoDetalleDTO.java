@@ -10,6 +10,8 @@ public class ProductoDetalleDTO {
     private String slug;
     private String imagenUrl;
     private String descripcion;
+    private Integer categoriaId;
+    private Integer marcaId;
     private String nombreCategoria;
     private String nombreMarca;    
     private List<String> galeria;

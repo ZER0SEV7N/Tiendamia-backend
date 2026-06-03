@@ -62,7 +62,7 @@ insert marca (id, nombre, slug, destacada) values
 
 -- Productos
 insert producto (id, id_Categoria, id_Marca, nombre, slug, imagen_url, descripcion) values 
-(1, 8, 1, 'iPhone 15 Pro Max', 'iphone-15-pro-max', 'https://images.local/iphone15.png', 'Smartphone Apple con acabado de titanio.'),
+(1, 8, 1, 'iPhone 15 Pro Max', 'iphone-15-pro-max', 'https://ernbcosfyinkfuoocxaf.supabase.co/storage/v1/object/public/product-img/principales/je2vp68b_1780286292761.jpg', 'Smartphone Apple con acabado de titanio.'),
 (2, 9, 2, 'Galaxy S24 Ultra', 'galaxy-s24-ultra', 'https://images.local/s24ultra.png', 'Smartphone Samsung con Inteligencia Artificial integrada.'),
 (3, 11, 1, 'Apple Watch Series 9', 'apple-watch-series-9', 'https://images.local/aw9.png', 'Reloj inteligente Apple con sensor de temperatura.'),
 (4, 13, 6, 'Laptop Lenovo IdeaPad Slim 3', 'laptop-lenovo-ideapad-slim-3', 'https://images.local/ideapad3.png', 'Laptop ideal para estudios y oficina.'),
@@ -100,8 +100,8 @@ insert valores_atributo (id, id_Atributo, valor) values
 -- =========================================================================
 -- Variaciones para el iPhone 15 Pro Max (id_Producto = 1)
 insert variaciones_producto (id, id_Producto, codigo_inventario, precio, imagen_url, stock) values 
-(1, 1, 'IPH15PM-256-TITNAT', 4999.00, 'https://images.local/iphone15-nat.png', 15),
-(2, 1, 'IPH15PM-512-TITBLK', 5799.00, 'https://images.local/iphone15-blk.png', 8);
+(1, 1, 'IPH15PM-256-TITNAT', 4999.00, 'https://ernbcosfyinkfuoocxaf.supabase.co/storage/v1/object/public/product-img/principales/je2vp68b_1780286292761.jpg', 15),
+(2, 1, 'IPH15PM-512-TITBLK', 5799.00, 'https://ernbcosfyinkfuoocxaf.supabase.co/storage/v1/object/public/product-img/principales/je2vp68b_1780286292761.jpg', 8);
 
 -- Variación para el Galaxy S24 Ultra (id_Producto = 2)
 insert variaciones_producto (id, id_Producto, codigo_inventario, precio, imagen_url, stock) values 
