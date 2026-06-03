@@ -134,3 +134,23 @@ insert variacion_valor (id_Variacion, id_Valor_Atributo) values
 insert variacion_valor (id_Variacion, id_Valor_Atributo) values 
 (4, 7), 
 (4, 11);
+
+
+
+-- =========================================================================
+-- DIRECCIONES
+-- =========================================================================
+
+
+-- 1. Insertar Departamento (ID: 1)
+INSERT departamento (id, nombre) VALUES (1, 'Lima');
+
+-- 2. Insertar Provincia (ID: 1) amarrada a Lima
+INSERT provincia (id, id_Departamento, nombre) VALUES (1, 1, 'Lima');
+
+-- 3. Insertar Distritos amarrados a la Provincia de Lima (Aquí creamos el ID 1)
+INSERT distrito (id, id_Provincia, nombre) VALUES 
+(1, 1, 'San Juan de Lurigancho'),
+(2, 1, 'Miraflores'),
+(3, 1, 'Santiago de Surco'),
+(4, 1, 'Los Olivos');

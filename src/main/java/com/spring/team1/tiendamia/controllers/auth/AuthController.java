@@ -1,4 +1,4 @@
-package com.spring.team1.tiendamia.controllers.auth;
+package com.spring.team1.tiendamia.Controllers.auth;
 
 import java.util.Map;
 
