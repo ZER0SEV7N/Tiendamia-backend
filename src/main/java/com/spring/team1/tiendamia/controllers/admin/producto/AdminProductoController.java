@@ -9,7 +9,7 @@ import com.spring.team1.tiendamia.models.payload.producto.ProductoEditRequest;
 import com.spring.team1.tiendamia.models.payload.producto.ProductoRequest;
 import com.spring.team1.tiendamia.models.payload.producto.VariacionRequest;
 import com.spring.team1.tiendamia.services.producto.ProductoSetterService;
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 import jakarta.validation.Valid;
 
@@ -25,42 +25,42 @@ public class AdminProductoController {
     @Autowired ProductoSetterService productoService;
 
     @PostMapping("/create")
-    public ResponseEntity<response<String>> crearProducto(@Valid @RequestBody ProductoRequest dto ) {
+    public ResponseEntity<Response<String>> crearProducto(@Valid @RequestBody ProductoRequest dto ) {
         try {
             String mensaje = productoService.crearProductoConVariacion(dto);
-            return ResponseEntity.ok(new response<>(true, mensaje, null));
+            return ResponseEntity.ok(new Response<>(true, mensaje, null));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new response<>(false, "Error al crear el producto: " + e.getMessage(), null));
+            return ResponseEntity.badRequest().body(new Response<>(false, "Error al crear el producto: " + e.getMessage(), null));
         }
     }
 
     @PostMapping("/variacion/create/{productoId}")
-    public ResponseEntity<response<String>> crearVariacion(@PathVariable Integer productoId, @Valid @RequestBody VariacionRequest request) {
+    public ResponseEntity<Response<String>> crearVariacion(@PathVariable Integer productoId, @Valid @RequestBody VariacionRequest request) {
         try {
             String mensaje = productoService.crearVariacionDelProducto(productoId, request);
-            return ResponseEntity.ok(new response<>(true, mensaje, null));
+            return ResponseEntity.ok(new Response<>(true, mensaje, null));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new response<>(false, "Error al crear la variación: " + e.getMessage(), null));
+            return ResponseEntity.badRequest().body(new Response<>(false, "Error al crear la variación: " + e.getMessage(), null));
         }
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<response<String>> actualizarProducto(@PathVariable Integer id, @Valid @RequestBody ProductoEditRequest dto) {
+    public ResponseEntity<Response<String>> actualizarProducto(@PathVariable Integer id, @Valid @RequestBody ProductoEditRequest dto) {
         try {
             String mensaje = productoService.editarProducto(id, dto);
-            return ResponseEntity.ok(new response<>(true, mensaje, null));
+            return ResponseEntity.ok(new Response<>(true, mensaje, null));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new response<>(false, "Error al actualizar el producto: " + e.getMessage(), null));
+            return ResponseEntity.badRequest().body(new Response<>(false, "Error al actualizar el producto: " + e.getMessage(), null));
         }
     }
     
     @PostMapping("/variacion/update/{codigoInventario}")
-    public ResponseEntity<response<String>> actualizarVariacion(@PathVariable String codigoInventario, @Valid @RequestBody VariacionRequest request) {
+    public ResponseEntity<Response<String>> actualizarVariacion(@PathVariable String codigoInventario, @Valid @RequestBody VariacionRequest request) {
         try {
             String mensaje = productoService.editarVariaciones(codigoInventario, request);
-            return ResponseEntity.ok(new response<>(true, mensaje, null));
+            return ResponseEntity.ok(new Response<>(true, mensaje, null));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new response<>(false, "Error al actualizar la variación: " + e.getMessage(), null));
+            return ResponseEntity.badRequest().body(new Response<>(false, "Error al actualizar la variación: " + e.getMessage(), null));
         }
     }
 

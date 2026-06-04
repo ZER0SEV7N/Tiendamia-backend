@@ -16,7 +16,7 @@ import com.spring.team1.tiendamia.models.carrito.CarritoDetalle;
 import com.spring.team1.tiendamia.models.carrito.DTO.CarritoRequest;
 import com.spring.team1.tiendamia.models.carrito.DTO.CarritoResponse;
 import com.spring.team1.tiendamia.services.carrito.CarritoService;
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,26 +32,26 @@ public class CarritoController {
     // Endpoint para obtener el carrito de un usuario autenticado
     // GET: /api/carrito
     @GetMapping
-    public ResponseEntity<response<CarritoResponse>> obtenerCarrito(Authentication authentication) {
+    public ResponseEntity<Response<CarritoResponse>> obtenerCarrito(Authentication authentication) {
         if (authentication == null || authentication.getName() == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, "No autenticado", null));
+                    .body(new Response<>(false, "No autenticado", null));
 
        
         String correo = authentication.getName();
         Carrito carrito = carritoService.obtenerCarritoPorCorreo(correo);
         CarritoResponse data = carritoService.convertirDto(carrito);
 
-        return ResponseEntity.ok(new response<>(true, "Carrito obtenido correctamente", data));
+        return ResponseEntity.ok(new Response<>(true, "Carrito obtenido correctamente", data));
     }
 
     // Endpoint para agregar un item al carrito
     // POST: /api/carrito/agregar
     @PostMapping("/agregar")
-    public ResponseEntity<response<CarritoResponse>> agregarAlCarrito(Authentication authentication,
+    public ResponseEntity<Response<CarritoResponse>> agregarAlCarrito(Authentication authentication,
             @RequestBody CarritoRequest request) {
         if (authentication == null || authentication.getName() == null)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new response<>(false, "No autenticado", null));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response<>(false, "No autenticado", null));
 
         
         String correo = authentication.getName();
@@ -73,19 +73,19 @@ public class CarritoController {
 
         if (stockError)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, "No hay suficiente stock para uno o más items", data));
+                    .body(new Response<>(false, "No hay suficiente stock para uno o más items", data));
 
-        return ResponseEntity.ok(new response<>(true, "Items agregados al carrito correctamente", data));
+        return ResponseEntity.ok(new Response<>(true, "Items agregados al carrito correctamente", data));
     }
 
     // Endpoint para actualizar la cantidad de un item en el carrito
     // PATCH: /api/carrito/actualizar
     @PatchMapping("/actualizar")
-    public ResponseEntity<response<CarritoResponse>> actualizarCantidad(Authentication authentication,
+    public ResponseEntity<Response<CarritoResponse>> actualizarCantidad(Authentication authentication,
             @RequestBody CarritoRequest request) {
         if (authentication == null || authentication.getName() == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, "No autenticado", null));
+                    .body(new Response<>(false, "No autenticado", null));
 
         
         String correo = authentication.getName();
@@ -106,19 +106,19 @@ public class CarritoController {
 
         if (stockError)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, "No hay suficiente stock para uno o más items", data));
+                    .body(new Response<>(false, "No hay suficiente stock para uno o más items", data));
 
-        return ResponseEntity.ok(new response<>(true, "Cantidad actualizada correctamente", data));
+        return ResponseEntity.ok(new Response<>(true, "Cantidad actualizada correctamente", data));
     }
 
     // Endpoint para eliminar un item del carrito
     // DELETE: /api/carrito/eliminar
     @DeleteMapping("/eliminar/{idDetalle}")
-    public ResponseEntity<response<CarritoResponse>> eliminarDelCarrito(Authentication authentication,
+    public ResponseEntity<Response<CarritoResponse>> eliminarDelCarrito(Authentication authentication,
             @PathVariable Integer idDetalle) {
         if (authentication == null || authentication.getName() == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, "No autenticado", null));
+                    .body(new Response<>(false, "No autenticado", null));
 
         
         String correo = authentication.getName();
@@ -128,21 +128,21 @@ public class CarritoController {
 
         if (!eliminado)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, "No se encontró el item en el carrito", null));
+                    .body(new Response<>(false, "No se encontró el item en el carrito", null));
 
         carrito = carritoService.obtenerCarritoPorUsuario(carrito.getUsuario().getId());
         CarritoResponse data = carritoService.convertirDto(carrito);
 
-        return ResponseEntity.ok(new response<>(true, "Item eliminado del carrito correctamente", data));
+        return ResponseEntity.ok(new Response<>(true, "Item eliminado del carrito correctamente", data));
     }
 
     // Endpoint para vaciar el carrito de un usuario
     // DELETE: /api/carrito/vaciar
     @DeleteMapping("/vaciar")
-    public ResponseEntity<response<String>> vaciarCarrito(Authentication authentication) {
+    public ResponseEntity<Response<String>> vaciarCarrito(Authentication authentication) {
         if (authentication == null || authentication.getName() == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, "No autenticado", null));
+                    .body(new Response<>(false, "No autenticado", null));
 
         String correo = authentication.getName();
         Carrito carrito = carritoService.obtenerCarritoPorCorreo(correo);
@@ -151,8 +151,8 @@ public class CarritoController {
 
         if (!vaciado)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new response<>(false, "El carrito ya está vacío", null));
+                    .body(new Response<>(false, "El carrito ya está vacío", null));
 
-        return ResponseEntity.ok(new response<>(true, "Carrito vaciado correctamente", null));
+        return ResponseEntity.ok(new Response<>(true, "Carrito vaciado correctamente", null));
     }
 }

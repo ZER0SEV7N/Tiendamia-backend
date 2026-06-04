@@ -5,127 +5,52 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
-import com.spring.team1.tiendamia.models.usuario.ubicacion.DireccionesUsuarios;
-import com.spring.team1.tiendamia.models.usuario.Usuarios;
-import com.spring.team1.tiendamia.repository.usuario.DireccionUsuarioRepository;
-import com.spring.team1.tiendamia.repository.usuario.UsuariosRepository;
+import com.spring.team1.tiendamia.models.ordenes.DTO.OrdenResponseDto;
+import com.spring.team1.tiendamia.models.payload.usuario.UsuarioPerfilDto;
+import com.spring.team1.tiendamia.services.usuario.UsuarioService;
+import com.spring.team1.tiendamia.util.Response;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-
+//Controlador para endpoints relacionados con el usuario autenticado, su perfil y sus órdenes
 @RestController
 @RequestMapping("/api/usuario")
+@CrossOrigin(origins = "*") 
 public class UsuarioController {
 
-    @Autowired
-    private UsuariosRepository usuariosRepository;
+    @Autowired private UsuarioService usuarioService;
 
-    @Autowired
-    private DireccionUsuarioRepository direccionRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    // GET /api/usuario/me
-    @GetMapping("/me")
-    public ResponseEntity<?> getPerfil() {
-        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Usuarios> opt = usuariosRepository.findByCorreo(correo);
-        if (opt.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Usuario no encontrado"));
-
-        Usuarios u = opt.get();
-
-        List<DireccionesUsuarios> direcciones = direccionRepository.findByUsuarioId(u.getId());
-
-        return ResponseEntity.ok(Map.of(
-                "id", u.getId(),
-                "nombres", u.getNombres(),
-                "apellidos", u.getApellidos(),
-                "correo", u.getCorreo(),
-                "telefono", u.getTelefono(),
-                "activo", u.getEstado(),
-                "rol", u.getRol() != null ? u.getRol().getNombre() : null,
-                "direcciones", direcciones
-        ));
+    // ─── PERFIL ─────────────────────────────────────────────────────────────
+    //Endpoint para obtener el perfil completo del usuario autenticado, incluyendo sus datos personales y sus órdenes
+    //GET: /api/usuario/perfil-completo
+    @GetMapping("/perfil-completo")
+    public ResponseEntity<Response<UsuarioPerfilDto>> getPerfilCompleto(Authentication authentication) {
+        UsuarioPerfilDto perfil = usuarioService.obtenerPerfilCompleto(authentication);
+        return ResponseEntity.ok(new Response<>(true, "Perfil obtenido correctamente", perfil));
     }
 
-    // PATCH /api/usuario/me
-    @PatchMapping("/me")
-    public ResponseEntity<?> updatePerfil(@RequestBody Map<String, Object> body) {
-        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
-        Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-
-        if (body.containsKey("nombres"))
-            u.setNombres((String) body.get("nombres"));
-        if (body.containsKey("apellidos"))
-            u.setApellidos((String) body.get("apellidos"));
-        if (body.containsKey("telefono"))
-            u.setTelefono((String) body.get("telefono"));
-        if (body.containsKey("password") && body.get("password") != null) {
-            String raw = (String) body.get("password");
-            if (!raw.isBlank()) {
-                u.setPassword(passwordEncoder.encode(raw));
-            }
-        }
-
-        usuariosRepository.save(u);
-
-        return ResponseEntity.ok(Map.of("mensaje", "Perfil actualizado"));
+    //Endpoint para actualizar el perfil del usuario autenticado. 
+    //Se pueden actualizar los campos: nombres, apellidos, telefono y password
+    //PATCH: /api/usuario/perfil-actualizar
+    //El request body puede contener cualquiera de los siguientes campos (todos opcionales)
+    @PatchMapping("/perfil-actualizar")
+    public ResponseEntity<Response<UsuarioPerfilDto>> actualizarPerfil(Authentication authentication, @RequestBody Map<String, Object> payload) {
+        Optional<UsuarioPerfilDto> perfilActualizado = usuarioService.actualizarPerfil(authentication, payload);
+        return perfilActualizado.map(perfil -> ResponseEntity.ok(new Response<>(true, "Perfil actualizado", perfil)))
+                .orElse(ResponseEntity.status(404).body(new Response<>(false, "Perfil no actualizado", null)));
     }
 
-    // GET /api/usuario/direcciones
-    @GetMapping("/direcciones")
-    public ResponseEntity<?> getDirecciones() {
-        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
-        Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-
-        List<DireccionesUsuarios> direcciones = direccionRepository.findByUsuarioId(u.getId());
-        return ResponseEntity.ok(direcciones);
+    //─── ORDENES ────────────────────────────────────────────────────────────
+    //Endpoint para listar las órdenes del usuario autenticado
+    //GET: /api/usuario/ordenes
+    //La respuesta incluirá una lista de órdenes con su ID formateado, fecha, estado con colores y total formateado
+    @GetMapping("/ordenes")
+    public ResponseEntity<Response<List<OrdenResponseDto>>> listarMisOrdenes(Authentication authentication) {
+        List<OrdenResponseDto> ordenes = usuarioService.listarMisOrdenes(authentication);
+        return ResponseEntity.ok(new Response<>(true, "Órdenes obtenidas correctamente", ordenes));
     }
 
-    // POST /api/usuario/direcciones
-    @PostMapping("/direcciones")
-    public ResponseEntity<?> saveDireccion(@RequestBody DireccionesUsuarios direccion) {
-        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
-        Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-        direccion.setUsuario(u);
-        DireccionesUsuarios saved = direccionRepository.save(direccion);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-    }
-
-    // DELETE /api/usuario/direcciones/{id}
-    @DeleteMapping("/direcciones/{id}")
-    public ResponseEntity<?> deleteDireccion(@PathVariable Integer id) {
-        String correo = SecurityContextHolder.getContext().getAuthentication().getName();
-        Usuarios u = usuariosRepository.findByCorreo(correo).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-
-        Optional<DireccionesUsuarios> opt = direccionRepository.findById(id);
-        if (opt.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Dirección no encontrada"));
-
-        DireccionesUsuarios d = opt.get();
-        if (d.getUsuario() == null || !d.getUsuario().getId().equals(u.getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "No autorizado"));
-
-        direccionRepository.deleteById(id);
-        return ResponseEntity.ok(Map.of("mensaje", "Dirección eliminada"));
-    }
 }

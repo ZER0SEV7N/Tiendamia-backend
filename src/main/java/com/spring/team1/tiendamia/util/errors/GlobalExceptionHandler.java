@@ -11,42 +11,42 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     //Manejo de Excepciones generales 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<response<Object>> handleGeneralException(Exception ex) {
+    public ResponseEntity<Response<Object>> handleGeneralException(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new response<>(false, "Ocurrió un error inesperado: " + ex.getMessage(), null));
+                .body(new Response<>(false, "Ocurrió un error inesperado: " + ex.getMessage(), null));
     }
 
     //Manejo de Excepciones específicas (ejemplo: RuntimeException)
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<response<Object>> handleRuntimeException(RuntimeException ex) {
+    public ResponseEntity<Response<Object>> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new response<>(false, "Error: " + ex.getMessage(), null));
+                .body(new Response<>(false, "Error: " + ex.getMessage(), null));
     }
 
     //Manejo de Excepciones de validación (ejemplo: IllegalArgumentException)
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<response<Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
+    public ResponseEntity<Response<Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new response<>(false, "Error de validación: " + ex.getMessage(), null));
+                .body(new Response<>(false, "Error de validación: " + ex.getMessage(), null));
     }
 
     //Manejo de Excepciones de autenticación (ejemplo: acceso no autorizado)
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<response<Object>> handleAccessDeniedException(AccessDeniedException ex) {
+    public ResponseEntity<Response<Object>> handleAccessDeniedException(AccessDeniedException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(new response<>(false, "No tienes permiso para realizar esta accion", null));
+                .body(new Response<>(false, "No tienes permiso para realizar esta accion", null));
     }
     
     //Manejo de Excepciones por MethodArgumentNotValidException (validación de campos en request)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<response<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Response<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         
         //Recorremos todos los campos que fallaron la validación
@@ -56,6 +56,6 @@ public class GlobalExceptionHandler {
 
         //Retornamos el mapa de errores en la parte de 'data' de tu response
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new response<>(false, "Hay campos inválidos o incompletos", errors));
+                .body(new Response<>(false, "Hay campos inválidos o incompletos", errors));
     }
 }

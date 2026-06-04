@@ -21,7 +21,7 @@ import com.spring.team1.tiendamia.models.payload.producto.ProductoRequest;
 import com.spring.team1.tiendamia.models.payload.producto.VariacionRequest;
 import com.spring.team1.tiendamia.services.producto.ProductoSetterService;
 import com.spring.team1.tiendamia.services.producto.ProductoGetterService;
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 import jakarta.validation.Valid;
 
@@ -45,23 +45,23 @@ public class ProductoController {
 
     //Endpoint Get: /api/productos/catalogo para obtener la lista de productos para el catálogo
     @GetMapping("/catalogo")
-    public ResponseEntity<response<List<ProductoList>>> obtenerCatalogo() {
+    public ResponseEntity<Response<List<ProductoList>>> obtenerCatalogo() {
         List<ProductoList> catalogo = lecturaService.obtenerProductosParaCatalogo();
-        return ResponseEntity.ok(new response<>(true, "Catálogo obtenido con éxito", catalogo));
+        return ResponseEntity.ok(new Response<>(true, "Catálogo obtenido con éxito", catalogo));
     }
 
     //Endpoint Get: /api/productos/{id} para obtener el detalle completo de un producto por su ID
     @GetMapping("/{id}")
-    public ResponseEntity<response<ProductoDetalleDTO>> getProductoById(@PathVariable Integer id) {
+    public ResponseEntity<Response<ProductoDetalleDTO>> getProductoById(@PathVariable Integer id) {
         ProductoDetalleDTO detalle = lecturaService.obtenerProductoDetalle(id);
-        return ResponseEntity.ok(new response<>(true, "Producto obtenido con éxito", detalle));
+        return ResponseEntity.ok(new Response<>(true, "Producto obtenido con éxito", detalle));
     }
 
     //Endpoint Get: /api/productos/slug/{slug} para obtener el detalle completo de un producto por su slug
     @GetMapping("/slug/{slug}")
-    public ResponseEntity<response<ProductoDetalleDTO>> getProductoBySlug(@PathVariable String slug) {
+    public ResponseEntity<Response<ProductoDetalleDTO>> getProductoBySlug(@PathVariable String slug) {
         ProductoDetalleDTO detalle = lecturaService.obtenerProductoPorSlug(slug);
-        return ResponseEntity.ok(new response<>(true, "Producto obtenido con éxito", detalle));
+        return ResponseEntity.ok(new Response<>(true, "Producto obtenido con éxito", detalle));
     }
 
     //=========================================================================
@@ -70,44 +70,44 @@ public class ProductoController {
 
     //Endpoint Post: /api/productos para crear un nuevo producto con sus variaciones
     @PostMapping
-    public ResponseEntity<response<String>> crearProducto(@Valid @RequestBody ProductoRequest request) {
+    public ResponseEntity<Response<String>> crearProducto(@Valid @RequestBody ProductoRequest request) {
         String mensaje = escrituraService.crearProductoConVariacion(request);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new response<>(true, mensaje, null));
+                .body(new Response<>(true, mensaje, null));
     }
 
     //Endpoint Post: /api/productos/{productoId}/variaciones para agregar una nueva variación a un producto existente
     @PostMapping("/{productoId}/variaciones")
-    public ResponseEntity<response<String>> agregarVariacion(
+    public ResponseEntity<Response<String>> agregarVariacion(
             @PathVariable Integer productoId, 
             @Valid @RequestBody VariacionRequest request) {
         String mensaje = escrituraService.crearVariacionDelProducto(productoId, request);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new response<>(true, mensaje, null));
+                .body(new Response<>(true, mensaje, null));
     }
 
     //Endpoint Put: /api/productos/{id} para editar un producto existente (sin variaciones)
     @PutMapping("/{id}")
-    public ResponseEntity<response<String>> editarProducto(
+    public ResponseEntity<Response<String>> editarProducto(
             @PathVariable Integer id, 
             @Valid @RequestBody ProductoEditRequest request) {
         String mensaje = escrituraService.editarProducto(id, request);
-        return ResponseEntity.ok(new response<>(true, mensaje, null));
+        return ResponseEntity.ok(new Response<>(true, mensaje, null));
     }
 
     //Endpoint Put: /api/productos/variaciones/{codigoInventario} para editar una variación existente usando su código de inventario
     @PutMapping("/variaciones/{codigoInventario}")
-    public ResponseEntity<response<String>> editarVariacion(
+    public ResponseEntity<Response<String>> editarVariacion(
             @PathVariable String codigoInventario, 
             @Valid @RequestBody VariacionRequest request) {
         String mensaje = escrituraService.editarVariaciones(codigoInventario, request);
-        return ResponseEntity.ok(new response<>(true, mensaje, null));
+        return ResponseEntity.ok(new Response<>(true, mensaje, null));
     }
 
     //Endpoint Patch: /api/productos/{id}/estado para cambiar el estado de un producto (activo/inactivo)
     @PatchMapping("/{id}/estado")
-    public ResponseEntity<response<String>> cambiarEstadoProducto(@PathVariable Integer id) {
+    public ResponseEntity<Response<String>> cambiarEstadoProducto(@PathVariable Integer id) {
         String mensaje = escrituraService.estadoProducto(id);
-        return ResponseEntity.ok(new response<>(true, mensaje, null));
+        return ResponseEntity.ok(new Response<>(true, mensaje, null));
     }
 }
