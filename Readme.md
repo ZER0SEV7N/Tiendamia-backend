@@ -35,7 +35,7 @@ Toda la planificación y ejecución técnica del proyecto está respaldada por m
 
 1. Clonar el repositorio:
    ```bash
-   git clone [https://github.com/ZER0SEV7N/Tiendamia-backend.git](https://github.com/ZER0SEV7N/Tiendamia-backend.git)
+   git clone https://github.com/ZER0SEV7N/Tiendamia-backend.git
    ```
-2. Cargar la base de datos.sql
-3. Modificar el application.properties para utilizar tus credenciales para enviar correos
+2. Cargar la base de datos.sql.
+3. Modificar el application.properties para utilizar tus credenciales para el Token y enviar correos de recuperacion.
