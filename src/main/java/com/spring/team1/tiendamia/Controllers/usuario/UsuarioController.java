@@ -22,7 +22,6 @@ public class UsuarioController {
 
     @Autowired private UsuarioService usuarioService;
 
-    // ─── PERFIL ─────────────────────────────────────────────────────────────
     //Endpoint para obtener el perfil completo del usuario autenticado, incluyendo sus datos personales y sus órdenes
     //GET: /api/usuario/perfil-completo
     @GetMapping("/perfil-completo")
@@ -42,7 +41,6 @@ public class UsuarioController {
                 .orElse(ResponseEntity.status(404).body(new Response<>(false, "Perfil no actualizado", null)));
     }
 
-    //─── ORDENES ────────────────────────────────────────────────────────────
     //Endpoint para listar las órdenes del usuario autenticado
     //GET: /api/usuario/ordenes
     //La respuesta incluirá una lista de órdenes con su ID formateado, fecha, estado con colores y total formateado
@@ -51,6 +49,4 @@ public class UsuarioController {
         List<OrdenResponseDto> ordenes = usuarioService.listarMisOrdenes(authentication);
         return ResponseEntity.ok(new Response<>(true, "Órdenes obtenidas correctamente", ordenes));
     }
-
-
 }

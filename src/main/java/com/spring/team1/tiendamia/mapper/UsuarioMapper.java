@@ -36,7 +36,6 @@ public class UsuarioMapper {
         dto.setDirecciones(dirDtos);
 
         return dto;
-        
     }
 
     //Metodo auxiliar para convertir una entidad de dirección a su DTO correspondiente

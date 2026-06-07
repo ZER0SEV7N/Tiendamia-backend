@@ -3,6 +3,7 @@ package com.spring.team1.tiendamia.models.wishlist;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.spring.team1.tiendamia.models.productos.Producto;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
@@ -11,9 +12,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "wishlist", uniqueConstraints = {
+@Table(name = "wishlist", 
+    uniqueConstraints = { 
         @UniqueConstraint(columnNames = { "id_Usuario", "id_Producto" })
-})
+    })
 @Data
 public class Wishlist {
 
@@ -32,4 +34,8 @@ public class Wishlist {
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }
