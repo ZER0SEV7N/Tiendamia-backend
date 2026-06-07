@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.team1.tiendamia.models.productos.Productos;
+import com.spring.team1.tiendamia.models.productos.Producto;
 import com.spring.team1.tiendamia.models.productos.VariacionesProducto;
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.models.wishlist.Wishlist;
@@ -48,7 +48,7 @@ public class WishlistService {
             return convertirDto(existente.get());
         }
 
-        Productos producto = productoRepository.findById(idProducto)
+        Producto producto = productoRepository.findById(idProducto)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + idProducto));
 
         Wishlist nuevo = new Wishlist();
@@ -82,7 +82,7 @@ public class WishlistService {
 
     // Convierte una entidad Wishlist a su DTO de respuesta
     private WishlistItemResponse convertirDto(Wishlist item) {
-        Productos producto = item.getProducto();
+        Producto producto = item.getProducto();
         List<VariacionesProducto> variaciones = producto.getVariaciones();
 
         // Precio minimo entre todas las variaciones

@@ -19,7 +19,7 @@ import com.spring.team1.tiendamia.models.payload.auth.SolicitarRecuperacionReque
 import com.spring.team1.tiendamia.models.usuario.Usuarios;
 import com.spring.team1.tiendamia.services.usuario.AuthService;
 import com.spring.team1.tiendamia.services.usuario.RecuperacionService;
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 import jakarta.validation.Valid;
 
@@ -38,59 +38,59 @@ public class AuthController {
     // ─── POST /api/auth/login
     // ─────────────────────────────────────────────────────────
     @PostMapping("/login")
-    public ResponseEntity<response<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<Response<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.login(request);
-        return ResponseEntity.ok(new response<>(true, "Inicio de sesión exitoso", response));
+        return ResponseEntity.ok(new Response<>(true, "Inicio de sesión exitoso", response));
     }
 
     // ─── POST /api/auth/register
     // ──────────────────────────────────────────────────────
     @PostMapping("/register")
-    public ResponseEntity<response<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<Response<AuthResponse>> register(@Valid @RequestBody RegisterRequest request) {
         AuthResponse response = authService.register(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new response<>(true, "Registro exitoso", response));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Response<>(true, "Registro exitoso", response));
     }
 
 
     // ─── POST /api/auth/google
     // ────────────────────────────────────────────────────────
     @PostMapping("/google")
-    public ResponseEntity<response<AuthResponse>> loginConGoogle(@RequestBody Map<String, String> body) {
+    public ResponseEntity<Response<AuthResponse>> loginConGoogle(@RequestBody Map<String, String> body) {
         String idToken = body.get("idToken");
 
         if (idToken == null || idToken.trim().isEmpty()) 
             throw new RuntimeException("El token de Google es obligatorio");
         
         AuthResponse response = authService.loginConGoogle(idToken); 
-        return ResponseEntity.ok(new response<>(true, "Inicio de sesión con Google exitoso", response));
+        return ResponseEntity.ok(new Response<>(true, "Inicio de sesión con Google exitoso", response));
     }
 
     // ─── POST /api/auth/recuperar-password ───────────────────────────────────────────
     // El usuario manda su correo y le llega un email con el link de recuperación
     @PostMapping("/recuperar-password")
-    public ResponseEntity<response<Object>> solicitarRecuperacion(@RequestBody SolicitarRecuperacionRequest request) { 
+    public ResponseEntity<Response<Object>> solicitarRecuperacion(@RequestBody SolicitarRecuperacionRequest request) { 
         recuperacionService.solicitarRecuperacion(request.getCorreo());
-        return ResponseEntity.ok(new response<>(true, "Te enviamos un correo con las instrucciones", null));
+        return ResponseEntity.ok(new Response<>(true, "Te enviamos un correo con las instrucciones", null));
     }
 
     // ─── POST /api/auth/cambiar-password ─────────────────────────────────────────────
     // El usuario manda el token del email + su nueva contraseña
     @PostMapping("/cambiar-password")
-    public ResponseEntity<response<Object>> cambiarPassword(@RequestBody CambiarPasswordRequest request) {
+    public ResponseEntity<Response<Object>> cambiarPassword(@RequestBody CambiarPasswordRequest request) {
         recuperacionService.cambiarPassword(request.getToken(), request.getNuevaPassword());
-        return ResponseEntity.ok(new response<>(true, "Contraseña actualizada correctamente.", null));
+        return ResponseEntity.ok(new Response<>(true, "Contraseña actualizada correctamente.", null));
     }
 
     // --- Get: /api/auth/perfil
     //Tras loguearse el cliente puede acceder a esta ruta para ver su información básica (correo, nombres, rol)
     @GetMapping("/perfil")
-    public ResponseEntity<response<Usuarios>> obtenerPerfil(Authentication authentication) {
+    public ResponseEntity<Response<Usuarios>> obtenerPerfil(Authentication authentication) {
         if (authentication == null || authentication.getName() == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new response<>(false, "No autenticado", null));
+                    .body(new Response<>(false, "No autenticado", null));
 
             String correo = authentication.getName();
             Usuarios usuario = authService.obtenerUsuarioPorCorreo(correo);
-            return ResponseEntity.ok(new response<>(true, "Perfil obtenido correctamente", usuario));
+            return ResponseEntity.ok(new Response<>(true, "Perfil obtenido correctamente", usuario));
     }    
 }

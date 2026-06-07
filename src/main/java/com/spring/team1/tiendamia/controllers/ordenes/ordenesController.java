@@ -7,7 +7,7 @@ import com.spring.team1.tiendamia.models.ordenes.Ordenes;
 import com.spring.team1.tiendamia.models.ordenes.DTO.CheckoutRequest;
 
 import com.spring.team1.tiendamia.services.ordenes.OrdenesServices;
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,18 +44,18 @@ public class ordenesController {
     //  "total": 99.99
     //}
     @PostMapping("/crear")
-    public ResponseEntity<response<Ordenes>> crearOrden(Authentication auth, @RequestBody CheckoutRequest request) {
+    public ResponseEntity<Response<Ordenes>> crearOrden(Authentication auth, @RequestBody CheckoutRequest request) {
         if(auth == null || !auth.isAuthenticated()) 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new response<>(false, "Usuario no autenticado", null));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response<>(false, "Usuario no autenticado", null));
         
         try{ 
             String correo = auth.getName();
             Ordenes orden = ordenesServices.procesarCheckout(correo, request);
-            return ResponseEntity.ok(new response<>(true, "Orden creada exitosamente", orden));
+            return ResponseEntity.ok(new Response<>(true, "Orden creada exitosamente", orden));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new response<>(false, e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>(false, e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new response<>(false, "Error al crear la orden", null));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response<>(false, "Error al crear la orden", null));
         }
 
     }

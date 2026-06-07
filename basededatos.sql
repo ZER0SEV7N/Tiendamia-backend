@@ -208,6 +208,18 @@ create table tokens_recuperacion (
     foreign key (id_Usuario) references usuario(id) on delete cascade
 );
 
+-- Tabla Wishlist (Lista de Favoritos)
+CREATE TABLE wishlist (
+    id           INT AUTO_INCREMENT PRIMARY KEY,
+    id_Usuario   INT NOT NULL,
+    id_Producto  INT NOT NULL,
+    created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_usuario_producto (id_Usuario, id_Producto),
+    FOREIGN KEY (id_Usuario)  REFERENCES usuario(id)  ON DELETE CASCADE,
+    FOREIGN KEY (id_Producto) REFERENCES producto(id) ON DELETE CASCADE
+);
+
 -- ─── DATOS INICIALES ─────────────────────────────────────────────────────────
 insert into rol (nombre) values ('ADMIN'), ('USER');
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.team1.tiendamia.models.payload.categoria.CategoriaResponse;
 import com.spring.team1.tiendamia.services.producto.categoria.CategoriaService;
-import com.spring.team1.tiendamia.util.response;
+import com.spring.team1.tiendamia.util.Response;
 
 
 @RestController
@@ -19,12 +19,12 @@ public class CategoriaController {
     @Autowired private CategoriaService categoriaService;
 
     @GetMapping("/")
-    public ResponseEntity<response<List<CategoriaResponse>>> allCategorias() {
+    public ResponseEntity<Response<List<CategoriaResponse>>> allCategorias() {
         try {
             List<CategoriaResponse> categorias = categoriaService.getAllCategorias();
-            return ResponseEntity.ok(new response<>(true, "Categorías obtenidas correctamente", categorias));
+            return ResponseEntity.ok(new Response<>(true, "Categorías obtenidas correctamente", categorias));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new response<>(false, "Error al obtener las categorías: " + e.getMessage(), null));
+            return ResponseEntity.status(500).body(new Response<>(false, "Error al obtener las categorías: " + e.getMessage(), null));
         }
     }
 }

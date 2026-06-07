@@ -1,14 +1,7 @@
 package com.spring.team1.tiendamia.services.producto;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.spring.team1.tiendamia.models.payload.producto.*;
 import com.spring.team1.tiendamia.models.productos.*;
 import com.spring.team1.tiendamia.models.productos.carateristicas.*;
@@ -20,7 +13,7 @@ import com.spring.team1.tiendamia.repository.producto.variaciones.*;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ProductoService {
+public class ProductoSetterService {
     @Autowired private ProductoRepository productoRepository; 
     @Autowired private VariacionProductoRepository variacionProducto;
     @Autowired private VariacionValoresRepository variacionValores;   
@@ -28,60 +21,6 @@ public class ProductoService {
     @Autowired private ValoresAtributosRepository valoresAtributosRepository;
     @Autowired private CategoriaRepository categoriaRepository;
     @Autowired private MarcaRepository marcaRepository;
-
-    //Metodo para obtener la lista de productos con su información básica para mostrar en el catálogo
-    public List<ProductoList> obtenerProductosParaCatalogo() {
-        return productoRepository.findAll().stream().map(prod -> {
-            ProductoList dto = new ProductoList();
-            dto.setId(prod.getId());
-            dto.setNombre(prod.getNombre());
-            dto.setSlug(prod.getSlug());
-            dto.setImagenUrl(prod.getImagen_url());
-            dto.setDescripcion(prod.getDescripcion());
-            dto.setNombreCategoria(prod.getCategoria() != null ? prod.getCategoria().getNombre() : "Sin Categoría");
-            dto.setNombreMarca(prod.getMarca() != null ? prod.getMarca().getNombre() : "Sin Marca");
-            dto.setEstado(prod.getEstado());
-            return dto;
-        }).collect(Collectors.toList());
-    }
-
-    //Metodo para obtener el detalle completo de un producto, incluyendo sus variaciones y características
-    @Transactional
-    public ProductoDetalleDTO obtenerProductoDetalle(Integer id) {
-        Productos prod = productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
-
-        ProductoDetalleDTO dto = new ProductoDetalleDTO();
-        dto.setId(prod.getId());
-        dto.setNombre(prod.getNombre());
-        dto.setSlug(prod.getSlug());
-        dto.setImagenUrl(prod.getImagen_url());
-        dto.setDescripcion(prod.getDescripcion());
-        dto.setNombreCategoria(prod.getCategoria() != null ? prod.getCategoria().getNombre() : "Sin Categoría");
-        dto.setNombreMarca(prod.getMarca() != null ? prod.getMarca().getNombre() : "Sin Marca");
-
-        List<ProductoDetalleDTO.VariacionDTO> listaVarDTO = prod.getVariaciones().stream().map(v -> {
-            ProductoDetalleDTO.VariacionDTO vDto = new ProductoDetalleDTO.VariacionDTO();
-            vDto.setId(v.getId());
-            vDto.setCodigoInventario(v.getCodigoInventario());
-            vDto.setPrecio(v.getPrecio());
-            vDto.setStock(v.getStock());
-            vDto.setImagenUrl(v.getImagenUrl());
-
-            List<ProductoDetalleDTO.CaracteristicaDTO> caracDTOs = v.getVariacionValores().stream().map(vv -> {
-                ProductoDetalleDTO.CaracteristicaDTO cDto = new ProductoDetalleDTO.CaracteristicaDTO();
-                cDto.setAtributoNombre(vv.getValorAtributo().getAtributo().getNombre());
-                cDto.setValorTexto(vv.getValorAtributo().getValor());
-                return cDto;
-            }).collect(Collectors.toList());
-
-            vDto.setCaracteristicas(caracDTOs);
-            return vDto;
-        }).collect(Collectors.toList());
-
-        dto.setVariaciones(listaVarDTO);
-        return dto;
-    }
 
     //Metodo para crear un producto con variaciones
     @Transactional
@@ -93,7 +32,7 @@ public class ProductoService {
                 .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
 
         //Crear producto
-        Productos producto = new Productos();
+        Producto producto = new Producto();
         producto.setNombre(request.getNombre());
         producto.setSlug(request.getSlug());
         producto.setDescripcion(request.getDescripcion());
@@ -102,7 +41,7 @@ public class ProductoService {
         producto.setMarca(marca);
         
         //Guardar producto
-        Productos productoGuardado = productoRepository.save(producto);
+        Producto productoGuardado = productoRepository.save(producto);
         
         //Crear variaciones
         for(ProductoRequest.VariacionInicialRequest VarReq : request.getVariaciones() ){
@@ -146,7 +85,7 @@ public class ProductoService {
     @Transactional
     public String crearVariacionDelProducto(Integer productoId, VariacionRequest request) {
         //Verificar si el producto realmente existe
-        Productos producto = productoRepository.findById(productoId)
+        Producto producto = productoRepository.findById(productoId)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con el ID: " + productoId));
 
         //Validamos que no exista otra variación con el mismo código de inventario
@@ -198,7 +137,7 @@ public class ProductoService {
     @Transactional
     public String editarProducto(Integer id, ProductoEditRequest request) {
         // Buscar el producto existente
-        Productos producto = productoRepository.findById(id)
+        Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
 
         // Validar que las nuevas categorías y marcas existan
@@ -268,7 +207,7 @@ public class ProductoService {
 
     //Metodo para cambiar el estado de un producto (activo/inactivo)
     public String estadoProducto(Integer id) {
-        Productos producto = productoRepository.findById(id)
+        Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + id));
         // Invertir el booleano directamente: si es true pasa a false, si es false pasa a true
         producto.setEstado(!producto.getEstado());
@@ -279,72 +218,4 @@ public class ProductoService {
         return "Estado del producto actualizado a: " + mensajeEstado;
     }
 
-    //Metodo para obtener Producto por su Slug
-    @Transactional
-    public ProductoDetalleDTO obtenerProductoPorSlug(String slug) {
-        Productos prod = productoRepository.findBySlug(slug).orElseThrow(() -> new RuntimeException("Producto no encontrado con slug: " + slug));
-        
-        //Mapear la información básica del producto
-        ProductoDetalleDTO dto = new ProductoDetalleDTO();
-        dto.setId(prod.getId());
-        dto.setNombre(prod.getNombre());
-        dto.setSlug(prod.getSlug());
-        dto.setImagenUrl(prod.getImagen_url());
-        dto.setDescripcion(prod.getDescripcion());
-        dto.setNombreCategoria(prod.getCategoria() != null ? prod.getCategoria().getNombre() : "Sin Categoría");
-        dto.setNombreMarca(prod.getMarca() != null ? prod.getMarca().getNombre() : "Sin Marca");
-
-        //Mapear la galeria de imagenes del producto
-        List<String> galeriaUrls = prod.getImagenes().stream()
-                .sorted((img1, img2) -> img1.getOrden().compareTo(img2.getOrden())) //Ordenar por el campo 'orden'
-                .map(img -> img.getUrl())
-                .collect(Collectors.toList());
-        dto.setGaleria(galeriaUrls);
-
-        //Mapear las variaciones con sus características
-        List<ProductoDetalleDTO.VariacionDTO> listaVarDTO = prod.getVariaciones().stream().map(v -> {
-            ProductoDetalleDTO.VariacionDTO vDto = new ProductoDetalleDTO.VariacionDTO();
-            vDto.setId(v.getId());
-            vDto.setCodigoInventario(v.getCodigoInventario());
-            vDto.setPrecio(v.getPrecio());
-            vDto.setStock(v.getStock());
-            vDto.setImagenUrl(v.getImagenUrl());    
-
-            //Mapear las características de cada variación (atributo + valor) para mostrarlas en el detalle del producto
-            List<ProductoDetalleDTO.CaracteristicaDTO> caracDTOs = v.getVariacionValores().stream().map(vv -> {
-                ProductoDetalleDTO.CaracteristicaDTO cDto = new ProductoDetalleDTO.CaracteristicaDTO();
-                cDto.setAtributoNombre(vv.getValorAtributo().getAtributo().getNombre());
-                cDto.setValorTexto(vv.getValorAtributo().getValor());
-                return cDto;
-            }).collect(Collectors.toList());
-
-            //Asignar la lista de características a la variación
-            vDto.setCaracteristicas(caracDTOs);
-            return vDto;
-        }).collect(Collectors.toList());
-
-        dto.setVariaciones(listaVarDTO);
-
-        //Agrupar Atributos para los botones del Frontend (Color, Talla, etc.)
-        Map<String, Set<String>> atributosMap = new HashMap<>();
-        for (VariacionesProducto v : prod.getVariaciones()) {
-            for (VariacionValores vv : v.getVariacionValores()) {
-                String nombreAttr = vv.getValorAtributo().getAtributo().getNombre();
-                String valorAttr = vv.getValorAtributo().getValor();
-                atributosMap.computeIfAbsent(nombreAttr, k -> new java.util.HashSet<>()).add(valorAttr);
-            }
-        }
-
-        //Convertir el mapa de atributos a la estructura requerida por el DTO
-        List<ProductoDetalleDTO.AtributoOpcionesDTO> atributosAgrupados = atributosMap.entrySet().stream().map(entry -> {
-            ProductoDetalleDTO.AtributoOpcionesDTO attrDto = new ProductoDetalleDTO.AtributoOpcionesDTO();
-            attrDto.setNombre(entry.getKey());
-            attrDto.setOpciones(new java.util.ArrayList<>(entry.getValue()));
-            return attrDto;
-        }).collect(Collectors.toList());
-
-        dto.setAtributos(atributosAgrupados);
-
-        return dto;
-    }
 }
